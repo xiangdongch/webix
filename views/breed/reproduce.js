@@ -24,6 +24,9 @@ define([
             addChild();
         }else if(currentStep == 2){
             currentStep = 3;
+            saveDogInfo();
+            return ;
+
             $$('step1').hide();
             $$('step2').hide();
             $$('step3').show();
@@ -65,6 +68,7 @@ define([
     };
 
     var finished = function () {
+        var values = $$('reproduce').getValues();
         currentStep = 1;
         $$('step1').show();
         $$('step2').hide();
@@ -90,13 +94,14 @@ define([
             contain.addView(
                 {
                     cols: [
-                        {view: "text", label: "犬名:", name: "dog_name", width: 200, value: fatherName + '_' + motherName + '_幼犬' + (i + 1), labelWidth: 45},
+                        {view: "text", label: "犬名:", id: 'dog_name_' + i, name: "dog_name", width: 200, value: fatherName + '_' + motherName + '_幼犬' + (i + 1), labelWidth: 45},
                         {width: 10},
                         {
                             view: "select",
                             label: "性别:",
                             name: 'sex',
                             value: "1",
+                            id: 'sex_' + i,
                             width: 125,
                             editable: false,
                             labelWidth: 45,
@@ -104,17 +109,17 @@ define([
                         },
                         {width: 10},
                         {
-                            view: "select", label: "犬品种:", name: "breed", width: 180, labelWidth: 65, value: father_type,
+                            view: "select", label: "犬品种:", id: 'breed_' + i, name: "breed", width: 180, labelWidth: 65, value: father_type,
                             options: constant.breedType
                         },
                         {width: 10},
                         {
-                            view: "select", label: "毛色:", name: "dogColour", width: 130, labelWidth: 45,
+                            view: "select", label: "毛色:", id: 'dogColour_' + i, name: "dogColour", width: 130, labelWidth: 45,
                             options: constant.dogColor
                         },
                         {width: 10},
                         {
-                            view: "select", label: "毛型:", name: "hireType", width: 130, labelWidth: 45,
+                            view: "select", label: "毛型:", id: 'hireType_' + i, name: "hireType", width: 130, labelWidth: 45,
                             options: constant.hairType
                         }, {}
                     ]
@@ -176,6 +181,74 @@ define([
         return true;
     };
 
+    var onChange = function(val, isFather){
+        doPost('dogBaseInfo/get', {chipNo: val}, function (data) {
+            console.log(data);
+            if(data.success && data.result.length > 0){
+                var dog = data.result[0];
+                if(isFather){
+                    if(dog.sex == 2){
+                        msgBox("性别错误！<br>芯片号：" + val + "的警犬性别为母犬，请输入公犬芯片号");
+                        return ;
+                    }
+                    $$('father_name').setValue(dog.dogName);
+                    $$('father_type').setValue(dog.breed);
+                }else{
+                    if(dog.sex == 1){
+                        msgBox("性别错误！<br>芯片号：" + val + "的警犬性别为公犬，请输入母犬芯片号");
+                        return ;
+                    }
+                    $$('mother_name').setValue(dog.dogName);
+                    $$('mother_type').setValue(dog.breed);
+                }
+            }else{
+                msgBox('没有芯片号为：' + val + '的警犬信息')
+            }
+        });
+    };
+
+    var saveDogInfo = function () {
+        var children = [];
+        var values = $$('reproduce').getValues();
+
+        var nestNo = values.birthday.replace(/-/g, '');
+        if(values.litterSize < 10 && values.litterSize > 0){
+            nestNo = nestNo + '00' + values.litterSize;
+        }else if(values.litterSize >= 10 && values.litterSize < 100){
+            nestNo = nestNo + '0' + values.litterSize;
+        }else{
+            nestNo = nestNo  + values.litterSize;
+        }
+
+        nestNo += Math.round(Math.random() * 1000);
+
+        for(var i = 0; i<values.litterSize; i++){
+            var child = {
+                dogName: $$('dog_name_' + i).getValue(),
+                sex: $$('sex_' + i).getValue(),
+                breed: $$('breed_' + i).getValue(),
+                dogColour: $$('dogColour_' + i).getValue(),
+                hireType: $$('hireType_' + i).getValue(),
+
+                birthdayStr: values.birthday,
+                dogSource: '自繁',
+                breeder: values.breeder,
+                fatherId: values.father_chip_no,
+                motherId: values.mother_chip_no,
+                growthStage: 1,
+                workStage: 1,
+                nestNo: nestNo  //窝编号：出生日期 + 数量 + 随机数
+            };
+            children.push(child);
+        }
+        console.log(children);
+        doPost('dogBaseInfo/addDog', children, function(data){
+            if(data.success){
+
+            }
+        });
+    };
+
     var layout = {
         type: "clean",
         rows: [
@@ -203,26 +276,30 @@ define([
                         cols: [
                             {
                                 rows: [
-                                    {view: "text", label: "父犬芯片号", name: "father_chip_no", width: 300},
-                                    {view: "text", label: "父犬犬名", name: "father_name", width: 300},
+                                    {view: "text", label: "父犬芯片号", name: "father_chip_no", width: 300, on:{onChange: function(){
+                                        onChange(this.getValue(), true);
+                                    }}},
+                                    {view: "text", label: "父犬犬名", name: "father_name", id:'father_name', width: 300, readonly: true, placeholder: '自动填充'},
                                     {
-                                        view: "select", label: "父犬品种:", name: "father_type", width: 300, value: '其他',
-                                        options: constant.breedType
+                                        view: "select", label: "父犬品种:", name: "father_type", id:'father_type', width: 300, value: '其他',
+                                        options: constant.breedType, readonly: true
                                     },
-                                    {view: "datepicker", label: "交配日期", name: "mateDate", width: 300, format:"%Y-%m-%d"},
+                                    {view: "datepicker", label: "交配日期", name: "mateDate", width: 300, value: new Date(), format:"%Y-%m-%d", stringResult: true},
                                     {view: "text", label: "产仔数", name: "litterSize", width: 300}
                                 ]
                             },
                             {width: DEFAULT_PADDING},
                             {
                                 rows: [
-                                    {view: "text", label: "母犬芯片号", name: "mother_chip_no", width: 300},
-                                    {view: "text", label: "母犬犬名", name: "mother_name", width: 300},
+                                    {view: "text", label: "母犬芯片号", name: "mother_chip_no", width: 300, on:{onChange: function(){
+                                        onChange(this.getValue(), false);
+                                    }}},
+                                    {view: "text", label: "母犬犬名", name: "mother_name", id:'mother_name', width: 300, readonly: true, placeholder: '自动填充'},
                                     {
-                                        view: "select", label: "母犬品种:", name: "mother_type", width: 300, value: '其他',
-                                        options: constant.breedType
+                                        view: "select", label: "母犬品种:", name: "mother_type", id:'mother_type', width: 300, value: '其他',
+                                        options: constant.breedType, readonly: true
                                     },
-                                    {view: "datepicker", label: "生育时间", name: "birthday", width: 300, format:"%Y-%m-%d"},
+                                    {view: "datepicker", label: "生育时间", name: "birthday", width: 300, format:"%Y-%m-%d", stringResult: true},
                                     {view: "text", label: "繁育员", name: "breeder", width: 300}
                                 ]
                             },
@@ -274,13 +351,7 @@ define([
                             {}
                         ]
                     }
-
-                    // {}
-                ],
-                rules:{
-                    "father":webix.rules.isNotEmpty,
-                    "mother":webix.rules.isNotEmpty
-                }
+                ]
             }
         ]
     };

@@ -13,8 +13,9 @@ define([
         view: "toolbar",
 
         elements: [
-            {view: "label", label: "<img class='photo' src='assets/imgs/logo.png' height='45'/>", width: 60},
-            {template: '北京市公安局警犬技术工作管理与实战应用系统', css: "header_title"},
+            {view: "label", label: "<img class='photo' src='_assets/imgs/logo.png' height='45'/>", width: 60},
+            // {template: '北京市公安局警犬技术工作管理与实战应用系统', css: "header_title"},
+            {template: 'webix-master', css: "header_title"},
 
             {},
             // {view: "icon", icon: "search",  width: 45, popup: "searchPopup"},

@@ -32,11 +32,6 @@ define(["models/orders"], function (orders) {
                 id: "orderData",
                 view: "datatable",
                 select: true,
-                scheme: {
-                    $init: function (obj) {
-                        obj.index = this.count();
-                    }
-                },
                 columns: [
                     {
                         id: "ch1",
@@ -46,7 +41,7 @@ define(["models/orders"], function (orders) {
                         template: "{common.checkbox()}",
                         width: 40
                     },
-                    {id: "index", header: "NO.", width: 60},
+                    {id: "$index", header: "NO.", width: 60},
                     {
                         id: "id",
                         header: "操作",
@@ -95,8 +90,7 @@ define(["models/orders"], function (orders) {
                 },
                 tooltip:true,
                 minHeight: 80,
-                datafetch: 50,//default
-                loadahead: 100,
+                datafetch: 20,//default
                 customUrl: {
                     // autoload: true,
                     url: webix.proxy('customProxy','/policeDog/services/dogBaseInfo/getAll/{pageSize}/{curPage}'),
@@ -110,7 +104,7 @@ define(["models/orders"], function (orders) {
             {
                 view: "pager",
                 id: "pagerA",
-                size: 10,
+                size: 20,
                 group: 5,
                 // template:function(data, common){
                 //     debugger

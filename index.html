@@ -68,7 +68,7 @@
         require.config({
             paths: {text: "libs/text"}
         });
-        webix.i18n.parseFormat = "%m.%d.%Y";
+        webix.i18n.parseFormat = "%Y-%m-%d";
         webix.i18n.setLocale();
         webix.DataDriver.customJson = webix.extend({
             toObject: function (_data) {
@@ -76,11 +76,17 @@
                 return data;
             },
             getRecords: function (_data) {
+                var pageSize = _data.pageVO.pageSize;
+                var curPage = _data.pageVO.curPage;
+
                 var data = _data;
                 if (data.result) {
                     data = data.result;
                 }
-                if (data && !webix.isArray(data)) return [data];
+                if (data && !webix.isArray(data)) return data = [data];
+                for(var i = 0; i<data.length; i++){
+                    data[i].$index = i + 1 + pageSize * (curPage - 1)
+                }
                 return data;
             },
             getDetails: function (data) {
@@ -111,7 +117,6 @@
                         };
                     }
                 }
-
                 return webix.DataDriver.json.getInfo(_info);
             }
         }, webix.DataDriver.json);
@@ -126,13 +131,20 @@
                 const timeout = customUrl.timeout || 60000;
                 const headers = customUrl.headers || {};
 
-                const from = view.count();
-                const count = config.datafetch || view.count();
-                const curPage = Math.floor(from / count) + 1;
+                var from = view.count();
+
+                var count = config.datafetch || view.count();
                 const totalRows = -1;
                 const pageSize = count;
 
-                var url = this.source;
+                if (details) {
+                    from = details.start;
+                    if (count >= 0) count = details.count;
+                }
+
+                const curPage = Math.floor(from / count) + 1;
+
+                    var url = this.source;
                 url = url.replace("{curPage}", curPage.toString())
                     .replace("{pageSize}", pageSize.toString())
                     .replace("{totalRows}", totalRows.toString());
@@ -171,6 +183,25 @@
             customProxy: customProxy
         }).customProxy;
 
+        function doPost(url, params, success, fail){
+            url = '/policeDog/services/' + url;
+            var promise = webix.ajax().headers({'Content-Type':  'application/json'}).post(url, JSON.stringify(params));
+            if(success) {
+                promise.then(function (response) {
+                    success(response.json());
+                });
+            }
+            if(fail) {
+                promise.fail(function (err) {
+                    fail(err);
+                });
+            }
+        }
+
+//        var webixAjaxCallback = webix.ajax.$callback;
+//        webix.ajax.$callback = function(owner, call, text, data, x, is_error) {
+//            webixAjaxCallback(owner, call, text, data, x, is_error);
+//        }
     </script>
 
     <!-- Development only -->
