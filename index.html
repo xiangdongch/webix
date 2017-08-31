@@ -20,6 +20,50 @@
                 }
                 return permission;
             },
+            getCheckedData: function(){
+                var data = this.data;
+                var res = [];
+                if(data){
+                    data.getRange().each(function(val){
+                        if(val.$check){
+                            res.push(val);
+                        }
+                    });
+                }
+                return webix.toArray(res);
+            },
+            reload: function() {
+                var page = 0;
+
+                var config = this.config;
+                var tooltip = config.tooltip;
+                if (tooltip && tooltip.hide) tooltip.hide();
+
+                this.clearAll();
+
+                if (this.getPager && this.getPager()) config.datafetch = this.getPager().config.size;
+
+                var url = config.restoreUrl;
+                var callback = {
+                    before: function () {
+                        if (this.setPage) this.setPage(page);
+                    }
+                };
+                var details = {
+                    start: config.datafetch * page,
+                    count: config.datafetch
+                };
+
+                if (this.getState) {
+                    const state = this.getState();
+                    details.sort = state.sort;
+                    if (config.hwSort && details.sort) {
+                        details.sort.type = config.hwSort;
+                    }
+                    details.filter = state.filter;
+                }
+                this.load(url, details, callback );
+            },
             customUrl_setter: function (value) {
                 if (value) {
 
@@ -50,13 +94,13 @@
                 }
                 return value;
             }
-        }
+        };
         function msgBox(msg){
             webix.message({type: 'alert', text: '<div style="padding: 0 16px">' + msg + '</div>' });
         }
         var DEFAULT_PADDING = 20;
     </script>
-    <script type="text/javascript" src="webix_new/webix.js"></script>
+    <script type="text/javascript" src="webix/webix_debug.js"></script>
     <script type="text/javascript" src="webix_new/skin.js"></script>
     <!--<script type="text/javascript" src="webix/webix_debug.js"></script>-->
     <link rel="stylesheet" href="webix_new/webix.css">
@@ -149,6 +193,8 @@
                     .replace("{pageSize}", pageSize.toString())
                     .replace("{totalRows}", totalRows.toString());
 
+                config.restoreUrl = 'customProxy->' + url;
+
                 var paramsJson = JSON.stringify(params);
                 if(httpMethod === 'get'){
                     if (!!window.ActiveXObject || "ActiveXObject" in window) {
@@ -196,6 +242,45 @@
                     fail(err);
                 });
             }
+        }
+
+        function getWin(title, ui, config){
+            var cfg = config || {};
+            var width = cfg.width || 600;
+            var height = cfg.height || 400;
+            var win_id = webix.uid().toString();
+
+            var win = webix.ui({
+                view: "window",
+                id: win_id,
+                width: width,
+                height: height,
+                move: true,
+                modal: true,
+                position: "center",
+                autofocus: true,
+                head: {
+                    view: "toolbar",
+                    cols: [{
+                        view: "label",
+                        label: title
+                    },{
+                        view: "icon",
+                        icon: "close",
+                        tooltip: "关闭",
+                        click: function () {
+                            $$(win_id).close();
+                        }
+                    }]
+                },
+                body: {
+                    padding: 10,
+                    rows: [
+                        ui
+                    ]
+                }
+            });
+            return win;
         }
 
 //        var webixAjaxCallback = webix.ajax.$callback;

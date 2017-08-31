@@ -43,7 +43,7 @@ define(["models/orders"], function (orders) {
                 },
                 columns: [
                     {
-                        id: "ch1",
+                        id: "$check",
                         header: {content: "masterCheckbox"},
                         checkValue: 'on',
                         uncheckValue: 'off',

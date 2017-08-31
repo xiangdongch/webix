@@ -34,7 +34,7 @@ define(["models/orders"], function (orders) {
                 select: true,
                 columns: [
                     {
-                        id: "ch1",
+                        id: "$check",
                         header: {content: "masterCheckbox"},
                         checkValue: 'on',
                         uncheckValue: 'off',

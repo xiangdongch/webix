@@ -6150,7 +6150,9 @@ label.webix_required:after {
 }
 .webix_toolbar .webix_inp_label,
 .webix_toolbar .webix_el_label {
-  color: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  font-weight:bold;
 }
 .webix_accordionitem.vertical > .webix_accordionitem_header .webix_accordionitem_button {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGPC/xhBQAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB90BFhAuHClGcrEAAAAdaVRYdENvbW1lbnQAAAAAAENyZWF0ZWQgd2l0aCBHSU1QZC5lBwAAAD1JREFUGNPFjjEOADAIAs/+/884tCZq49akLBoQEL7BACRlTsEDmO11NaParIkn9RYjLlVr/C0d1+7Z8xgO17MRATmftNQAAAAASUVORK5CYII=);

@@ -1,12 +1,11 @@
 define([
     "views/menus/search",
-    "views/menus/mail",
     "views/menus/message",
     "views/menus/profile",
     "views/menus/sidebar",
     "views/webix/icon",
     "views/webix/menutree"
-], function (search, mail, message, profile, menu) {
+], function (search, message, profile, menu) {
 
     //Top toolbar
     var mainToolbar = {
@@ -56,6 +55,7 @@ define([
             {
                 cols: [
                     menu,
+                    {view: 'resizer'},
                     body
                 ]
             }
@@ -67,7 +67,6 @@ define([
         $menu: "app:menu",
         $oninit: function (view, scope) {
             scope.ui(search.$ui);
-            scope.ui(mail.$ui);
             scope.ui(message.$ui);
             scope.ui(profile.$ui);
         }
