@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS `t_dog_base` (
   KEY `father_id` (`father_id`),
   KEY `mother_id` (`mother_id`),
   KEY `chip_no` (`chip_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=336 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=356 DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_base 的数据：~318 rows (大约)
+-- 正在导出表  police_dog.t_dog_base 的数据：~349 rows (大约)
 DELETE FROM `t_dog_base`;
 /*!40000 ALTER TABLE `t_dog_base` DISABLE KEYS */;
 INSERT INTO `t_dog_base` (`id`, `dog_name`, `chip_no`, `chip_no_inject`, `sex`, `birthday`, `breed`, `dog_source`, `dog_colour`, `hair_type`, `dog_type`, `dog_level`, `inbreeding`, `tutor`, `breeder`, `train_score`, `next_train_date`, `work_place`, `work_area`, `work_province`, `file_no`, `create_doc_date`, `dog_photo`, `nest_no`, `father_id`, `mother_id`, `growth_stage`, `work_stage`, `belonging`, `creation_date`, `last_update_date`) VALUES
@@ -393,7 +393,27 @@ INSERT INTO `t_dog_base` (`id`, `dog_name`, `chip_no`, `chip_no_inject`, `sex`, 
 	(332, '黑虎_大熊_幼犬5', NULL, NULL, 1, '2017-08-14', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '张策', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170814008842', '1', '2', 1, 1, NULL, NULL, NULL),
 	(333, '黑虎_大熊_幼犬6', NULL, NULL, 1, '2017-08-14', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '张策', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170814008842', '1', '2', 1, 1, NULL, NULL, NULL),
 	(334, '黑虎_大熊_幼犬7', NULL, NULL, 1, '2017-08-14', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '张策', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170814008842', '1', '2', 1, 1, NULL, NULL, NULL),
-	(335, '黑虎_大熊_幼犬8', NULL, NULL, 1, '2017-08-14', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '张策', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170814008842', '1', '2', 1, 1, NULL, NULL, NULL);
+	(335, '黑虎_大熊_幼犬8', NULL, NULL, 1, '2017-08-14', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '张策', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170814008842', '1', '2', 1, 1, NULL, NULL, NULL),
+	(336, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-08-07', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170807002924', '1', '2', 1, 1, NULL, NULL, NULL),
+	(337, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-08-07', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170807002924', '1', '2', 1, 1, NULL, NULL, NULL),
+	(338, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-08-08', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '123', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170808002925', '1', '2', 1, 1, NULL, NULL, NULL),
+	(339, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-08-08', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '123', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170808002925', '1', '2', 1, 1, NULL, NULL, NULL),
+	(340, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-07-30', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170730002976', '1', '2', 1, 1, NULL, NULL, NULL),
+	(341, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-07-30', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '23', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170730002976', '1', '2', 1, 1, NULL, NULL, NULL),
+	(342, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-08-21', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '432', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170821002343', '1', '2', 1, 1, NULL, NULL, NULL),
+	(343, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-08-21', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '432', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170821002343', '1', '2', 1, 1, NULL, NULL, NULL),
+	(344, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-08-21', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '522', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170821002269', '1', '2', 1, 1, NULL, NULL, NULL),
+	(345, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-08-21', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '522', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170821002269', '1', '2', 1, 1, NULL, NULL, NULL),
+	(346, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-08-21', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '23456', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170821002260', '1', '2', 1, 1, NULL, NULL, NULL),
+	(347, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-08-21', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '23456', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170821002260', '1', '2', 1, 1, NULL, NULL, NULL),
+	(348, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-08-21', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '124', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170821002977', '1', '2', 1, 1, NULL, NULL, NULL),
+	(349, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-08-21', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '124', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170821002977', '1', '2', 1, 1, NULL, NULL, NULL),
+	(350, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-08-08', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '25656', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170808002396', '1', '2', 1, 1, NULL, NULL, NULL),
+	(351, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-08-08', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '25656', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170808002396', '1', '2', 1, 1, NULL, NULL, NULL),
+	(352, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-08-07', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '3544', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170807002514', '1', '2', 1, 1, NULL, NULL, NULL),
+	(353, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-08-07', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '3544', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170807002514', '1', '2', 1, 1, NULL, NULL, NULL),
+	(354, '黑虎_大熊_幼犬1', NULL, NULL, 1, '2017-08-14', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '2345555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170814002157', '1', '2', 1, 1, NULL, NULL, NULL),
+	(355, '黑虎_大熊_幼犬2', NULL, NULL, 1, '2017-08-14', '史宾格犬', '自繁', '黑', NULL, NULL, NULL, NULL, NULL, '2345555', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '20170814002157', '1', '2', 1, 1, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `t_dog_base` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_base_1 结构
@@ -431,7 +451,7 @@ CREATE TABLE IF NOT EXISTS `t_dog_base_1` (
   `last_update_date` date default NULL COMMENT '最后修改日期'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_base_1 的数据：~336 rows (大约)
+-- 正在导出表  police_dog.t_dog_base_1 的数据：~327 rows (大约)
 DELETE FROM `t_dog_base_1`;
 /*!40000 ALTER TABLE `t_dog_base_1` DISABLE KEYS */;
 INSERT INTO `t_dog_base_1` (`id`, `dog_name`, `chip_no`, `chip_no_inject`, `sex`, `birthday`, `breed`, `dog_source`, `dog_colour`, `hair_type`, `dog_type`, `dog_level`, `inbreeding`, `tutor`, `breeder`, `train_score`, `next_train_date`, `work_place`, `work_area`, `work_province`, `file_no`, `create_doc_date`, `dog_photo`, `nest_no`, `father_id`, `mother_id`, `growth_stage`, `work_stage`, `belonging`, `creation_date`, `last_update_date`) VALUES
@@ -834,58 +854,50 @@ CREATE TABLE IF NOT EXISTS `t_dog_immue` (
   `immue_date` date NOT NULL COMMENT '免疫日期',
   `immue_name` varchar(50) NOT NULL,
   `immue_state` int(11) NOT NULL default '1' COMMENT '状态：1：未免疫，2：已完成',
+  `police_name` varchar(64) default NULL,
   `police_id` int(11) default NULL,
+  `last_update_date` date default NULL,
   PRIMARY KEY  (`id`),
   KEY `immue_date_immue_state` (`immue_date`,`immue_state`),
   KEY `dog_id` (`dog_id`),
   KEY `immue_date` (`immue_date`),
   KEY `nest_no` (`nest_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_immue 的数据：~0 rows (大约)
+-- 正在导出表  police_dog.t_dog_immue 的数据：~30 rows (大约)
 DELETE FROM `t_dog_immue`;
 /*!40000 ALTER TABLE `t_dog_immue` DISABLE KEYS */;
-INSERT INTO `t_dog_immue` (`id`, `dog_id`, `nest_no`, `immue_date`, `immue_name`, `immue_state`, `police_id`) VALUES
-	(1, 328, '20170814008842', '2017-09-04', '窝咳疫苗', 1, NULL),
-	(2, 328, '20170814008842', '2017-09-11', '二联疫苗', 1, NULL),
-	(3, 328, '20170814008842', '2017-10-02', '四联疫苗', 1, NULL),
-	(4, 328, '20170814008842', '2017-10-23', '四联疫苗', 1, NULL),
-	(5, 328, '20170814008842', '2017-11-06', '狂犬疫苗', 1, NULL),
-	(6, 329, '20170814008842', '2017-09-04', '窝咳疫苗', 1, NULL),
-	(7, 329, '20170814008842', '2017-09-11', '二联疫苗', 1, NULL),
-	(8, 329, '20170814008842', '2017-10-02', '四联疫苗', 1, NULL),
-	(9, 329, '20170814008842', '2017-10-23', '四联疫苗', 1, NULL),
-	(10, 329, '20170814008842', '2017-11-06', '狂犬疫苗', 1, NULL),
-	(11, 330, '20170814008842', '2017-09-04', '窝咳疫苗', 1, NULL),
-	(12, 330, '20170814008842', '2017-09-11', '二联疫苗', 1, NULL),
-	(13, 330, '20170814008842', '2017-10-02', '四联疫苗', 1, NULL),
-	(14, 330, '20170814008842', '2017-10-23', '四联疫苗', 1, NULL),
-	(15, 330, '20170814008842', '2017-11-06', '狂犬疫苗', 1, NULL),
-	(16, 331, '20170814008842', '2017-09-04', '窝咳疫苗', 1, NULL),
-	(17, 331, '20170814008842', '2017-09-11', '二联疫苗', 1, NULL),
-	(18, 331, '20170814008842', '2017-10-02', '四联疫苗', 1, NULL),
-	(19, 331, '20170814008842', '2017-10-23', '四联疫苗', 1, NULL),
-	(20, 331, '20170814008842', '2017-11-06', '狂犬疫苗', 1, NULL),
-	(21, 332, '20170814008842', '2017-09-04', '窝咳疫苗', 1, NULL),
-	(22, 332, '20170814008842', '2017-09-11', '二联疫苗', 1, NULL),
-	(23, 332, '20170814008842', '2017-10-02', '四联疫苗', 1, NULL),
-	(24, 332, '20170814008842', '2017-10-23', '四联疫苗', 1, NULL),
-	(25, 332, '20170814008842', '2017-11-06', '狂犬疫苗', 1, NULL),
-	(26, 333, '20170814008842', '2017-09-04', '窝咳疫苗', 1, NULL),
-	(27, 333, '20170814008842', '2017-09-11', '二联疫苗', 1, NULL),
-	(28, 333, '20170814008842', '2017-10-02', '四联疫苗', 1, NULL),
-	(29, 333, '20170814008842', '2017-10-23', '四联疫苗', 1, NULL),
-	(30, 333, '20170814008842', '2017-11-06', '狂犬疫苗', 1, NULL),
-	(31, 334, '20170814008842', '2017-09-04', '窝咳疫苗', 1, NULL),
-	(32, 334, '20170814008842', '2017-09-11', '二联疫苗', 1, NULL),
-	(33, 334, '20170814008842', '2017-10-02', '四联疫苗', 1, NULL),
-	(34, 334, '20170814008842', '2017-10-23', '四联疫苗', 1, NULL),
-	(35, 334, '20170814008842', '2017-11-06', '狂犬疫苗', 1, NULL),
-	(36, 335, '20170814008842', '2017-09-04', '窝咳疫苗', 1, NULL),
-	(37, 335, '20170814008842', '2017-09-11', '二联疫苗', 1, NULL),
-	(38, 335, '20170814008842', '2017-10-02', '四联疫苗', 1, NULL),
-	(39, 335, '20170814008842', '2017-10-23', '四联疫苗', 1, NULL),
-	(40, 335, '20170814008842', '2017-11-06', '狂犬疫苗', 1, NULL);
+INSERT INTO `t_dog_immue` (`id`, `dog_id`, `nest_no`, `immue_date`, `immue_name`, `immue_state`, `police_name`, `police_id`, `last_update_date`) VALUES
+	(1, 350, '20170808002396', '2017-08-29', '窝咳疫苗', 2, NULL, NULL, '2017-08-31'),
+	(2, 350, '20170808002396', '2017-09-05', '二联疫苗', 1, NULL, NULL, NULL),
+	(3, 350, '20170808002396', '2017-09-26', '四联疫苗', 1, NULL, NULL, NULL),
+	(4, 350, '20170808002396', '2017-10-17', '四联疫苗', 1, NULL, NULL, NULL),
+	(5, 350, '20170808002396', '2017-10-31', '狂犬疫苗', 1, NULL, NULL, NULL),
+	(6, 351, '20170808002396', '2017-08-29', '窝咳疫苗', 1, NULL, NULL, NULL),
+	(7, 351, '20170808002396', '2017-09-05', '二联疫苗', 1, NULL, NULL, NULL),
+	(8, 351, '20170808002396', '2017-09-26', '四联疫苗', 1, NULL, NULL, NULL),
+	(9, 351, '20170808002396', '2017-10-17', '四联疫苗', 1, NULL, NULL, NULL),
+	(10, 351, '20170808002396', '2017-10-31', '狂犬疫苗', 1, NULL, NULL, NULL),
+	(11, 352, '20170807002514', '2017-08-28', '窝咳疫苗', 1, NULL, NULL, NULL),
+	(12, 352, '20170807002514', '2017-09-04', '二联疫苗', 1, NULL, NULL, NULL),
+	(13, 352, '20170807002514', '2017-09-25', '四联疫苗', 1, NULL, NULL, NULL),
+	(14, 352, '20170807002514', '2017-10-16', '四联疫苗', 1, NULL, NULL, NULL),
+	(15, 352, '20170807002514', '2017-10-30', '狂犬疫苗', 1, NULL, NULL, NULL),
+	(16, 353, '20170807002514', '2017-08-28', '窝咳疫苗', 1, NULL, NULL, NULL),
+	(17, 353, '20170807002514', '2017-09-04', '二联疫苗', 1, NULL, NULL, NULL),
+	(18, 353, '20170807002514', '2017-09-25', '四联疫苗', 1, NULL, NULL, NULL),
+	(19, 353, '20170807002514', '2017-10-16', '四联疫苗', 1, NULL, NULL, NULL),
+	(20, 353, '20170807002514', '2017-10-30', '狂犬疫苗', 1, NULL, NULL, NULL),
+	(21, 354, '20170814002157', '2017-09-04', '窝咳疫苗', 1, NULL, NULL, NULL),
+	(22, 354, '20170814002157', '2017-09-11', '二联疫苗', 1, NULL, NULL, NULL),
+	(23, 354, '20170814002157', '2017-10-02', '四联疫苗', 1, NULL, NULL, NULL),
+	(24, 354, '20170814002157', '2017-10-23', '四联疫苗', 1, NULL, NULL, NULL),
+	(25, 354, '20170814002157', '2017-11-06', '狂犬疫苗', 1, NULL, NULL, NULL),
+	(26, 355, '20170814002157', '2017-09-04', '窝咳疫苗', 1, NULL, NULL, NULL),
+	(27, 355, '20170814002157', '2017-09-11', '二联疫苗', 1, NULL, NULL, NULL),
+	(28, 355, '20170814002157', '2017-10-02', '四联疫苗', 1, NULL, NULL, NULL),
+	(29, 355, '20170814002157', '2017-10-23', '四联疫苗', 1, NULL, NULL, NULL),
+	(30, 355, '20170814002157', '2017-11-06', '狂犬疫苗', 1, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `t_dog_immue` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_pro 结构
@@ -951,18 +963,46 @@ CREATE TABLE IF NOT EXISTS `t_dog_worm` (
   `nest_no` varchar(50) NOT NULL COMMENT '窝编号',
   `worm_date` date NOT NULL COMMENT '除虫日期',
   `worm_state` int(11) NOT NULL default '1' COMMENT '状态：1：未除虫，2：已除虫',
+  `worm_desc` varchar(50) default NULL,
+  `police_name` varchar(64) default NULL,
   `police_id` int(11) default NULL COMMENT '操作人员',
+  `last_update_date` date default NULL,
   PRIMARY KEY  (`id`),
   KEY `worm_date` (`worm_date`),
   KEY `worm_state` (`worm_state`),
   KEY `worm_date_worm_state` (`worm_date`,`worm_state`),
   KEY `dog_id` (`dog_id`),
   KEY `nest_no` (`nest_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_worm 的数据：~0 rows (大约)
+-- 正在导出表  police_dog.t_dog_worm 的数据：~24 rows (大约)
 DELETE FROM `t_dog_worm`;
 /*!40000 ALTER TABLE `t_dog_worm` DISABLE KEYS */;
+INSERT INTO `t_dog_worm` (`id`, `dog_id`, `nest_no`, `worm_date`, `worm_state`, `worm_desc`, `police_name`, `police_id`, `last_update_date`) VALUES
+	(1, 350, '20170808002396', '2017-08-29', 2, '第3周除虫', NULL, NULL, '2017-08-31'),
+	(2, 350, '20170808002396', '2017-09-19', 2, '第6周除虫', NULL, NULL, '2017-08-31'),
+	(3, 350, '20170808002396', '2017-10-10', 2, '第9周除虫', NULL, NULL, '2017-08-31'),
+	(4, 350, '20170808002396', '2017-10-31', 1, '第12周除虫', NULL, NULL, NULL),
+	(5, 351, '20170808002396', '2017-08-29', 1, '第3周除虫', NULL, NULL, NULL),
+	(6, 351, '20170808002396', '2017-09-19', 1, '第6周除虫', NULL, NULL, NULL),
+	(7, 351, '20170808002396', '2017-10-10', 1, '第9周除虫', NULL, NULL, NULL),
+	(8, 351, '20170808002396', '2017-10-31', 1, '第12周除虫', NULL, NULL, NULL),
+	(9, 352, '20170807002514', '2017-08-28', 1, '第3周除虫', NULL, NULL, NULL),
+	(10, 352, '20170807002514', '2017-09-18', 1, '第6周除虫', NULL, NULL, NULL),
+	(11, 352, '20170807002514', '2017-10-09', 1, '第9周除虫', NULL, NULL, NULL),
+	(12, 352, '20170807002514', '2017-10-30', 1, '第12周除虫', NULL, NULL, NULL),
+	(13, 353, '20170807002514', '2017-08-28', 1, '第3周除虫', NULL, NULL, NULL),
+	(14, 353, '20170807002514', '2017-09-18', 1, '第6周除虫', NULL, NULL, NULL),
+	(15, 353, '20170807002514', '2017-10-09', 1, '第9周除虫', NULL, NULL, NULL),
+	(16, 353, '20170807002514', '2017-10-30', 1, '第12周除虫', NULL, NULL, NULL),
+	(17, 354, '20170814002157', '2017-09-04', 1, '第3周除虫', NULL, NULL, NULL),
+	(18, 354, '20170814002157', '2017-09-25', 1, '第6周除虫', NULL, NULL, NULL),
+	(19, 354, '20170814002157', '2017-10-16', 1, '第9周除虫', NULL, NULL, NULL),
+	(20, 354, '20170814002157', '2017-11-06', 1, '第12周除虫', NULL, NULL, NULL),
+	(21, 355, '20170814002157', '2017-09-04', 1, '第3周除虫', NULL, NULL, NULL),
+	(22, 355, '20170814002157', '2017-09-25', 1, '第6周除虫', NULL, NULL, NULL),
+	(23, 355, '20170814002157', '2017-10-16', 1, '第9周除虫', NULL, NULL, NULL),
+	(24, 355, '20170814002157', '2017-11-06', 1, '第12周除虫', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `t_dog_worm` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_police_user 结构
@@ -1062,10 +1102,10 @@ CREATE TABLE IF NOT EXISTS `t_worm_immue_cfg` (
 DELETE FROM `t_worm_immue_cfg`;
 /*!40000 ALTER TABLE `t_worm_immue_cfg` DISABLE KEYS */;
 INSERT INTO `t_worm_immue_cfg` (`id`, `period_type`, `period`, `description`) VALUES
-	(1, 1, 21, '除虫'),
-	(2, 1, 42, '除虫'),
-	(3, 1, 63, '除虫'),
-	(4, 1, 84, '除虫'),
+	(1, 1, 21, '第3周除虫'),
+	(2, 1, 42, '第6周除虫'),
+	(3, 1, 63, '第9周除虫'),
+	(4, 1, 84, '第12周除虫'),
 	(5, 2, 21, '窝咳疫苗'),
 	(6, 2, 28, '二联疫苗'),
 	(7, 2, 49, '四联疫苗'),
