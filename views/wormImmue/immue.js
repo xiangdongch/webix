@@ -58,7 +58,24 @@ define([
                 paddingX: 10,
                 height: 36,
                 cols: [
-                    {view: "button", label: "完成免疫", width: 70},
+                    {view: "button", label: "完成免疫", width: 70, click: function () {
+                        var datatable = $$(datatableId);
+                        var data = datatable.getCheckedData();
+                        if(data.length == 0){
+                            msgBox("请至少选择一条数据");
+                            return ;
+                        }
+                        var w = loading();
+                        doPost('wormImmue/finishImmue', data, function(data){
+                            console.log(data);
+                            w.close();
+                            if(data.success){
+                                datatable.reload();
+                            }else{
+                                msgBox('操作失败<br>' + data.message)
+                            }
+                        });
+                    }},
                     {}
                 ]
             },
@@ -75,23 +92,33 @@ define([
                         template: "{common.checkbox()}",
                         width: 40
                     },
-                    {id: "$index", header: "NO.", width: 60},
-                    {id: "nestNo", header: "窝编号", width: 130, sort: "string"},
-                    {id: "dogName", header: "犬名", width: 90},
-                    {id: "chipNo", header: "芯片号", width: 90},
-                    {id: "immueDate", header: "免疫日期", width: 100, format: webix.Date.dateToStr("%Y-%m-%d")},
-                    {id: "immueName", header: "疫苗", width: 100},
-                    {id: "immueState", header: "是否完成", width: 100, template: function(obj, common, value){
-                        return value == 2 ? '已完成' : '未进行';
+                    {id: "$index", header: "NO.", width: 45},
+                    {id: "dogInfo.dogName", header: "犬名", width: 90, template: function(obj){ return obj.dogInfo.dogName || ''; } },
+                    {id: "immueDate", header: "免疫日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+                    {id: "immueName", header: "疫苗名称", width: 100},
+                    {id: "immueState", header: "状态", width: 55, template: function(obj, common, value){
+                        if(value == 2){
+                            return '<span class="green_color">已完成</span>';
+                        }else if(new Date(obj.immueDate) <= new Date()){
+                            return '<span class="red_color">已超期</span>'
+                        }else{
+                            return '未进行';
+                        }
                     }},
-                    {id: "chipNoInject", header: "芯片注入日期", width: 90, format: webix.Date.dateToStr("%Y-%m-%d")},
-                    {id: "sex", header: "性别", width: 90},
-                    {id: "birthday", header: "出生日期", sort: "string", format: webix.Date.dateToStr("%Y-%m-%d")},
-                    {id: "breed", header: "品种", width: 130, sort: "string"},
-                    {id: "dogSource", header: "来源", width: 130, sort: "string"},
-                    {id: "dogColour", header: "毛色", width: 130, sort: "string"},
-                    {id: "hairType", header: "毛型", width: 130, sort: "string"},
-                    {id: "breeder", header: "繁育员", width: 130, sort: "string"}
+                    {id: "nestNo", header: "窝编号", width: 130, sort: "string"},
+                    {id: "dogInfo.chipNo", header: "芯片号", width: 90, template: function(obj){ return obj.dogInfo.chipNo || ''; } },
+                    {id: "dogInfo.chipNoInject", header: "芯片注入日期", width: 85, template: function(item){
+                        return webix.Date.dateToStr("%Y-%m-%d")(item.dogInfo.chipNoInject);
+                    }},
+                    {id: "dogInfo.sex", header: "性别", width: 50, template: function(obj){ return '<div align="center">' + (obj.dogInfo.sex == 1 ? '公' : '母') + '</div>'; } },
+                    {id: "dogInfo.birthday", header: "出生日期", width: 85, sort: "string", template: function(item){
+                        return webix.Date.dateToStr("%Y-%m-%d")(item.dogInfo.birthday);
+                    }},
+                    {id: "dogInfo.breed", header: "品种", width: 70, sort: "string", template: function(obj){ return obj.dogInfo.breed || ''; } },
+                    {id: "dogInfo.dogSource", header: "来源", width: 50, sort: "string", template: function(obj){ return obj.dogInfo.dogSource || ''; } },
+                    {id: "dogInfo.dogColour", header: "毛色", width: 50, sort: "string", template: function(obj){ return obj.dogInfo.dogColour || ''; } },
+                    {id: "dogInfo.hairType", header: "毛型", width: 50, sort: "string", template: function(obj){ return obj.dogInfo.hairType || ''; } },
+                    {id: "dogInfo.breeder", header: "繁育员", width: 80, sort: "string", template: function(obj){ return obj.dogInfo.breeder || ''; } }
                 ],
                 on: {
                     onBeforeLoad: function () {
@@ -120,7 +147,7 @@ define([
                 minHeight: 80,
                 datafetch: 20,//default
                 customUrl: {
-                    url: webix.proxy('customProxy','/policeDog/services/dogBaseInfo/getAll/{pageSize}/{curPage}'),
+                    url: webix.proxy('customProxy','/policeDog/services/wormImmue/list/immue/{pageSize}/{curPage}'),
                     httpMethod: 'post',
                     datatype: 'customJson'
                 },

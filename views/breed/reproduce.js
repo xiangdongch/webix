@@ -24,20 +24,22 @@ define([
             addChild();
         }else if(currentStep == 2){
             currentStep = 3;
-            saveDogInfo();
-            return ;
+            saveDogInfo(function(msgArr){
+                $$('step1').hide();
+                $$('step2').hide();
+                $$('step3').show();
+                $$('preStep').hide();
+                $$('nextStep').hide();
+                $$('finishStep').show();
+                var stepInfo = $$('stepInfo');
+                stepInfo.data.step1 = 'reproduce_finish';
+                stepInfo.data.step2 = 'reproduce_finish';
+                stepInfo.data.step3 = 'reproduce_active';
+                stepInfo.refresh();
 
-            $$('step1').hide();
-            $$('step2').hide();
-            $$('step3').show();
-            $$('preStep').hide();
-            $$('nextStep').hide();
-            $$('finishStep').show();
-            var stepInfo = $$('stepInfo');
-            stepInfo.data.step1 = 'reproduce_finish';
-            stepInfo.data.step2 = 'reproduce_finish';
-            stepInfo.data.step3 = 'reproduce_active';
-            stepInfo.refresh();
+                $$('detail').data.detail = msgArr.join('<br>');
+                $$('detail').refresh();
+            });
         }
     };
 
@@ -207,7 +209,7 @@ define([
         });
     };
 
-    var saveDogInfo = function () {
+    var saveDogInfo = function (callback) {
         var children = [];
         var values = $$('reproduce').getValues();
 
@@ -242,11 +244,61 @@ define([
             children.push(child);
         }
         console.log(children);
-        doPost('dogBaseInfo/addDog', children, function(data){
-            if(data.success){
+        var win = loading('正在添加基本信息');
 
+        doPost('dogBaseInfo/addDog', children, function(data){
+            win.close();
+            var msgInfo = [];
+            if(data.success){
+                win = loading('基本信息添加完成，生成除虫计划');
+                webix.message('基本信息添加完成');
+                msgInfo.push('窝编号：' + nestNo);
+                msgInfo.push('1、基本信息添加完成');
+                doPost('dogBaseInfo/initWormInfo/' + nestNo, {}, function(data){
+                    win.close();
+                    if(data.success){
+                        win = loading('除虫计划创建完成，正在创建免疫计划');
+                        webix.message('除虫计划创建完成');
+                        msgInfo.push('2、除虫计划创建完成');
+                    }else{
+                        msgBox('除虫计划创建失败，请稍后手动添加');
+                        msgInfo.push('2、除虫计划创建失败，请稍后手动添加');
+                    }
+                    createImmue(nestNo, win, callback, msgInfo);
+                }, function () {
+                    msgBox('除虫计划创建失败，请稍后手动添加');
+                    createImmue(nestNo, win, callback, msgInfo);
+                    msgInfo.push('2、除虫计划创建失败，请稍后手动添加');
+                });
+            }else{
+                msgBox('操作失败，请稍后再试');
+                win.close();
             }
+        }, function () {
+            msgBox('操作失败，请稍后再试')
         });
+    };
+
+    var createImmue = function (nestNo, win, callback, msgInfo) {
+        win.close();
+        win = loading('除虫计划创建完成，正在创建免疫计划');
+        doPost('dogBaseInfo/initImmueInfo/' + nestNo, {}, function(data){
+            win.close();
+            if(data.success){
+                webix.message('免疫计划创建完成');
+                msgInfo.push('3、免疫计划创建完成');
+                //操作完成
+            }else{
+                msgBox('免疫计划创建失败，请稍后手动添加');
+                msgInfo.push('3、免疫计划创建失败，请稍后手动添加');
+            }
+            callback(msgInfo);
+        }, function(){
+            msgBox('免疫计划创建失败，请稍后手动添加');
+            msgInfo.push('3、免疫计划创建失败，请稍后手动添加');
+            win.close();
+            callback(msgInfo);
+        })
     };
 
     var layout = {
@@ -323,7 +375,12 @@ define([
                         rows: [{},{
                             cols: [{
                                 borderless: true,
-                                template: '<div align="center" style="font-size: 16px; font-weight: bold;">数据已保存</div><div align="center">档案、除虫免疫等信息请到幼犬管理模块处理</div>'
+                                height: 110,
+                                id: 'detail',
+                                template: '<div align="center" style="font-size: 16px; font-weight: bold;">数据已保存</div><div align="center"><br>#detail#</div>',
+                                data: {
+                                    detail: ''
+                                }
                             }]
                         },{}]
                     },

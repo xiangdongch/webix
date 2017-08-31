@@ -237,11 +237,20 @@
                     success(response.json());
                 });
             }
-            if(fail) {
-                promise.fail(function (err) {
-                    fail(err);
-                });
-            }
+            fail = fail || function () {
+                try{
+                    for(var n in window._LOADING){
+                        try{
+                            window._LOADING[n].close();
+                        }catch (e){}
+                    }
+                }catch(e){}
+
+                msgBox("请求出错，请稍后再试")
+            };
+            promise.fail(function (err) {
+                fail(err);
+            });
         }
 
         function getWin(title, ui, config){
@@ -287,6 +296,39 @@
 //        webix.ajax.$callback = function(owner, call, text, data, x, is_error) {
 //            webixAjaxCallback(owner, call, text, data, x, is_error);
 //        }
+        window._LOADING = [];
+        function loading(msg, timeout){
+            timeout = timeout || 60 * 1000;
+            msg = msg || '处理中，请稍后';
+
+            var win_id = webix.uid().toString();
+            var win = webix.ui({
+                view: "window",
+                id: win_id,
+                width: 300,
+                height: 100,
+                move: true,
+                modal: true,
+                position: "center",
+                css: 'non_header',
+                autofocus: true,
+                header: {
+                    hidden: true
+                },
+                body: {
+                    rows: [{
+                        template: '<div align="center"><img src="assets/imgs/loading.gif" height="45px" width="45px"><br>' + msg + '</div>'
+                    }]
+                }
+            });
+            win.show();
+            _LOADING.push(win);
+            setTimeout(function(){
+                win.close();
+            }, timeout);
+            return win;
+        }
+
     </script>
 
     <!-- Development only -->
