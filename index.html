@@ -62,7 +62,7 @@
                     }
                     details.filter = state.filter;
                 }
-                this.load(url, details, callback );
+                this.load(url, callback, details );
             },
             customUrl_setter: function (value) {
                 if (value) {
@@ -100,9 +100,9 @@
         }
         var DEFAULT_PADDING = 20;
     </script>
-    <script type="text/javascript" src="webix/webix_debug.js"></script>
-    <script type="text/javascript" src="webix_new/skin.js"></script>
     <!--<script type="text/javascript" src="webix/webix_debug.js"></script>-->
+    <script type="text/javascript" src="webix_new/webix.js"></script>
+    <script type="text/javascript" src="webix_new/skin.js"></script>
     <link rel="stylesheet" href="webix_new/webix.css">
     <link rel="stylesheet/less" href="assets/theme.siberia.less">
 
@@ -229,6 +229,21 @@
             customProxy: customProxy
         }).customProxy;
 
+        function doIPost(url, params, success, fail){
+            var lodWin = loading();
+
+            url = '/policeDog/services/' + url;
+            var promise = webix.ajax().headers({'Content-Type':  'application/json'}).post(url, JSON.stringify(params));
+            promise.then(function (response) {
+                success && success(response.json());
+                lodWin.close();
+            });
+            promise.fail(function (err) {
+                fail && fail(err);
+                lodWin.close();
+                msgBox("请求出错，请稍后再试");
+            });
+        }
         function doPost(url, params, success, fail){
             url = '/policeDog/services/' + url;
             var promise = webix.ajax().headers({'Content-Type':  'application/json'}).post(url, JSON.stringify(params));

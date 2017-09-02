@@ -99,7 +99,7 @@ define([
                             {width: DEFAULT_PADDING},
                             {view: "text", label: "母犬芯片号", name: "motherId", width: 180, labelWidth: 70},
                             {width: DEFAULT_PADDING},
-                            {view: "button", label: "查找幼犬", type: "form", width: 90, paddingX: 10, click: search},
+                            {view: "button", label: "查找", type: "form", width: 90, paddingX: 10, click: search},
                             {}
                         ]
                     }
@@ -132,8 +132,13 @@ define([
                 paddingX: 10,
                 height: 36,
                 cols: [
-                    {view: "button", label: "淘汰申请", width: 65, click: tickOut},
-                    {view: "button", label: "死亡申请", width: 65, click: died},
+                    {view: "button", label: "培训", width: 65},
+                    {view: "button", label: "培训", width: 65},
+                    {view: "button", label: "复训", width: 65},
+                    {view: "button", label: "调配", width: 65},
+                    {view: "button", label: "技术使用", width: 90},
+                    {view: "button", label: "淘汰申请", width: 90, click: tickOut},
+                    {view: "button", label: "死亡申请", width: 90, click: died},
                     {}
                 ]
             },

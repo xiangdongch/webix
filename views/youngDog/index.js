@@ -1,13 +1,9 @@
 define([
-    'views/youngDog/searchForm',
     'views/youngDog/list'
-], function (searchForm, list) {
+], function (list) {
     return {
         $ui: {
-            type: "space",
-            // type: "wide",
             rows: [
-                searchForm,
                 list
             ]
         }

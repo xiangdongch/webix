@@ -2295,7 +2295,7 @@ input.webixtype_next {
 }
 .webix_img_btn .webix_icon,
 .webix_img_btn_abs .webix_icon {
-  color: #1a1a1a;
+  color: #FFFFFF;
 }
 .webix_img_btn_abs,
 .webix_img_btn {
@@ -2704,6 +2704,7 @@ body:not(:-moz-handler-blocked) .webix_el_select select {
 .webix_el_search .webix_input_icon {
   padding-left: 5px;
   width: 21px;
+  color: #2C9EE5;
 }
 /*Remove button padding in FF*/
 .webix_view button::-moz-focus-inner {
