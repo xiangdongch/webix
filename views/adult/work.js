@@ -53,38 +53,41 @@ define([
 
         };
         var win = {};
-        win = getWin("添加警犬专业", {
+        win = getWin("补充除虫记录", {
             rows: [
                 {
-                    rows:[
-                        {
-                            view:"form",
-                            id: 'tickout_form',
-                            elementsConfig: {
-                                labelAlign: 'right',
-                                labelWidth: 70
-                            },
-                            elements:[
-                                {view: "text", label: "警犬芯片号", name: "dogId", width: 280, attributes:{ maxlength: 64 }},
-                                {view: "richselect", label: "技能信息", value:"-1", width: 280, options:[
-                                    {id: '-1', value: "全部"},
-                                    {id: '6', value: "鉴别"},
-                                    {id: '5', value: "追踪"},
-                                    {id: '8', value: "血迹搜索"},
-                                    {id: '1', value: "爬墙"},
-                                    {id: '2', value: "搜爆"},
-                                    {id: '3', value: "搜毒"},
-                                    {id: '7', value: "搜捕"},
-                                    {id: '5', value: "刑侦"}
-                                ]},
-                                {view: "datepicker", label: "获得日期", name: "wormDateStr", width: 180, format:"%Y-%m-%d", stringResult: true},
-                            ],
-                            rules:{
+                    view:"scrollview",
+                    id:"scrollview",
+                    scroll:"y",
+                    height: 200,
+                    body:{
+                        rows:[
+                            {
+                                view:"form",
+                                id: 'tickout_form',
+                                elementsConfig: {
+                                    labelAlign: 'right',
+                                    labelWidth: 70
+                                },
+                                elements:[
+                                    {view: "text", label: "警犬窝编号", name: "nestNo", width: 300, attributes:{ maxlength: 64 }},
+                                    {view: "text", label: "警犬芯片号", name: "dogId", width: 300, attributes:{ maxlength: 64 }},
+                                    {view: "text", label: "除虫周期", name: "wormDesc", value: '补充', width: 300, attributes:{ maxlength: 64 }},
+                                    {view: "datepicker", label: "除虫日期", name: "wormDateStr", width: 240, format:"%Y-%m-%d", stringResult: true},
+                                    {view: "text", label: "操作人员", name: "policeName", width: 300, attributes:{ maxlength: 128 }}
+                                ],
+                                rules:{
+                                    "nestNo":webix.rules.isNotEmpty,
+                                    "dogId":webix.rules.isNotEmpty,
+                                    "wormDesc":webix.rules.isNotEmpty,
+                                    "wormDateStr":webix.rules.isNotEmpty,
+                                    "policeName":webix.rules.isNotEmpty
+                                }
                             }
-                        }
-                    ]
+                        ]
+                    }
                 },
-                {width: 10},
+                {width: 400},
                 {
                     cols:[
                         {},
@@ -96,7 +99,7 @@ define([
                     ]
                 }
             ]
-        }, {height: 210});
+        }, {height: 290});
         win.show();
     };
 
@@ -124,19 +127,14 @@ define([
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "警犬芯片号", name: "father", width: 300},
+                            {view: "text", label: "警犬芯片号", name: "father", width: 180, labelWidth: 75},
                             {width: DEFAULT_PADDING},
-                            {view: "richselect", label: "技能信息", value:"-1", width: 180, labelWidth: 60, options:[
-                                {id: '-1', value: "全部"},
-                                {id: '6', value: "鉴别"},
-                                {id: '5', value: "追踪"},
-                                {id: '8', value: "血迹搜索"},
-                                {id: '1', value: "爬墙"},
-                                {id: '2', value: "搜爆"},
-                                {id: '3', value: "搜毒"},
-                                {id: '7', value: "搜捕"},
-                                {id: '5', value: "刑侦"}
-                            ]},
+                            {view: "text", label: "用犬单位", name: "father", width: 180, labelWidth: 60},
+                            {width: DEFAULT_PADDING},
+                            {view: "text", label: "案件性质", name: "father", width: 180, labelWidth: 60},
+                            {width: DEFAULT_PADDING},
+                            {view: "datepicker", label: "使用日期", name: "immueDateStr",labelWidth: 60, width: 170, format:"%Y-%m-%d", stringResult: true},
+                            {view: "datepicker", label: "-", name: "immueDateStr",labelWidth: 10, width: 120, format:"%Y-%m-%d", stringResult: true},
                             {width: DEFAULT_PADDING},
                             {view: "button", label: "查找幼犬", type: "form", width: 100, paddingX: 10, click: search},
                             {}
@@ -160,8 +158,8 @@ define([
                 paddingX: 10,
                 height: 36,
                 cols: [
-                    {view: "button", label: "添加专业", width: 70, click: addWorm},
-                    {view: "button", label: "删除专业", width: 70, click: doWorm},
+                    {view: "button", label: "添加", width: 50},
+                    {view: "button", label: "删除", width: 50},
                     {}
                 ]
             },
@@ -180,21 +178,15 @@ define([
                     },
                     {id: "$index", header: "NO.", width: 45},
                     {id: "dogInfo.dogName", header: "犬名", width: 90, template: function(obj){ return obj.dogInfo.dogName || ''; } },
-                    {id: "profName", header: "专业名称", width: 100},
-                    {id: "creationDate", header: "获得日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
-                    {id: "dogInfo.chipNo", header: "芯片号", width: 110, template: function(obj){ return obj.dogInfo.chipNo || ''; } },
-                    {id: "dogInfo.chipNoInject", header: "芯片注入日期", width: 90, template: function(item){
-                        return webix.Date.dateToStr("%Y-%m-%d")(item.dogInfo.chipNoInject);
-                    }},
-                    {id: "dogInfo.sex", header: "性别", width: 50, template: function(obj){ return '<div align="center">' + (obj.dogInfo.sex == 1 ? '公' : '母') + '</div>'; } },
-                    {id: "dogInfo.birthday", header: "出生日期", width: 85, sort: "string", template: function(item){
-                        return webix.Date.dateToStr("%Y-%m-%d")(item.dogInfo.birthday);
-                    }},
-                    {id: "dogInfo.breed", header: "品种", width: 90, sort: "string", template: function(obj){ return obj.dogInfo.breed || ''; } },
-                    {id: "dogInfo.dogSource", header: "来源", width: 60, sort: "string", template: function(obj){ return obj.dogInfo.dogSource || ''; } },
-                    {id: "dogInfo.dogColour", header: "毛色", width: 80, sort: "string", template: function(obj){ return obj.dogInfo.dogColour || ''; } },
-                    {id: "dogInfo.hairType", header: "毛型", width: 70, sort: "string", template: function(obj){ return obj.dogInfo.hairType || ''; } },
-                    {id: "dogInfo.tutor", header: "训导员", width: 100, sort: "string", template: function(obj){ return obj.dogInfo.tutor || ''; } },
+                    {id: "creationDate", header: "日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+                    {id: "profName", header: "时间", width: 100},
+                    {id: "chipNo", header: "用犬单位", width: 110 },
+                    {id: "chipNo", header: "出勤人员", width: 110 },
+                    {id: "chipNo", header: "案件性质", width: 110 },
+                    {id: "chipNo", header: "案件编号", width: 110 },
+                    {id: "chipNo", header: "案件等级", width: 110 },
+                    {id: "chipNo", header: "主要任务", width: 110 },
+                    {id: "chipNo", header: "使用结果", width: 110 },
                     {width: 1}
                 ],
                 on: {
@@ -223,11 +215,12 @@ define([
                 tooltip:true,
                 minHeight: 80,
                 datafetch: 20,//default
-                customUrl: {
-                    url: webix.proxy('customProxy','/policeDog/services/profession/getList/{pageSize}/{curPage}'),
-                    httpMethod: 'post',
-                    datatype: 'customJson'
-                },
+                data: [],
+                // customUrl: {
+                //     url: webix.proxy('customProxy','/policeDog/services/profession/getList/{pageSize}/{curPage}'),
+                //     httpMethod: 'post',
+                //     datatype: 'customJson'
+                // },
                 pager: "pagerA"
             },
             {

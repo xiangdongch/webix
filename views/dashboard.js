@@ -44,6 +44,13 @@ define([
 		]
 	};
 
-	return { $ui:layout };
+	return { $ui: {
+		rows: [{},{
+			cols: [{},{
+				template: '<div align="center">模块正在构建中</div>',
+				borderless: true
+			},{}]
+		},{}]
+	} };
 
 });

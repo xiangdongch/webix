@@ -13,10 +13,12 @@ define([], function () {
         '毛色': {id: "dogColour", header: "毛色", width: 80, sort: "string"},
         '毛型': {id: "hairType", header: "毛型", width: 70, sort: "string"},
         '繁育员': {id: "breeder", header: "繁育员", width: 100, sort: "string"},
-        '训导员': {id: "tutor", header: "训导员", width: 100}
+        '训导员': {id: "tutor", header: "训导员", width: 100},
+        '专业名称': {id: "wormDesc", header: "专业名称", width: 100},
+        '获得日期': {id: "wormDate", header: "获得日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")}
     };
     var methods = {
-        getColumns: function (headers, arr) {
+        getColumns: function (headers, startCols) {
             var cols = [
                 {
                     id: "$check",
@@ -28,9 +30,9 @@ define([], function () {
                 },
                 {id: "$index", header: "NO.", width: 45}
             ];
-            if(arr){
-                for(var i = 0; i<arr.length; i++){
-                    cols.push(arr[i]);
+            if(startCols){
+                for(var i = 0; i<startCols.length; i++){
+                    cols.push(startCols[i]);
                 }
             }
             for(var i = 0; i<headers.length; i++){
