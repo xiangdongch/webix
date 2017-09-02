@@ -188,7 +188,7 @@
 
                 const curPage = Math.floor(from / count) + 1;
 
-                    var url = this.source;
+                    var url = customUrl.url.source;
                 url = url.replace("{curPage}", curPage.toString())
                     .replace("{pageSize}", pageSize.toString())
                     .replace("{totalRows}", totalRows.toString());

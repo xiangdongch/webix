@@ -72,11 +72,11 @@ gulp.task('build', ["js", "css"], function(){
 
 		.pipe(gulp.dest("./deploy/")),
         //server
-        gulp.src("./server/**/*.*")
-            .pipe(gulp.dest("./deploy/server/")),
+        gulp.src("./server/**/*.*").pipe(gulp.dest("./deploy/server/")),
         //webix
-        gulp.src("./webix/**/*.*")
-            .pipe(gulp.dest("./deploy/webix/"))
+        gulp.src("./webix/**/*.*").pipe(gulp.dest("./deploy/webix/")),
+		//webix_new
+		gulp.src("./webix_new/**/*.*").pipe(gulp.dest("./deploy/webix_new/"))
 	);
 	
 });

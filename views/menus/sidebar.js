@@ -42,7 +42,7 @@ define(function(){
 
                         {id: "adult", open: true, value:"成犬管理", data:[
                             { id: "adult.adultList", value: "警犬管理", icon: "table", $css: "products", details:""},
-                            { id: "adult.apply", value: "申请调配", icon: "random", $css: "products", details:""},
+                            // { id: "adult.apply", value: "申请调配", icon: "random", $css: "products", details:""},
                             { id: "adult.profession", value: "专业技能", icon: "list-alt", $css: "products", details:""},
                             { id: "adult.work", value: "技术使用", icon: "flag-o", $css: "products", details:""},
                             { id: "adult.train", value: "培训训练", icon: "dribbble", $css: "products", details:""},

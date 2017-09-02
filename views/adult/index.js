@@ -1,5 +1,5 @@
 define([
-    'views/adult/list',
+    'views/adult/list_',
     'views/adult/searchForm'
 ], function (list, searchForm) {
     return {
