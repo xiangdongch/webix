@@ -12,10 +12,12 @@
 
 
 -- 导出 police_dog 的数据库结构
+DROP DATABASE IF EXISTS `police_dog`;
 CREATE DATABASE IF NOT EXISTS `police_dog` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `police_dog`;
 
 -- 导出  表 police_dog.t_dog_base 结构
+DROP TABLE IF EXISTS `t_dog_base`;
 CREATE TABLE IF NOT EXISTS `t_dog_base` (
   `id` int(11) NOT NULL auto_increment COMMENT 'id',
   `dog_name` varchar(128) default NULL COMMENT '犬名',
@@ -55,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `t_dog_base` (
   KEY `chip_no` (`chip_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=356 DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_base 的数据：~374 rows (大约)
+-- 正在导出表  police_dog.t_dog_base 的数据：~344 rows (大约)
 DELETE FROM `t_dog_base`;
 /*!40000 ALTER TABLE `t_dog_base` DISABLE KEYS */;
 INSERT INTO `t_dog_base` (`id`, `dog_name`, `chip_no`, `chip_no_inject`, `sex`, `birthday`, `breed`, `dog_source`, `dog_colour`, `hair_type`, `dog_type`, `dog_level`, `inbreeding`, `tutor`, `breeder`, `train_score`, `next_train_date`, `work_place`, `work_area`, `work_province`, `file_no`, `create_doc_date`, `dog_photo`, `nest_no`, `father_id`, `mother_id`, `growth_stage`, `work_stage`, `belonging`, `creation_date`, `last_update_date`) VALUES
@@ -417,6 +419,7 @@ INSERT INTO `t_dog_base` (`id`, `dog_name`, `chip_no`, `chip_no_inject`, `sex`, 
 /*!40000 ALTER TABLE `t_dog_base` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_base_1 结构
+DROP TABLE IF EXISTS `t_dog_base_1`;
 CREATE TABLE IF NOT EXISTS `t_dog_base_1` (
   `id` int(11) NOT NULL default '0' COMMENT 'id',
   `dog_name` varchar(128) default NULL COMMENT '犬名',
@@ -451,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `t_dog_base_1` (
   `last_update_date` date default NULL COMMENT '最后修改日期'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_base_1 的数据：~352 rows (大约)
+-- 正在导出表  police_dog.t_dog_base_1 的数据：~312 rows (大约)
 DELETE FROM `t_dog_base_1`;
 /*!40000 ALTER TABLE `t_dog_base_1` DISABLE KEYS */;
 INSERT INTO `t_dog_base_1` (`id`, `dog_name`, `chip_no`, `chip_no_inject`, `sex`, `birthday`, `breed`, `dog_source`, `dog_colour`, `hair_type`, `dog_type`, `dog_level`, `inbreeding`, `tutor`, `breeder`, `train_score`, `next_train_date`, `work_place`, `work_area`, `work_province`, `file_no`, `create_doc_date`, `dog_photo`, `nest_no`, `father_id`, `mother_id`, `growth_stage`, `work_stage`, `belonging`, `creation_date`, `last_update_date`) VALUES
@@ -785,6 +788,7 @@ INSERT INTO `t_dog_base_1` (`id`, `dog_name`, `chip_no`, `chip_no_inject`, `sex`
 /*!40000 ALTER TABLE `t_dog_base_1` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_change 结构
+DROP TABLE IF EXISTS `t_dog_change`;
 CREATE TABLE IF NOT EXISTS `t_dog_change` (
   `id` int(11) NOT NULL auto_increment COMMENT '	id	',
   `dog_id` int(11) NOT NULL COMMENT '	警犬id	',
@@ -827,6 +831,7 @@ INSERT INTO `t_dog_change` (`id`, `dog_id`, `change_date`, `old_work_place`, `ne
 /*!40000 ALTER TABLE `t_dog_change` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_die 结构
+DROP TABLE IF EXISTS `t_dog_die`;
 CREATE TABLE IF NOT EXISTS `t_dog_die` (
   `id` int(11) NOT NULL auto_increment,
   `apply_unit` varchar(128) default NULL,
@@ -852,6 +857,7 @@ DELETE FROM `t_dog_die`;
 /*!40000 ALTER TABLE `t_dog_die` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_honor 结构
+DROP TABLE IF EXISTS `t_dog_honor`;
 CREATE TABLE IF NOT EXISTS `t_dog_honor` (
   `id` int(11) NOT NULL auto_increment COMMENT '	id	',
   `honor_no` varchar(64) default NULL COMMENT '	证件编号	',
@@ -872,6 +878,7 @@ INSERT INTO `t_dog_honor` (`id`, `honor_no`, `honor_name`, `reward_unit`, `rewar
 /*!40000 ALTER TABLE `t_dog_honor` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_immue 结构
+DROP TABLE IF EXISTS `t_dog_immue`;
 CREATE TABLE IF NOT EXISTS `t_dog_immue` (
   `id` int(11) NOT NULL auto_increment,
   `dog_id` int(11) NOT NULL default '0' COMMENT '警犬ID',
@@ -926,6 +933,7 @@ INSERT INTO `t_dog_immue` (`id`, `dog_id`, `nest_no`, `immue_date`, `immue_name`
 /*!40000 ALTER TABLE `t_dog_immue` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_pro 结构
+DROP TABLE IF EXISTS `t_dog_pro`;
 CREATE TABLE IF NOT EXISTS `t_dog_pro` (
   `id` int(11) NOT NULL auto_increment COMMENT 'id',
   `dog_id` int(11) default NULL COMMENT '警犬ID	',
@@ -935,7 +943,7 @@ CREATE TABLE IF NOT EXISTS `t_dog_pro` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_pro 的数据：~1 rows (大约)
+-- 正在导出表  police_dog.t_dog_pro 的数据：~4 rows (大约)
 DELETE FROM `t_dog_pro`;
 /*!40000 ALTER TABLE `t_dog_pro` DISABLE KEYS */;
 INSERT INTO `t_dog_pro` (`id`, `dog_id`, `prof_id`, `prof_name`, `creation_date`) VALUES
@@ -946,6 +954,7 @@ INSERT INTO `t_dog_pro` (`id`, `dog_id`, `prof_id`, `prof_name`, `creation_date`
 /*!40000 ALTER TABLE `t_dog_pro` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_pro_base 结构
+DROP TABLE IF EXISTS `t_dog_pro_base`;
 CREATE TABLE IF NOT EXISTS `t_dog_pro_base` (
   `id` int(11) NOT NULL auto_increment COMMENT '	id	',
   `prof_name` varchar(16) default NULL COMMENT '	专业名称	',
@@ -954,7 +963,7 @@ CREATE TABLE IF NOT EXISTS `t_dog_pro_base` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_pro_base 的数据：~1 rows (大约)
+-- 正在导出表  police_dog.t_dog_pro_base 的数据：~8 rows (大约)
 DELETE FROM `t_dog_pro_base`;
 /*!40000 ALTER TABLE `t_dog_pro_base` DISABLE KEYS */;
 INSERT INTO `t_dog_pro_base` (`id`, `prof_name`, `creation_date`, `last_update_date`) VALUES
@@ -969,6 +978,7 @@ INSERT INTO `t_dog_pro_base` (`id`, `prof_name`, `creation_date`, `last_update_d
 /*!40000 ALTER TABLE `t_dog_pro_base` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_tickout 结构
+DROP TABLE IF EXISTS `t_dog_tickout`;
 CREATE TABLE IF NOT EXISTS `t_dog_tickout` (
   `id` int(11) NOT NULL auto_increment,
   `apply_unit` varchar(128) default NULL COMMENT '申请单位',
@@ -989,7 +999,42 @@ DELETE FROM `t_dog_tickout`;
 /*!40000 ALTER TABLE `t_dog_tickout` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_dog_tickout` ENABLE KEYS */;
 
+-- 导出  表 police_dog.t_dog_train 结构
+DROP TABLE IF EXISTS `t_dog_train`;
+CREATE TABLE IF NOT EXISTS `t_dog_train` (
+  `id` int(11) NOT NULL auto_increment,
+  `grow_stage` int(11) default NULL COMMENT '1：幼犬，2：成犬',
+  `dog_id` int(11) NOT NULL COMMENT '警犬id',
+  `train_id` int(11) NOT NULL COMMENT '培训ID',
+  `train_date` date default NULL COMMENT '培训、复训、考核日期',
+  `train_class_name` varchar(64) default NULL COMMENT '培训、复训、考核班级名',
+  `train_level` int(11) default NULL COMMENT '培训、复训、考核等级',
+  `train_stage` int(11) default NULL COMMENT '1：培训，2：复训；3：考核',
+  `train_unit` varchar(50) default NULL COMMENT '培训单位',
+  `train_addr` varchar(50) default NULL COMMENT '培训地点',
+  `train_user` varchar(50) default NULL COMMENT '教练员',
+  `score_detail` text COMMENT '基础评分',
+  `total_score` int(11) default NULL COMMENT '总分',
+  `next_train_date` date default NULL COMMENT '下次复训时间',
+  `police_id` int(11) default NULL COMMENT '带犬民警',
+  `police_name` varchar(50) default NULL COMMENT '带犬民警',
+  `main_train_user` varchar(50) default NULL COMMENT '主考人',
+  `last_update_date` date default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `grow_stage_train_date` (`grow_stage`,`train_date`),
+  KEY `train_unit` (`train_unit`),
+  KEY `train_stage` (`train_stage`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  police_dog.t_dog_train 的数据：~1 rows (大约)
+DELETE FROM `t_dog_train`;
+/*!40000 ALTER TABLE `t_dog_train` DISABLE KEYS */;
+INSERT INTO `t_dog_train` (`id`, `grow_stage`, `dog_id`, `train_id`, `train_date`, `train_class_name`, `train_level`, `train_stage`, `train_unit`, `train_addr`, `train_user`, `score_detail`, `total_score`, `next_train_date`, `police_id`, `police_name`, `main_train_user`, `last_update_date`) VALUES
+	(1, 1, 1, 0, '2017-09-03', 'xxx班', 1, 1, 'xx培训基地', '北京xx', '王刚', '[]', 87, '2017-09-03', 1, '李顺', '杨乐', '2017-09-03');
+/*!40000 ALTER TABLE `t_dog_train` ENABLE KEYS */;
+
 -- 导出  表 police_dog.t_dog_work 结构
+DROP TABLE IF EXISTS `t_dog_work`;
 CREATE TABLE IF NOT EXISTS `t_dog_work` (
   `id` int(11) NOT NULL default '0' COMMENT '	id	',
   `work_start_date` date default NULL COMMENT '	日期	',
@@ -1014,6 +1059,7 @@ DELETE FROM `t_dog_work`;
 /*!40000 ALTER TABLE `t_dog_work` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_worm 结构
+DROP TABLE IF EXISTS `t_dog_worm`;
 CREATE TABLE IF NOT EXISTS `t_dog_worm` (
   `id` int(11) NOT NULL auto_increment,
   `dog_id` int(11) NOT NULL default '0' COMMENT '警犬ID',
@@ -1063,6 +1109,7 @@ INSERT INTO `t_dog_worm` (`id`, `dog_id`, `nest_no`, `worm_date`, `worm_state`, 
 /*!40000 ALTER TABLE `t_dog_worm` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_police_user 结构
+DROP TABLE IF EXISTS `t_police_user`;
 CREATE TABLE IF NOT EXISTS `t_police_user` (
   `id` int(11) NOT NULL auto_increment COMMENT '	id	',
   `police_id` varchar(64) default NULL COMMENT '	警号	',
@@ -1099,6 +1146,7 @@ INSERT INTO `t_police_user` (`id`, `police_id`, `police_name`, `sex`, `police_ph
 /*!40000 ALTER TABLE `t_police_user` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_priv 结构
+DROP TABLE IF EXISTS `t_priv`;
 CREATE TABLE IF NOT EXISTS `t_priv` (
   `id` int(11) NOT NULL auto_increment COMMENT '	id	',
   `priv_name` varchar(16) default NULL COMMENT '	权限点名称	',
@@ -1114,6 +1162,7 @@ INSERT INTO `t_priv` (`id`, `priv_name`, `priv_code`) VALUES
 /*!40000 ALTER TABLE `t_priv` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_role_priv 结构
+DROP TABLE IF EXISTS `t_role_priv`;
 CREATE TABLE IF NOT EXISTS `t_role_priv` (
   `id` int(11) NOT NULL auto_increment COMMENT '	id	',
   `role_id` int(11) default NULL COMMENT '	角色id	',
@@ -1129,7 +1178,36 @@ INSERT INTO `t_role_priv` (`id`, `role_id`, `role_name`, `priv_id`) VALUES
 	(1, 1, NULL, NULL);
 /*!40000 ALTER TABLE `t_role_priv` ENABLE KEYS */;
 
+-- 导出  表 police_dog.t_train_config 结构
+DROP TABLE IF EXISTS `t_train_config`;
+CREATE TABLE IF NOT EXISTS `t_train_config` (
+  `id` int(11) NOT NULL auto_increment,
+  `train_name` varchar(32) default NULL,
+  `train_desc` varchar(255) default NULL,
+  `train_unit` varchar(128) default NULL,
+  `train_addr` varchar(255) default NULL,
+  `start_date` date default NULL,
+  `end_date` date default NULL,
+  `last_update_date` date default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `train_name` (`train_name`),
+  KEY `train_unit` (`train_unit`),
+  KEY `start_date` (`start_date`),
+  KEY `end_date` (`end_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  police_dog.t_train_config 的数据：~3 rows (大约)
+DELETE FROM `t_train_config`;
+/*!40000 ALTER TABLE `t_train_config` DISABLE KEYS */;
+INSERT INTO `t_train_config` (`id`, `train_name`, `train_desc`, `train_unit`, `train_addr`, `start_date`, `end_date`, `last_update_date`) VALUES
+	(1, '幼犬体能考核', '考核发育情况、体能、胆量等', '北京xxx基地', '北京市xxx，xxx', '2017-08-27', '2017-09-03', '2017-08-03'),
+	(5, '搜索培训', '搜索培训', '第3培训基地', 'xxx培训基地地址', '2017-09-07', '2017-09-10', '2017-09-03'),
+	(6, '体力培训', '体力培训', '第2培训基地', '第2培训基地的地址', '2017-09-08', '2017-09-18', '2017-09-03'),
+	(7, '服从性训练', '服从性训练，服从性训练，服从性训练服从性训练服从性训练，服从性训练，服从性训练', 'xxx支队', '北京昌平', '2017-10-17', '2017-11-01', '2017-09-03');
+/*!40000 ALTER TABLE `t_train_config` ENABLE KEYS */;
+
 -- 导出  表 police_dog.t_user_rule 结构
+DROP TABLE IF EXISTS `t_user_rule`;
 CREATE TABLE IF NOT EXISTS `t_user_rule` (
   `id` int(11) NOT NULL auto_increment COMMENT '	id	',
   `police_id` int(11) default NULL COMMENT '	日期	',
@@ -1147,6 +1225,7 @@ INSERT INTO `t_user_rule` (`id`, `police_id`, `rule_id`, `rule_name`) VALUES
 /*!40000 ALTER TABLE `t_user_rule` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_worm_immue_cfg 结构
+DROP TABLE IF EXISTS `t_worm_immue_cfg`;
 CREATE TABLE IF NOT EXISTS `t_worm_immue_cfg` (
   `id` int(11) NOT NULL auto_increment,
   `period_type` int(11) NOT NULL default '1' COMMENT '1：除虫，2：免疫',
