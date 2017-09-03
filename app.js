@@ -18,22 +18,10 @@ define([
 	if(!webix.env.touch && webix.ui.scrollSize && webix.CustomScroll)
 		webix.CustomScroll.init();
 
-
-	if (webix.production)
-		tracker.init({
-			accessToken: '650b007d5d794bb68d056584451a57a8',
-			captureUncaught: true,
-			source_map_enabled: true,
-			code_version:"0.8.0",
-			payload: {
-				environment: 'production'
-			}
-		});
-
 	//configuration
 	var app = core.create({
-		id:			"admin-demo",
-		name:		"Webix Admin",
+		id:			"app-police_dog",
+		name:		"北京市公安局警犬技术工作管理与实战应用系统",
 		version:	"0.1",
 		debug:		true,
 		start:		"/app/dashboard"		

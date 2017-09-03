@@ -45,7 +45,13 @@ define(function(){
                             // { id: "adult.apply", value: "申请调配", icon: "random", $css: "products", details:""},
                             { id: "adult.profession", value: "专业技能", icon: "list-alt", $css: "products", details:""},
                             { id: "adult.work", value: "技术使用", icon: "flag-o", $css: "products", details:""},
-                            { id: "adult.train", value: "培训训练", icon: "dribbble", $css: "products", details:""},
+                            // { id: "train.train1", value: "培训考核", icon: "dribbble", $css: "products", details:""},
+                        ]},
+
+                        {id: "train", open: true, value:"培训/考核", data:[
+                            { id: "train.publish", value: "培训/考核管理", icon: "pencil", $css: "products", details:""},
+                            { id: "train.train", value: "报名管理", icon: "dribbble", $css: "products", details:""},
+                            { id: "train.signMgmt", value: "成绩管理", icon: "list", $css: "products", details:""},
                         ]},
 
                         {id: "news", open: true, value:"宣传模块", data:[

@@ -4,15 +4,13 @@ return {
 	$ui:{
 		view: "submenu",
 		id: "profilePopup",
-		width: 200,
+		width: 150,
 		padding:0,
 		data: [
-			{id: 1, icon: "user", value: "My Profile"},
-			{id: 2, icon: "cog", value: "My Account"},
-			{id: 3, icon: "calendar", value: "My Calendar"},
-			{id: 5, icon: "tasks", value: "My Tasks"},
+			{id: 1, icon: "user", value: "个人信息"},
+			{id: 2, icon: "cog", value: "修改密码"},
 			{ $template:"Separator" },
-			{id: 4, icon: "sign-out", value: "Logout"}
+			{id: 4, icon: "sign-out", value: "退出系统"}
 		],
 		type:{
 			template: function(obj){
