@@ -67,6 +67,110 @@ define([
         tickout.doDied(data, datatable);
     };
 
+    var signTrain = function () {
+        var datatable = $$(datatableId);
+        var data = datatable.getCheckedData();
+        if(data.length == 0){
+            msgBox("请至少选择一条数据");
+            return ;
+        }
+        var tabid = webix.uid().toString();
+
+        var submitSign = function () {
+            var tab = $$(tabid);
+            var data = tab.getCheckedData();
+            console.log(data);
+        };
+
+        var win = {};
+
+
+        win = getWin('报名培训、复训、考核', {
+            rows: [
+                {
+                    height: 200,
+                    id: tabid,
+                    view: "datatable",
+                    select: true,
+                    columns: [
+                        {
+                            id: "$check",
+                            header: '',
+                            checkValue: 'on',
+                            uncheckValue: 'off',
+                            template: "{common.radio()}",
+                            width: 40
+                        },
+                        {id: "$index", header: "NO.", width: 45},
+                        {id: "trainName", header: "培训名称", width: 120},
+                        {id: "startDate", header: "开始日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+                        {id: "endDate", header: "结束日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+                        {id: "trainDesc", header: "培训内容", width: 200},
+                        {id: "trainUnit", header: "培训单位", width: 200},
+                        {id: "trainAddr", header: "培训地点", minWidth: 400, fillspace: true}
+                    ],
+                    on: {
+                        onBeforeLoad: function () {
+                            this.showOverlay("Loading...");
+                        },
+                        onAfterLoad: function () {
+                            this.hideOverlay();
+                        }
+                    },
+                    onClick: {
+                        edit: function (a, b, c) {
+                            console.log([a, b, c]);
+                        },
+                        webix_icon: function (e, id) {
+                            webix.confirm({
+                                text: "Are you sure sdfds", ok: "Yes", cancel: "Cancel",
+                                callback: function (res) {
+                                    if (res) {
+                                        webix.$$("orderData").remove(id);
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    tooltip:true,
+                    minHeight: 80,
+                    datafetch: 20,//default
+                    customUrl: {
+                        url: webix.proxy('customProxy','/policeDog/services/train/setting/getList/{pageSize}/{curPage}'),
+                        httpMethod: 'post',
+                        datatype: 'customJson',
+                        params: {
+                            startDateStr: webix.Date.dateToStr("%Y-%m-%d")(new Date())
+                        }
+                    },
+                    pager: "pagerB"
+                },
+                {
+                    view: "pager",
+                    id: "pagerB",
+                    size: 5,
+                    group: 5,
+                    template: "{common.first()}{common.prev()}{common.pages()}{common.next()}{common.last()}<div style='float: right'>总共#count#条</div>"
+                },
+                {
+                    cols: [{
+                        template: '提醒：请从上方列表中选择一个培训/复训/考核项目，提交后即刻生效，可以在“报名管理”中查看',
+                        borderless: true,
+                    },
+                    {
+                        view: "button", label: "关闭", css: 'non-essential', width: 65, click: function () {
+                        win.close();
+                    }
+                    },
+                    {width: DEFAULT_PADDING / 2},
+                    {view: "button", label: "提交", width: 65, click: submitSign}
+                    ]
+                },{height: 5}
+            ]
+        }, {width: 800});
+        win.show();
+    };
+
     var searchForm = {
         type: "clean",
         rows: [
@@ -134,9 +238,7 @@ define([
                 cols: [
                     {view: "button", label: "调配", width: 45},
                     {view: "button", label: "退回", width: 45},
-                    {view: "button", label: "培训报名", width: 70},
-                    {view: "button", label: "复训报名", width: 70},
-                    {view: "button", label: "考核报名", width: 70},
+                    {view: "button", label: "培训报名", width: 70, click: signTrain},
                     {view: "button", label: "技术使用", width: 80},
                     {view: "button", label: "淘汰申请", width: 80, click: tickOut},
                     {view: "button", label: "死亡申请", width: 80, click: died},
