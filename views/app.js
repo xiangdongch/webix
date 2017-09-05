@@ -66,6 +66,13 @@ define([
         $ui: layout,
         $menu: "app:menu",
         $oninit: function (view, scope) {
+            if(window.location.href.indexOf("dashboard") != -1){
+                $$('title').hide();
+                $$('left_menu').hide();
+            }else{
+                $$('title').show();
+                $$('left_menu').show();
+            }
             scope.ui(search.$ui);
             scope.ui(message.$ui);
             scope.ui(profile.$ui);

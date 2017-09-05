@@ -15,14 +15,6 @@ define([
 			{
 				type: "space",
 				rows:[
-					// {
-					// 	height: 220,
-					// 	type: "wide",
-					// 	cols: [
-					// 		visitors,
-					// 		orders
-					// 	]
-					// },
 					{
 						type: "wide",
 						cols: [
@@ -44,13 +36,17 @@ define([
 		]
 	};
 
-	return { $ui: {
-		rows: [{},{
-			cols: [{},{
-				template: '<div align="center">模块正在构建中</div>',
-				borderless: true
+	return {
+		$ui: {
+			rows: [{},{
+				cols: [{},{
+					template: '<div align="center">模块正在构建中</div>',
+					borderless: true
+				},{}]
 			},{}]
-		},{}]
-	} };
+		},
+        $oninit: function (view, scope) {
+        }
+	};
 
 });

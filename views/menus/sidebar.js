@@ -3,7 +3,7 @@ define(function(){
 	return {
 		$ui:{
 			width: 200,
-
+			id: 'left_menu',
 			rows:[
 				{
 					view: "tree",
@@ -57,20 +57,7 @@ define(function(){
                         {id: "news", open: true, value:"宣传模块", data:[
                             { id: "news.publish", value: "动态发布", icon: "pencil", $css: "products", details:""},
                             { id: "news.management", value: "动态管理", icon: "list", $css: "products", details:""},
-						]},
-
-                        /*{id: "components", open: true, value:"Components", data:[
-                            { id: "datatables", value: "Datatables", icon: "table", details: "datatable examples" },
-                            { id: "charts", value: "Charts", icon: "bar-chart-o", details: "charts examples"},
-                            { id: "forms", value: "Forms", icon: "list-alt", details: "forms examples"},
-							{ id: "product_edit", value: "Product Edit", icon: "pencil-square-o", details: "changing product data"}
-                        ]},
-
-						{id: "uis", value:"UI Examples", open:1, data:[
-							{ id: "calendar", value: "My Calendar", icon: "calendar", details: "calendar example" },
-							{ id: "files", value: "File Manager", icon: "folder-open-o", details: "file manager example" }
-
-						]}*/
+						]}
 					]
 				}
 			]
