@@ -38,15 +38,36 @@ define([
 
 	return {
 		$ui: {
-			rows: [{},{
-				cols: [{},{
-					template: '<div align="center">模块正在构建中</div>',
-					borderless: true
-				},{}]
-			},{}]
+            css: 'dashboard',
+            id: 'dashboard',
+			rows: [{
+                css: 'load_page_border',
+				id: 'loading_logo',
+                rows: [
+					{},
+					{
+						borderless: true,
+						template: '<div align="center" style=""><img src="assets/imgs/loading.gif" height="55px" width="55px"></div>'
+					},
+					{}
+				]
+            },{
+            	height: 1,
+                view:"iframe", id:"frame-body", src:"views/portal.html", on: {
+                    onAfterLoad: function(){
+                    	$$('frame-body').define('height', null);
+                    	$$('loading_logo').hide();
+					}
+				}
+				// template: '<div style="background: red">ssss</div>'
+			}]
 		},
         $oninit: function (view, scope) {
+			// var dom = $$('dashboard').getNode();
+			// dom.style.background = 'red';
+            // console.log(dom);
         }
+
 	};
 
 });

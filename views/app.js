@@ -43,8 +43,9 @@ define([
                 data: {text: "", title: ""}
             },
             {
-                view: "scrollview", scroll: "native-y",
-                body: {cols: [{$subview: true}]}
+                $subview: true
+                // view: "scrollview",
+                // body: {cols: [{}]}
             }
         ]
     };
@@ -55,7 +56,7 @@ define([
             {
                 cols: [
                     menu,
-                    {view: 'resizer'},
+                    {view: 'resizer', id: 'resizer'},
                     body
                 ]
             }
@@ -69,9 +70,11 @@ define([
             if(window.location.href.indexOf("dashboard") != -1){
                 $$('title').hide();
                 $$('left_menu').hide();
+                $$('resizer').hide();
             }else{
                 $$('title').show();
                 $$('left_menu').show();
+                $$('resizer').show();
             }
             scope.ui(search.$ui);
             scope.ui(message.$ui);
