@@ -1,17 +1,18 @@
 .webix_view {
   font-family: Tahoma;
   font-size: 12px;
-  color: #1a1a1a;
+  color: #fff;
   -webkit-font-smoothing: antialiased;
   cursor: default;
   overflow: hidden;
-  border: 0px solid #D6D6D6;
-  background-color: #ffffff;
+  border: 0px solid rgb(11, 68, 109);
+  /*background-color: #ffffff;*/
   white-space: normal;
   -webkit-appearance: none;
 }
 .webix_view.webix_form {
-  background-color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.25);
+
   /*.webix_view{
 		background-color: @backColor;
 	}*/
@@ -31,7 +32,7 @@ body {
   position: absolute;
 }
 .webix_layout_space {
-  background-color: #ffffff;
+  background-color: transparent;
 }
 .webix_layout_wide {
   background-color: #ffffff;
@@ -268,7 +269,7 @@ button,
 .webix_resizer_x {
   cursor: e-resize;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAXAQMAAAD0oWdxAAAABlBMVEUAAACkvtSA7tmIAAAAAXRSTlMAQObYZgAAAA5JREFUeF5jWMDAQDwGAKyuB4FpGQdzAAAAAElFTkSuQmCC) no-repeat center center;
-  background-color: #ffffff;
+  background-color: rgb(11, 67, 110);
 }
 .webix_accordionitem_body {
   position: relative;
@@ -1299,7 +1300,7 @@ div.webix_modal_cover {
 }
 /*alter styles for even and odd rows*/
 .webix_column > div:nth-child(even) {
-  background-color: #f7f7f7;
+  background-color: rgba(0, 0, 0, 0.28);
 }
 /*header selection in column mode*/
 .webix_sel_hcell,
@@ -1366,8 +1367,8 @@ div.webix_modal_cover {
 .webix_column > div.webix_cell_select,
 .webix_column > div.webix_column_select,
 .webix_column > div.webix_row_select {
-  color: #1a1a1a;
-  background: #e7f3fb;
+  color: #fff;
+  background: #073750;
 }
 /*extra borders, for selection in cell mode*/
 .webix_column > div.webix_cell_select {
@@ -2446,7 +2447,7 @@ input.webixtype_next {
 .webix_inp_label,
 .webix_inp_top_label,
 .webix_label_right {
-  color: #1a1a1a;
+  color: #fff;
   text-transform: none;
   font-size: 12px;
 }
@@ -6146,8 +6147,8 @@ label.webix_required:after {
   background: #f8e2e2;
 }
 /*[L]*//*[L]*/.webix_toolbar {
-  color: #1a1a1a;
-  background: #004471 !important;
+  color: #fff;
+  background: #1476BE !important;
 }
 .webix_toolbar .webix_inp_label,
 .webix_toolbar .webix_el_label {
