@@ -8,7 +8,8 @@ define([
             // type: "wide",
             rows: [
                 relativeCheck,
-                reproduce
+                reproduce,
+                {}
             ]
         }
     };

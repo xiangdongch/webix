@@ -63,19 +63,22 @@ define([
         ]
     };
 
+    window.onhashchange = function() {
+        if(window.location.href.indexOf("dashboard") != -1){
+            $$('title').hide();
+            $$('left_menu').hide();
+            $$('resizer').hide();
+        }else{
+            $$('title').show();
+            $$('left_menu').show();
+            $$('resizer').show();
+        }
+    };
+
     return {
         $ui: layout,
         $menu: "app:menu",
         $oninit: function (view, scope) {
-            if(window.location.href.indexOf("dashboard") != -1){
-                $$('title').hide();
-                $$('left_menu').hide();
-                $$('resizer').hide();
-            }else{
-                $$('title').show();
-                $$('left_menu').show();
-                $$('resizer').show();
-            }
             scope.ui(search.$ui);
             scope.ui(message.$ui);
             scope.ui(profile.$ui);
