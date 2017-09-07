@@ -79,7 +79,7 @@ define([],function() {
                             height: 40,
                             template: '<div style="font-weight: bold; font-size: 14px;color: #color#">校验结果：#message#</div>',
                             data: {
-                                color: data.message ? 'red' : 'green',
+                                color: data.message ? 'yellow' : '#fff',
                                 message: data.message || '验证通过，双方亲属无交叉关系'
                             }
                         }

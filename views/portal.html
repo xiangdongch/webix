@@ -4,28 +4,65 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="../echarts/echarts.js"></script>
+    <script src="../echarts/theme.js"></script>
+    <script src="../echarts/map/map-all.js"></script>
+    <script src="../echarts/jquery-1.9.1.min.js"></script>
     <style>
         .contain {
             color: #fff;
             margin-right: 2px;
         }
+        tr, td {
+            border: 1px solid red;
+        }
+        .def_bk {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
     </style>
 </head>
 <body>
 <div class="contain">
-    fduwhfetw4t464dgt34<br>
-    fduwhfetw4t464dgt34<br>
-    fduwhfetw4t464dgt34<br>
-    fduwhfetw4t464dgt34<br>
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <table width="100%">
+        <tr>
+            <td id="col1" style="width: 100px" class="def_bk">
+                <div id="main" style="height:400px;"></div>
+            </td>
+            <td style="width: 16px"></td>
+            <td valign="top" class="def_bk">
+                <div>
+                    <div style="padding: 8px;">
+                        <div style="font-weight: bold;">朝阳区：</div>
+                        <div style="margin: 16px 0 0 16px; line-height: 25px">
+                            <div style="">警犬数量：183</div>
+                            <div style="">带犬民警：121</div>
+                            <div style="">&nbsp;&nbsp;比例：1:12</div>
+                            <div style="">月工作量：10282</div>
+                        </div>
+                        <div id="chart_1" style="height: 400px;"> </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
 </div>
 
+<script>
+    (function(){
+
+        var w = $(window).width();
+        var left = (w - 16)/2;
+        $('#col1').css('width', left + 'px');
+        console.log(w);
+    })();
+
+</script>
 
 </body>
 
 <script type="text/javascript">
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
+    var myChartA = echarts.init(document.getElementById('chart_1'), 'vintage');
 
     // 指定图表的配置项和数据
     var option = {
@@ -46,8 +83,75 @@
             data: [5, 20, 36, 10, 10, 20]
         }]
     };
-
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+    myChartA.setOption(option);
+
+    function randomData() {
+        return Math.round(Math.random()*1000);
+    }
+
+    var myChart = echarts.init(document.getElementById('main'), 'vintage');
+    myChart.setOption(option = {
+//        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        visualMap: {
+            left: -10000,
+            type: 'piecewise',
+            pieces: [
+                {min: 1500},
+                {min: 900, max: 1500, color: 'red'},
+                {min: 310, max: 1000},
+                {min: 200, max: 300},
+                {min: 10, max: 200, label: '10 到 200（自定义label）'},
+                {value: 123, label: '123（自定义特殊颜色）', color: 'grey'},
+                {min: 5, max: 5, label: '5（自定义特殊颜色）', color: 'black'},
+                {max: 5}
+            ],
+            color: ['#E0022B', '#E09107', '#A3E00B']
+        },
+        series: [
+            {
+                type: 'map',
+                mapType: '北京',
+                label: {
+                    emphasis: {
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }
+                },
+                data: [
+                    {name: '密云区',value: 1200},
+                    {name: '怀柔区',value: randomData()},
+                    {name: '延庆区',value: randomData()},
+                    {name: '昌平区',value: randomData()},
+                    {name: '顺义区',value: randomData()},
+                    {name: '平谷区',value: randomData()},
+                    {name: '门头沟区',value: randomData()},
+                    {name: '海淀区',value: randomData()},
+                    {name: '朝阳区',value: randomData()},
+                    {name: '东城区',value: randomData()},
+                    {name: '西城区',value: randomData()},
+                    {name: '石景山区',value: randomData()},
+                    {name: '通州区',value: randomData()},
+                    {name: '丰台区',value: randomData()},
+                    {name: '房山区',value: randomData()},
+                    {name: '大兴区',value: randomData()},
+                ],
+                itemStyle: {
+                    normal: {
+                        borderColor: '#389BB7',
+                        areaColor: '#fff',
+                    },
+                    emphasis: {
+                        areaColor: '#389BB7',
+                        borderWidth: 0
+                    }
+                },
+                animation: false
+                // animationDurationUpdate: 1000,
+                // animationEasingUpdate: 'quinticInOut'
+            }
+        ]
+    });
 </script>
 </html>

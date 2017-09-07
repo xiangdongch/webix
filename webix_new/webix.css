@@ -1503,7 +1503,7 @@ div.webix_modal_cover {
 .webix_win_body,
 .webix_win_body > .webix_view {
   border-radius: 0px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(1, 166, 212);
 }
 .webix_win_body > .webix_view .webix_cal_month {
   border-radius: 0px;

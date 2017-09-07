@@ -11,6 +11,7 @@ define([
     var mainToolbar = {
         view: "toolbar",
 
+        css: 'load_page_border',
         elements: [
             {view: "label", label: "<img class='photo' src='assets/imgs/logo.png' height='45'/>", width: 60},
             {template: '北京市公安局警犬技术工作管理与实战应用系统', css: "header_title"},
@@ -82,6 +83,7 @@ define([
             scope.ui(search.$ui);
             scope.ui(message.$ui);
             scope.ui(profile.$ui);
+            window.onhashchange();
         }
     };
 
