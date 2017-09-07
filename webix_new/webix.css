@@ -475,13 +475,14 @@ button,
   cursor: pointer;
   border-bottom: 1px solid #d5d9db;
   text-align: left;
+  color: #05243C;
 }
 .webix_list_item.webix_invalid {
   background-color: #ffeeee;
 }
 .webix_list_item.webix_selected {
-  color: #1a1a1a;
-  background: #e7f3fb;
+  color: #FFFFE6;
+  background: #0F3A59;
 }
 .webix_list .webix_list_item.webix_selected {
   border-bottom: 1px solid #d1e8f7;
@@ -585,22 +586,24 @@ button,
   text-align: center;
   height: 24px;
   width: 32px;
-  border: 1px solid #2C9EE5;
+  border: 1px solid rgb(9, 79, 113);
   margin: 0 2px;
   cursor: pointer;
-  background-color: white;
+  background-color: rgb(9, 79, 113);
   /*background-color: transparent;*/
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-family: Tahoma;
   font-size: 12px;
+  color: #fff;
 }
 /*selected  button of pager*/
 .webix_pager_item_selected {
   cursor: default;
-  background-color: #e7f3fb;
-  border: 1px solid #d1e8f7;
+  background-color: #05243C;
+  border: 1px solid #05243C;
+  color: #fff;
 }
 .webix_animation .webix_ss_header {
   position: relative;
@@ -1241,7 +1244,8 @@ div.webix_modal_cover {
   font-family: Tahoma;
   font-size: 12px;
   color: #1a1a1a;
-  background: #d8eaf6;
+  background: rgba(0, 0, 0, 0.30);
+  color: #fff;
   font-weight:bold;
 }
 .webix_ss_header .webix_arrow_icon,
@@ -1261,8 +1265,8 @@ div.webix_modal_cover {
 }
 /*borders in header and footer*/
 .webix_ss_header td {
-  border-right: 1px solid #D5D9DB;
-  border-bottom: 1px solid #D5D9DB;
+  border-right: 1px solid rgba(213, 217, 219, 0.56);
+  border-bottom: 1px solid rgba(213, 217, 219, 0.7);
 }
 .webix_ss_footer td {
   border-right: 1px solid #d5d9db;
@@ -1291,9 +1295,10 @@ div.webix_modal_cover {
 /*normal data cell of the table*/
 .webix_column > div,
 .webix_table_cell {
-  border-right: 1px solid #d5d9db;
-  border-bottom: 1px solid #d5d9db;
+  border-right: 1px solid rgba(221, 221, 221, 0.5);
+  border-bottom: 1px solid rgba(221, 221, 221, 0.5);
   padding: 0 10px;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .webix_column {
   text-align: left;
@@ -1498,6 +1503,7 @@ div.webix_modal_cover {
 .webix_win_body,
 .webix_win_body > .webix_view {
   border-radius: 0px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 .webix_win_body > .webix_view .webix_cal_month {
   border-radius: 0px;
@@ -1752,6 +1758,7 @@ div.webix_modal_cover {
   padding-top: 17px;
   padding-bottom: 5px;
   box-sizing: content-box;
+  color: #000;
 }
 .webix_cal_prev_button,
 .webix_cal_next_button {
@@ -1804,8 +1811,8 @@ div.webix_modal_cover {
 .webix_cal_body .webix_selected,
 .webix_cal_body .webix_cal_select,
 .webix_cal_body .webix_cal_select.webix_cal_today {
-  color: #1a1a1a;
-  background: #e7f3fb;
+  color: #fff;
+  background: rgba(15, 63, 95, 0.85);
 }
 .webix_cal_day,
 .webix_cal_week_num {
@@ -2149,7 +2156,7 @@ div.webix_modal_cover {
 .webix_el_toggle button,
 .webixbutton {
   border-radius: 0px;
-  border: 1px solid #2C9EE5;
+  border: 1px solid #05243C;
   height: 100%;
   width: 100%;
   cursor: pointer;
@@ -2179,7 +2186,7 @@ div.webix_modal_cover {
 .webixtype_prev,
 .webixtype_next,
 .webixbutton {
-  background: #2c9ee5;
+  background: #05243C;
   color: #fff;
   font-size: 12px;
   font-family: Tahoma;
@@ -2188,7 +2195,7 @@ div.webix_modal_cover {
 }
 .webixtype_form {
   color: #fff;
-  background: #2C9EE5;
+  background: #05243C;
 }
 .webixtype_form:active {
   background: #cce3f3 !important;
@@ -2705,7 +2712,7 @@ body:not(:-moz-handler-blocked) .webix_el_select select {
 .webix_el_search .webix_input_icon {
   padding-left: 5px;
   width: 21px;
-  color: #2C9EE5;
+  color: #041D30;
 }
 /*Remove button padding in FF*/
 .webix_view button::-moz-focus-inner {

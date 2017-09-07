@@ -30,7 +30,7 @@ define(function(){
 						}
 					},
 					data:[
-                        { id: "dashboard", value: "首页", icon: "", details: "" },
+                        { id: "dashboard", value: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首页", icon: "", details: "" },
 						{id: "main", value: "繁育模块", open: true, data:[
 							{ id: "breed.index", value: "警犬繁殖", icon: 'venus-mars', $css: "dashboard", details:""},
 							{ id: "youngDog.index", value: "幼犬管理", icon: "github-alt", $css: "orders", details:""}
