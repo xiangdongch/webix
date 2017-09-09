@@ -21,16 +21,18 @@
     }
     echarts.registerTheme('vintage', {
         "color": [
-            "#d87c7c",
-            "#ffffff",
-            "#a282d7",
             "#00e35b",
-            "#61a0a8",
+            "#00FEFE",
+            "#FFA500",
+            "#ffec1d",
+            "#c5add7",
             "#efa18d",
-            "#787464",
-            "#cc7e63",
-            "#724e58",
-            "#4b565b"
+            "#ffffff",
+            "#ccca80",
+            "#dcbf27",
+            "#e54300",
+            "#a2e500",
+            "#90e562",
         ],
         "backgroundColor": "rgba(254,248,239,0)",
         "textStyle": {},

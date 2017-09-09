@@ -13,10 +13,13 @@
             margin-right: 2px;
         }
         tr, td {
-            border: 1px solid red;
+            /*border: 1px solid red;*/
         }
         .def_bk {
             background-color: rgba(0, 0, 0, 0.25);
+        }
+        .title{
+            font-weight: bold; margin: 8px 0 0 8px
         }
     </style>
 </head>
@@ -24,34 +27,95 @@
 <div class="contain">
     <table width="100%">
         <tr>
-            <td id="col1" style="width: 100px" class="def_bk">
-                <div id="main" style="height:400px;"></div>
+            <td id="col1" class="def_bk">
+                <div style="font-weight: bold; margin: -2px 0 0 8px; ">北京市各区警犬数量分布</div>
+                <div id="main" style="height:550px;"></div>
             </td>
             <td style="width: 16px"></td>
             <td valign="top" class="def_bk">
                 <div>
                     <div style="padding: 8px;">
-                        <div style="font-weight: bold;">朝阳区：</div>
+                        <div style="font-weight: bold;margin-top:8px" id="area_name">朝阳区</div>
                         <div style="margin: 16px 0 0 16px; line-height: 25px">
-                            <div style="">警犬数量：183</div>
-                            <div style="">带犬民警：121</div>
-                            <div style="">&nbsp;&nbsp;比例：1:12</div>
-                            <div style="">月工作量：10282</div>
+                            <table>
+                                <tr>
+                                    <td style="width: 73%"><div style="">带犬民警：<span id="policeman_num">124</span></div></td>
+                                    <td><div style="">人犬比例：<span id="police_dog_c">124</span></div></td>
+                                </tr>
+                                <tr>
+                                    <td><div style="">警犬数量：<span id="dog_num">124</span></div></td>
+                                    <td><div style="">上月工作量：10282</div></td>
+                                </tr>
+                            </table>
                         </div>
-                        <div id="chart_1" style="height: 400px;"> </div>
+                        <div style="font-weight: bold;margin-top: 20px;">
+                            2017年警犬每月工作量
+                        </div>
+                        <div id="chart_1" style="height: 450px;"> </div>
                     </div>
                 </div>
             </td>
         </tr>
     </table>
+    <div style="height: 16px;"></div>
+    <table width="100%">
+        <tr style="height: 240px">
+            <td style="width: 33%;" class="def_bk">
+                <div class="title">警犬数量</div>
+                <div id="dog_bar" style="height: 220px"></div>
+            </td>
+            <td style="width: 16px;"></td>
+            <td style="width: 32%;" class="def_bk">
+                <div class="title">带犬民警</div>
+                <div id="policeman_bar" style="height: 220px"></div>
+            </td>
+            <td style="width: 16px;"></td>
+            <td style="width: 33%;" class="def_bk">
+                <div class="title">工作量统计</div>
+                <div id="work_bar" style="height: 220px"></div>
+            </td>
+        </tr>
+    </table>
 
+    <div style="height: 16px;"></div>
+    <table width="100%">
+        <tr style="height: 400px">
+            <td style="width: 49.5%;" class="def_bk">
+                <div class="title">警犬品种</div>
+                <div id="dog_bread_pie" style="height: 380px"></div>
+            </td>
+            <td style="width: 16px;"></td>
+            <td style="width: 49.5%;" class="def_bk">
+                <div class="title">警犬年龄</div>
+                <div id="dog_age_pie" style="height: 380px"></div>
+            </td>
+        </tr>
+    </table>
+    <div style="height: 16px"></div>
+    <div style="height: 340px;" class="def_bk">
+        <div class="title">人犬比例</div>
+        <div id="policeman_and_dog" style="height: 320px;"></div>
+    </div>
+    <div style="height: 16px"></div>
+    <table>
+        <tr>
+            <td style="width: 80%;" class="def_bk">
+                <div class="title">日常工作</div>
+                <div id="dialy_work" style="height: 320px;"></div>
+            </td>
+            <td style="width: 16px"></td>
+            <td style="width: 19%" class="def_bk">
+                <div class="title">数据统计</div>
+                <div id="work_total" style="height: 320px;"></div>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <script>
     (function(){
-
         var w = $(window).width();
-        var left = (w - 16)/2;
+        var left = (w - 16)/5 * 2;
         $('#col1').css('width', left + 'px');
         console.log(w);
     })();
@@ -66,22 +130,112 @@
 
     // 指定图表的配置项和数据
     var option = {
-        title: {
-            text: 'ECharts 入门示例'
-        },
         tooltip: {},
-        legend: {
-            data:['销量']
+
+        barWidth: 40,
+        grid: {
+            left: 40,
+            right: 20,
+            bottom: 40
         },
         xAxis: {
-            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            splitLine: {
+                show: false
+            },
+            axisLine : {
+                lineStyle: {
+                    color: '#fff',
+                    width: 1,
+
+                    type: 'solid'
+                }
+            },
+            data: ["安检","侦查","巡逻","其他"]
         },
-        yAxis: {},
+        yAxis: {
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.6)',
+                    type: 'dashed'
+                }
+            },
+        },
         series: [{
             name: '销量',
             type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
+            data: [5, 20, 36, 10]
         }]
+    };
+
+    option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: 40,
+            right: 20,
+            bottom: 40
+        },
+        legend: {
+            data:['安检','侦查','巡逻', '其他']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                axisLabel: {
+//                    rotate: 60
+                },
+                data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '工作量',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                min: 0,
+                max: 1500
+            }
+        ],
+        series: [
+            {
+                name:'安检',
+                type:'bar',
+                data: [426, 300, 674, 985, 777, 355, 140, 143, 20, 0, 0, 0]
+            },
+            {
+                name:'侦查',
+                type:'bar',
+                data:[398, 409, 471, 318, 472, 275, 152, 99, 10, 0, 0, 0]
+            },
+            {
+                name:'巡逻',
+                type:'bar',
+                data:[967, 678, 323, 623, 978, 305, 344, 975, 23, 0, 0, 0]
+            },
+            {
+                name:'其他',
+                type:'bar',
+                data:[846, 118, 159, 941, 952, 897, 731, 131, 12, 0, 0, 0]
+            }
+        ]
     };
     // 使用刚指定的配置项和数据显示图表。
     myChartA.setOption(option);
@@ -90,60 +244,91 @@
         return Math.round(Math.random()*1000);
     }
 
+    //======================================
+    var data = {
+        密云区: {policeman: 634, dog: 16},
+        怀柔区: {policeman: 542, dog: 14},
+        延庆区: {policeman: 475, dog: 12},
+        昌平区: {policeman: 536, dog: 16},
+        顺义区: {policeman: 465, dog: 10},
+        平谷区: {policeman: 480, dog: 9},
+        门头沟区: {policeman: 542, dog: 11},
+        海淀区: {policeman: 876, dog: 19},
+        朝阳区: {policeman: 986, dog: 21},
+        东城区: {policeman: 765, dog: 17},
+        西城区: {policeman: 796, dog: 18},
+        石景山区: {policeman: 658, dog: 15},
+        通州区: {policeman: 508, dog: 12},
+        丰台区: {policeman: 604, dog: 12},
+        房山区: {policeman: 548, dog: 18},
+        大兴区: {policeman: 765, dog: 19}
+    };
+
+    var map_data = [];
+    for(var n in data){
+        var info = data[n];
+
+        map_data.push({name: n, value: parseInt(info.policeman/info.dog), policeman: info.policeman, dog: info.dog});
+    }
     var myChart = echarts.init(document.getElementById('main'), 'vintage');
     myChart.setOption(option = {
 //        backgroundColor: 'rgba(0, 0, 0, 0.25)',
+//        visualMap: {
+//            left: -10000,
+//            type: 'piecewise',
+//            pieces: [
+//                {min: 0, max: 40, color: '#00fefe'},
+//                {min: 41, max: 60, color: '#FEFE01'},
+//                {min: 61, max: 1000, color: '#E71F1C'}
+//            ],
+//            color: ['#E0022B', '#E09107', '#A3E00B']
+//        },
         visualMap: {
-            left: -10000,
-            type: 'piecewise',
-            pieces: [
-                {min: 1500},
-                {min: 900, max: 1500, color: 'red'},
-                {min: 310, max: 1000},
-                {min: 200, max: 300},
-                {min: 10, max: 200, label: '10 到 200（自定义label）'},
-                {value: 123, label: '123（自定义特殊颜色）', color: 'grey'},
-                {min: 5, max: 5, label: '5（自定义特殊颜色）', color: 'black'},
-                {max: 5}
-            ],
-            color: ['#E0022B', '#E09107', '#A3E00B']
+            min: 0,
+            max: 100,
+            left: -1000,
+            inRange: {
+                color: ['#006edd', '#e0ffff']
+            },
+            calculable : true
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: function(params){
+                var d = params.data;
+                return '<div style="font-weight: bold;">' + d.name + '</div>带犬民警：' + d.policeman + '<br>警犬数量：' + d.dog + '<br>人员比例：' + d.value + ':1';
+            }
+        },
+        grid:{
+            x: 80,
+            width:'90%',
+            borderWidth: 0
         },
         series: [
             {
                 type: 'map',
                 mapType: '北京',
+                mapLocation:{
+                    x:'center',
+                    y: 'center',
+                    height: 500
+                },
                 label: {
                     emphasis: {
+                        position: ['50%', '50%'],
                         textStyle: {
-                            color: '#fff'
+                            color: 'rgba(0, 0, 0, 0)'
                         }
                     }
                 },
-                data: [
-                    {name: '密云区',value: 1200},
-                    {name: '怀柔区',value: randomData()},
-                    {name: '延庆区',value: randomData()},
-                    {name: '昌平区',value: randomData()},
-                    {name: '顺义区',value: randomData()},
-                    {name: '平谷区',value: randomData()},
-                    {name: '门头沟区',value: randomData()},
-                    {name: '海淀区',value: randomData()},
-                    {name: '朝阳区',value: randomData()},
-                    {name: '东城区',value: randomData()},
-                    {name: '西城区',value: randomData()},
-                    {name: '石景山区',value: randomData()},
-                    {name: '通州区',value: randomData()},
-                    {name: '丰台区',value: randomData()},
-                    {name: '房山区',value: randomData()},
-                    {name: '大兴区',value: randomData()},
-                ],
+                data: map_data,
                 itemStyle: {
                     normal: {
-                        borderColor: '#389BB7',
+                        borderColor: '#fff',
                         areaColor: '#fff',
                     },
                     emphasis: {
-                        areaColor: '#389BB7',
+                        areaColor: 'rgba(0, 0, 0, 0.5)',
                         borderWidth: 0
                     }
                 },
@@ -152,6 +337,369 @@
                 // animationEasingUpdate: 'quinticInOut'
             }
         ]
+    });
+    myChart.on('click', function (params) {
+        var city = params.name;
+        console.log(params);
+        var item = data[city];
+        $('#area_name').text(city);
+        $('#policeman_num').text(item.policeman);
+        $('#dog_num').text(item.dog);
+        $('#police_dog_c').text(parseInt(item.policeman/item.dog) + ':1');
+    });
+
+    //警犬数量
+    echarts.init(document.getElementById('dog_bar'), 'vintage').setOption({
+        title: {
+            text: '现役警犬只数统计：2801只，目前幼犬数量：925只',
+            top: 10,
+            left: 4,
+            textStyle:{
+                fontSize: 14,
+                fontWeight: 'normal'
+            }
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            splitLine: {
+                show: false
+            },
+            data: ['10月','11月','12月', '1月','2月','3月','4月','5月','6月','7月','8月','9月']
+        },
+        yAxis: {
+            type: 'value',
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.3)',
+                    type: 'dashed'
+                }
+            }
+        },
+        series: [
+            {
+                name:'成犬数量',
+                type:'line',
+                stack: '总量1',
+                data:[2387, 2412, 2501, 2710, 2317, 2720, 2750, 2760, 2768, 2570, 2790, 2801]
+            },
+            {
+                name:'幼犬数量',
+                type:'line',
+                stack: '总量2',
+                data: [161, 64, 213, 213, 354, 103, 955, 541, 552, 844, 370, 925]
+            }
+        ]
+    });
+
+    //民警数量
+    echarts.init(document.getElementById('policeman_bar'), 'vintage').setOption({
+        title: {
+            text: '系统带犬民警统计：45024人，辅警人数：3051人',
+            top: 10,
+            left: 4,
+            textStyle:{
+                fontSize: 14,
+                fontWeight: 'normal'
+            }
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            splitLine: {
+                show: false
+            },
+            data: ['10月','11月','12月', '1月','2月','3月','4月','5月','6月','7月','8月','9月']
+        },
+        yAxis: {
+            type: 'value',
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.3)',
+                    type: 'dashed'
+                }
+            }
+        },
+        series: [
+            {
+                name:'民警数量',
+                type:'line',
+                stack: '总量1',
+                data:[47, 685, 73, 649, 506, 674, 142, 821, 706, 269, 895, 53]
+            },
+            {
+                name:'辅警数量',
+                type:'line',
+                stack: '总量2',
+                data: [580, 500, 762, 857, 849, 989, 604, 816, 822, 900, 1200, 3051]
+            }
+        ]
+    });
+
+    //工作量
+    echarts.init(document.getElementById('work_bar'), 'vintage').setOption({
+        title: {
+            text: '当年截止目前累计：35029次',
+            top: 10,
+            left: 4,
+            textStyle:{
+                fontSize: 14,
+                fontWeight: 'normal'
+            }
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            splitLine: {
+                show: false
+            },
+            data: ['10月','11月','12月', '1月','2月','3月','4月','5月','6月','7月','8月','9月']
+        },
+        yAxis: {
+            type: 'value',
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.3)',
+                    type: 'dashed'
+                }
+            }
+        },
+        series: [
+            {
+                name:'民警数量',
+                type:'line',
+                stack: '总量1',
+                data:[9200, 9665, 10568, 4697, 7783, 9534, 5602, 5947, 4745, 3898, 7107, 4587]
+            }
+        ]
+    });
+
+    //警犬品种
+    echarts.init(document.getElementById('dog_bread_pie'), 'vintage').setOption({
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            right: 'right',
+            bottom: 40,
+            data: ["史宾格犬", "罗威纳犬", "拉拉多犬", "德国牧羊犬", "荷兰牧羊犬", "昆明犬", "马里努阿犬", "金毛犬", "杜宾犬（杜博文）", "杂交犬", "其他"]
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                center: ['40%', '50%'],
+                data:[
+                    {"name":"史宾格犬","value":670},
+                    {"name":"罗威纳犬","value":653},
+                    {"name":"拉拉多犬","value":322},
+                    {"name":"德国牧羊犬","value":305},
+                    {"name":"荷兰牧羊犬","value":513},
+                    {"name":"昆明犬","value":509},
+                    {"name":"马里努阿犬","value":311},
+                    {"name":"金毛犬","value":405},
+                    {"name":"杜宾犬（杜博文）","value":541},
+                    {"name":"杂交犬","value":300},
+                    {"name":"其他","value": 20}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    });
+
+    //警犬年龄
+    echarts.init(document.getElementById('dog_age_pie'), 'vintage').setOption({
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            bottom: 40,
+            data:['小于1岁','1-3岁','3-6岁','6-8岁','大于8岁']
+        },
+        series: [
+            {
+                name:'警犬年龄',
+                type:'pie',
+                radius: ['50%', '80%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value: 276, name:'小于1岁'},
+                    {value: 1210, name:'1-3岁'},
+                    {value: 924, name:'3-6岁'},
+                    {value: 154, name:'6-8岁'},
+                    {value: 98, name:'大于8岁'},
+                ]
+            }
+        ]
+    });
+
+    //人犬比例
+    echarts.init(document.getElementById('policeman_and_dog'), 'vintage').setOption({
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: 60,
+            right: 40,
+            bottom: 40
+        },
+        legend: {
+            data:['民警数量','警犬数量']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                axisLabel: {
+//                    rotate: 60
+                },
+                data: ["刑侦总队", "公交总队", "特警总队", "天安门分局", "西站分局", "开发局分局", "清河分局", "东城分局", "西城分局", "朝阳分局", "海淀分局", "丰台分局", "通州分局", "昌平分局", "石景山分局", "门头沟分局", "大兴分局", "怀柔分局", "房山分局", "平谷分局", "顺义分局", "密云分局", "延庆县分局", "消防", "振远", "警卫局", "机场", "警院"] ,
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '数量',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                min: 0
+            }
+        ],
+        series: [
+            {
+                name:'民警数量',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+                        color: '#50cf67'
+                    }
+                },
+                data: [421, 184, 265, 232, 351, 458, 167, 362, 174, 90, 345, 215, 224, 187, 387, 134, 243, 359, 222, 390, 176, 345, 483, 59, 59, 40, 123, 164]
+            },
+            {
+                name:'警犬数量',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+                        color: '#FFA500'
+                    }
+                },
+                data: [18, 6, 41, 27, 19, 36, 25, 41, 34, 28, 43, 28, 22, 1, 3, 2, 7, 34, 6, 33, 33, 18, 4, 38, 5, 44, 5, 0]
+            }
+        ]
+    });
+
+    //日常工作
+    echarts.init(document.getElementById('dialy_work'), 'vintage').setOption({
+        tooltip: {},
+
+        barWidth: 40,
+        grid: {
+            left: 40,
+            right: 20,
+            bottom: 40
+        },
+        xAxis: {
+            splitLine: {
+                show: false
+            },
+            axisLine : {
+                lineStyle: {
+                    color: '#fff',
+                    width: 1,
+
+                    type: 'solid'
+                }
+            },
+            data: ["安检","侦查","巡逻","其他"]
+        },
+        yAxis: {
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.6)',
+                    type: 'dashed'
+                }
+            },
+        },
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10]
+        }]
     });
 </script>
 </html>
