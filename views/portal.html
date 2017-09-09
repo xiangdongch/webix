@@ -77,24 +77,34 @@
         </tr>
     </table>
 
+    <div style="height: 16px"></div>
+    <div style="height: 340px;" class="def_bk">
+        <div class="title" style="padding-top: 8px">繁育和配发</div>
+        <div id="bread_send_line" style="height: 310px;"></div>
+    </div>
     <div style="height: 16px;"></div>
     <table width="100%">
-        <tr style="height: 400px">
+        <tr style="height: 350px">
             <td style="width: 49.5%;" class="def_bk">
                 <div class="title">警犬品种</div>
-                <div id="dog_bread_pie" style="height: 380px"></div>
+                <div id="dog_bread_pie" style="height: 330px"></div>
             </td>
             <td style="width: 16px;"></td>
             <td style="width: 49.5%;" class="def_bk">
                 <div class="title">警犬年龄</div>
-                <div id="dog_age_pie" style="height: 380px"></div>
+                <div id="dog_age_pie" style="height: 330px"></div>
             </td>
         </tr>
     </table>
     <div style="height: 16px"></div>
     <div style="height: 340px;" class="def_bk">
-        <div class="title">人犬比例</div>
-        <div id="policeman_and_dog" style="height: 320px;"></div>
+        <div class="title" style="padding-top: 8px">人犬比例、民警和辅警比例</div>
+        <div id="police_dog_dis" style="height: 310px;"></div>
+    </div>
+    <div style="height: 16px"></div>
+    <div style="height: 340px;" class="def_bk">
+        <div class="title" style="padding-top: 8px">各分局带犬民警和警犬</div>
+        <div id="policeman_and_dog" style="height: 310px;"></div>
     </div>
     <div style="height: 16px"></div>
     <table>
@@ -592,7 +602,228 @@
         ]
     });
 
-    //人犬比例
+    //繁育配发 //'繁育数量', '配发数量', '淘汰数量', '死亡数量'
+    echarts.init(document.getElementById('bread_send_line'), 'vintage').setOption({
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: 60,
+            right: 40,
+            bottom: 40
+        },
+        legend: {
+            data:['繁育数量', '配发数量', '淘汰数量', '死亡数量']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                axisLabel: {
+//                    rotate: 60
+                },
+                data: ['10月','11月','12月', '1月','2月','3月','4月','5月','6月','7月','8月','9月'],
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '数量',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                min: 0
+            }
+        ],
+        series: [
+            {
+                name:'繁育数量',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+                        color: '#50cf67'
+                    }
+                },
+                data: [55, 46, 90, 11, 22, 43, 56, 32, 35, 27, 49, 26]
+            },
+            {
+                name:'配发数量',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+                        color: '#8bfaff'
+                    }
+                },
+                data: [45, 19, 26, 49, 56, 13, 19, 29, 65, 53, 31, 27]
+            },
+            {
+                name:'淘汰数量',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+                        color: '#ecebff'
+                    }
+                },
+                data: [20, 21, 30, 39, 18, 37, 11, 35, 36, 23, 1, 2]
+            },
+            {
+                name:'死亡数量',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+                        color: '#ff0800'
+                    }
+                },
+                data: [3, 7, 1, 9, 0, 1, 2, 1, 8, 1, 9, 11]
+            }
+        ]
+    });
+
+    //人犬比例、民警和辅警比例
+    echarts.init(document.getElementById('police_dog_dis'), 'vintage').setOption({
+        barWidth: 10,
+        tooltip: {
+            trigger: 'axis',
+            formatter: function(params){
+                return params[0].axisValue + '<br>' + params[0].seriesName + '： '+ params[0].value + '：1' + '<br>' +
+                    params[1].seriesName + '： '+ params[1].value + '：1';
+            }
+        },
+        grid: {
+            left: 60,
+            right: 60,
+            bottom: 40
+        },
+        legend: {
+            data:['人犬比例', '辅警民警比例']
+        },
+        xAxis: [
+            {
+                type: 'category',
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                axisLabel: {
+//                    rotate: 60
+                },
+                data: ["刑侦总队", "公交总队", "特警总队", "天安门分局", "西站分局", "开发局分局", "清河分局", "东城分局", "西城分局", "朝阳分局", "海淀分局", "丰台分局", "通州分局", "昌平分局", "石景山分局", "门头沟分局", "大兴分局", "怀柔分局", "房山分局", "平谷分局", "顺义分局", "密云分局", "延庆县分局", "消防", "振远", "警卫局", "机场", "警院"] ,
+                axisPointer: {
+                    type: 'shadow'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '民警与警犬比例',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} : 1'
+                },
+                min: 1
+            },
+            {
+                type: 'value',
+                name: '辅警与民警比例',
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    formatter: '{value} : 1'
+                },
+                min: 1
+            }
+        ],
+        series: [
+            {
+                name:'人犬比例',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+                        color: '#00FEFE'
+                    }
+                },
+                markLine: {
+                    lineStyle: {
+                        normal: {
+                            color: '#fbff00'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            formatter: '{b}'
+                        }
+                    },
+                    data: [
+                        {
+                            name: '1:40',
+                            yAxis: 40
+                        },{
+                            name: '1:50',
+                            yAxis: 50
+                        },{
+                            name: '1:60',
+                            yAxis: 60
+                        }
+                    ]
+                },
+                data: [60, 39, 23, 44, 12, 69, 61, 58, 29, 43, 23, 75, 57, 0, 63, 57, 39, 9, 1, 41, 42, 6, 24, 45, 6, 13, 31, 42]
+            },{
+                name:'辅警民警比例',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+                        color: '#8dff4a'
+                    }
+                },
+                markLine: {
+                    lineStyle: {
+                        normal: {
+                            color: '#ff5434'
+                        }
+                    },
+                    label: {
+                        normal: {
+                            formatter: '{b}'
+                        }
+                    },
+                    data: [
+                        {
+                            name: '1:3',
+                            yAxis: 3
+                        }
+                    ]
+                },
+                yAxisIndex: 1,
+                data: [8, 4, 5, 1, 7, 4, 6, 6, 3, 2, 4, 1, 8, 5, 2, 6, 9, 5, 9, 3, 8, 8, 7, 7, 5, 4, 4, 2]
+            }
+        ]
+    });
+
+    //各分局带犬民警和警犬
     echarts.init(document.getElementById('policeman_and_dog'), 'vintage').setOption({
         tooltip: {
             trigger: 'axis'
@@ -603,7 +834,7 @@
             bottom: 40
         },
         legend: {
-            data:['民警数量','警犬数量']
+            data:['民警人数', '辅警人数', '警犬数量']
         },
         xAxis: [
             {
@@ -640,21 +871,29 @@
         ],
         series: [
             {
-                name:'民警数量',
+                name:'辅警人数',
                 type:'bar',
                 itemStyle: {
                     normal: {
-                        color: '#50cf67'
+//                        color: '#ece0af'
+                    }
+                },
+                data: [235, 403, 453, 297, 288, 496, 175, 435, 294, 434, 45, 213, 413, 325, 416, 52, 487, 91, 205, 361, 151, 378, 345, 70, 406, 492, 307, 407]
+            },{
+                name:'民警人数',
+                type:'bar',
+                itemStyle: {
+                    normal: {
+//                        color: '#50cf67'
                     }
                 },
                 data: [421, 184, 265, 232, 351, 458, 167, 362, 174, 90, 345, 215, 224, 187, 387, 134, 243, 359, 222, 390, 176, 345, 483, 59, 59, 40, 123, 164]
-            },
-            {
+            },{
                 name:'警犬数量',
                 type:'bar',
                 itemStyle: {
                     normal: {
-                        color: '#FFA500'
+//                        color: '#FFA500'
                     }
                 },
                 data: [18, 6, 41, 27, 19, 36, 25, 41, 34, 28, 43, 28, 22, 1, 3, 2, 7, 34, 6, 33, 33, 18, 4, 38, 5, 44, 5, 0]

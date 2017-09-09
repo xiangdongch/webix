@@ -1507,6 +1507,7 @@ div.webix_modal_cover {
 }
 .webix_win_body > .webix_view .webix_cal_month {
   border-radius: 0px;
+  background-color: #fff;
 }
 .webix_win_head {
   border-bottom: 1px solid silver;
