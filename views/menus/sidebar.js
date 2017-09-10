@@ -50,7 +50,7 @@ define(function(){
                         ]},
 
                         {id: "train", open: true, value:"培训/考核", data:[
-                            { id: "train.publish", value: "培训/考核管理", icon: "pencil", $css: "products", details:""},
+                            { id: "train.publish", value: "培训/考核管理", icon: "pencil-square", $css: "products", details:""},
                             { id: "train.train", value: "报名管理", icon: "dribbble", $css: "products", details:""},
                             { id: "train.signMgmt", value: "成绩管理", icon: "list", $css: "products", details:""},
                         ]},
@@ -61,15 +61,15 @@ define(function(){
                         ]},
 
                         {id: "news", open: true, value:"流程管理", data:[
-                            { id: "news.publish", value: "我的申请", icon: "pencil", $css: "products", details:""},
+                            { id: "news.publish", value: "我的申请", icon: "check-square", $css: "products", details:""},
                             { id: "news.management", value: "我的待办", icon: "list", $css: "products", details:""},
                         ]},
                         {id: "system", open: true, value:"系统设置", data:[
-                            { id: "user.profile", value: "个人信息", icon: "pencil", $css: "products", details:""},
-                            { id: "system.permission", value: "权限管理", icon: "pencil", $css: "products", details:""},
-                            { id: "system.user", value: "人员管理", icon: "pencil", $css: "products", details:""},
-                            { id: "system.immue", value: "疫苗周期", icon: "pencil", $css: "products", details:""},
-                            { id: "system.worm", value: "除虫周期", icon: "pencil", $css: "products", details:""},
+                            { id: "user.profile", value: "个人信息", icon: "user", $css: "products", details:""},
+                            { id: "system.permission", value: "权限管理", icon: "shield", $css: "products", details:""},
+                            { id: "system.user", value: "人员管理", icon: "users", $css: "products", details:""},
+                            { id: "system.immue", value: "疫苗周期", icon: "bug", $css: "products", details:""},
+                            { id: "system.worm", value: "除虫周期", icon: "eyedropper", $css: "products", details:""},
                         ]}
 
 					]
