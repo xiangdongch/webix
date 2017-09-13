@@ -32,14 +32,14 @@ define(function(){
 					data:[
                         { id: "dashboard", value: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首页", icon: "", details: "" },
 						{id: "main", value: "繁育模块", open: true, data:[
+							{ id: "breed.mating", value: "交配管理", icon: 'venus-mars', $css: "dashboard", details:""},
 							{ id: "breed.index", value: "警犬繁殖", icon: 'venus-mars', $css: "dashboard", details:""},
-							{ id: "youngDog.index", value: "幼犬管理", icon: "github-alt", $css: "orders", details:""}
-						]},
+							{ id: "youngDog.index", value: "幼犬管理", icon: "github-alt", $css: "orders", details:""},
 
-                        {id: "wormImmue", open: true, value:"除虫免疫", data:[
                             { id: "wormImmue.worm", value: "除虫管理", icon: "bug", details: "" },
                             { id: "wormImmue.immue", value: "免疫管理", icon: "eyedropper", details: ""}
-                        ]},
+						]},
+
 
                         {id: "adult", open: true, value:"成犬管理", data:[
                             { id: "adult.adultList", value: "警犬管理", icon: "table", $css: "products", details:""},

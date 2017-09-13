@@ -234,3 +234,12 @@ function loading(msg, timeout){
     }, timeout);
     return win;
 }
+
+function removeEmptyProperty(obj, remove_1){
+    for(var k in obj){
+        var v = obj[k] + '';
+        if(v.length == 0 || (remove_1 && v == '-1')){
+            delete obj[k];
+        }
+    }
+}
