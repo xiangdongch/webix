@@ -33,19 +33,38 @@ define([
         datatable.reload();
     };
 
+    var del = function(){
+        var datatable = $$(datatableId);
+        var data = datatable.getCheckedData();
+        if(data.length == 0){
+            msgBox("请至少选择一条数据");
+            return ;
+        }
+        var w = loading();
+        doPost('wormImmue/delWorm', data, function(data){
+            w.close();
+            if(data.success){
+                datatable.reload();
+            }else{
+                msgBox('操作失败<br>' + data.message)
+            }
+        });
+    };
+
     var addWorm = function () {
         var submit = function () {
             var form = $$('tickout_form');
             if(form.validate()){
-                // doIPost('dogBaseInfo/tickout', data, function (data) {
-                //     if (data.success) {
-                //         datatable.reload();
-                        msgBox('操作成功，记录新增成功');
-                    win.close();
-                    // } else {
-                    //     msgBox('操作失败<br>' + data.message)
-                    // }
-                // });
+                doIPost('wormImmue/addWorm', form.getValues(), function (data) {
+                    console.log(data);
+                    if (data.success) {
+                        msgBox('操作成功，新增成功');
+                        $$(datatableId).reload();
+                        win.close();
+                    } else {
+                        msgBox('操作失败<br>' + data.message)
+                    }
+                });
             }else{
                 msgBox('请填写除虫信息');
             }
@@ -126,17 +145,33 @@ define([
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "警犬芯片号", name: "father", width: 300},
+                            {view: "text", label: "警犬芯片号", name: "dogChipNo",labelWidth: 70, width: 180},
                             {width: DEFAULT_PADDING},
-                            {view: "text", label: "窝编号", name: "nestNo", width: 300, labelWidth: 60},
+                            {view: "text", label: "窝编号", name: "nestNo", width: 180, labelWidth: 50},
                             {width: DEFAULT_PADDING},
-                            {view: "richselect", label: "完成状态", value:"-1", width: 180, labelWidth: 60, options:[
+                            {cols: [
+                                {view: "datepicker", label: "除虫日期", name: "wormDateStart", id: 'start',labelWidth: 60, width: 180, format:"%Y-%m-%d", stringResult: true},
+                                {view: "datepicker", label: "-", name: "wormDateEnd", id: 'end', labelWidth: 10, width: 120, format:"%Y-%m-%d", stringResult: true},
+                                {}
+                            ]} ,
+                            {width: DEFAULT_PADDING},
+                            {view: "richselect", label: "完成状态", name: 'wormState', value:"-1", width: 150, labelWidth: 60, options:[
                                 {id: '-1', value: "全部"},
-                                {id: '2', value: "未完成"},
-                                {id: '1', value: "已完成"}
+                                {id: '1', value: "未完成"},
+                                {id: '2', value: "已完成"}
                             ]},
                             {width: DEFAULT_PADDING},
-                            {view: "button", label: "查找幼犬", type: "form", width: 100, paddingX: 10, click: search},
+                            {view: "button", label: "清空", type: "form", width: 70, paddingX: 10, click: function(){
+                                $$('form').clear();
+                                $$('form').setValues({wormState: -1});
+                            }},
+                            {view: "button", label: "查找", type: "form", width: 70, paddingX: 10, click: function(){
+                                var params = $$('form').getValues();
+                                removeEmptyProperty(params, true);
+                                var tab = $$(datatableId);
+                                tab.config.customUrl.params = params;
+                                tab.reload();
+                            }},
                             {}
                         ]
                     }
@@ -149,6 +184,108 @@ define([
         ]
     };
 
+    var columns = [
+        {
+            id: "$check",
+            header: {content: "masterCheckbox"},
+            checkValue: true,
+            uncheckValue: false,
+            template: "{common.checkbox()}",
+            width: 40
+        },
+        {id: "$index", header: "NO.", width: 45},
+        {id: "dogInfo.dogName", header: "犬名", width: 90, template: function(obj){ return _.get(obj, 'dogInfo.dogName','') ; } },
+        {id: "wormDate", header: "除虫日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+        {id: "wormDesc", header: "除虫周期", width: 100},
+        {id: "wormState", header: "状态", width: 55, template: function(obj, common, value){
+            if(value == 2){
+                return '<span class="green_color">已完成</span>';
+            }else if(new Date(obj.wormDate) <= new Date()){
+                return '<span class="red_color">已超期</span>'
+            }else{
+                return '未进行';
+            }
+        }},
+        {id: "nestNo", header: "窝编号", width: 130, sort: "string"},
+        {id: "dogInfo.chipNo", header: "芯片号", width: 90, template: function(obj){ return _.get(obj, 'dogInfo.chipNo', ''); } },
+        {id: "dogInfo.sex", header: "性别", width: 50, template: function(obj){ return '<div align="center">' + ({'1': '公', '2':'母', '3': ''}[_.get(obj, 'dogInfo.sex', '3')]) + '</div>'; } },
+        {id: "dogInfo.birthday", header: "出生日期", width: 85, sort: "string", template: function(item){
+            return webix.Date.dateToStr("%Y-%m-%d")( _.get(item, 'dogInfo.birthday', '') );
+        }},
+        {id: "dogInfo.breed", header: "品种", width: 70, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.breed', ''); } },
+        {id: "dogInfo.dogSource", header: "来源", width: 50, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.dogSource', ''); } },
+        {id: "dogInfo.dogColour", header: "毛色", width: 50, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.dogColour', ''); } },
+        {id: "dogInfo.hairType", header: "毛型", width: 50, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.hairType', '') || ''; } },
+        {id: "dogInfo.breeder", header: "繁育员", width: 80, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.breeder', ''); } }
+    ];
+
+    var column2 = [
+        {id: "$index", header: "NO.", width: 45},
+        {id: "dogInfo.dogName", header: "犬名", width: 90, template: function(obj){ return _.get(obj, 'dogInfo.dogName','') ; } },
+        {id: "wormDate", header: "除虫日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+        {id: "wormDesc", header: "除虫周期", width: 100},
+        {id: "wormState", header: "状态", width: 55, template: function(obj, common, value){
+            if(value == 2){
+                return '已完成';
+            }else if(new Date(obj.wormDate) <= new Date()){
+                return '已超期'
+            }else{
+                return '未进行';
+            }
+        }},
+        {id: "nestNo", header: "窝编号", width: 130, sort: "string"},
+        {id: "dogInfo.chipNo", header: "芯片号", width: 90, template: function(obj){ return _.get(obj, 'dogInfo.chipNo', ''); } },
+        {id: "dogInfo.sex", header: "性别", width: 50, template: function(obj){ return ({'1': '公', '2':'母', '3': ''}[_.get(obj, 'dogInfo.sex', '3')]); } },
+        {id: "dogInfo.birthday", header: "出生日期", width: 85, sort: "string", template: function(item){
+            return webix.Date.dateToStr("%Y-%m-%d")( _.get(item, 'dogInfo.birthday', '') );
+        }},
+        {id: "dogInfo.breed", header: "品种", width: 70, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.breed', ''); } },
+        {id: "dogInfo.dogSource", header: "来源", width: 50, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.dogSource', ''); } },
+        {id: "dogInfo.dogColour", header: "毛色", width: 50, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.dogColour', ''); } },
+        {id: "dogInfo.hairType", header: "毛型", width: 50, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.hairType', '') || ''; } },
+        {id: "dogInfo.breeder", header: "繁育员", width: 80, sort: "string", template: function(obj){ return _.get(obj, 'dogInfo.breeder', ''); } }
+    ];
+
+    var exportFile = function(){
+        var win = {};
+        win = getWin("导出名单", {
+            rows: [{
+                height: 300,
+                view: "datatable",
+                id: 'for_export',
+                select: true,
+                columns: column2,
+                on: {
+                    onBeforeLoad: function () {
+                        this.showOverlay("Loading...");
+                    },
+                    onAfterLoad: function () {
+                        this.hideOverlay();
+                    }
+                },
+                tooltip:true,
+                minHeight: 80,
+                datafetch: 20,//default
+                customUrl: {
+                    url: webix.proxy('customProxy','/policeDog/services/wormImmue/list/worm/1000/1'),
+                    httpMethod: 'post',
+                    datatype: 'customJson',
+                    params: {wormState: 1, wormDateEnd: webix.Date.dateToStr("%Y-%m-%d")(new Date())}
+                }
+            },
+            {
+                cols:[
+                    {},
+                    {view: "button", label: "下载名单", width: 65, click: function(){
+                        var win = loading('正在生成');
+                        webix.toExcel($$('for_export'));
+                        win.close();
+                    }}
+                ]
+            }]
+        },{width: 600});
+        win.show();
+    };
 
     var gridPager = {
         rows: [
@@ -161,50 +298,16 @@ define([
                 cols: [
                     {view: "button", label: "补充记录", width: 70, click: addWorm},
                     {view: "button", label: "完成除虫", width: 70, click: doWorm},
-                    {}
+                    {view: "button", label: "删除", width: 70, click: del},
+                    {},
+                    {view: "button", label: "导出名单", width: 70, click: exportFile},
                 ]
             },
             {
                 id: datatableId,
                 view: "datatable",
                 select: true,
-                columns: [
-                    {
-                        id: "$check",
-                        header: {content: "masterCheckbox"},
-                        checkValue: true,
-                        uncheckValue: false,
-                        template: "{common.checkbox()}",
-                        width: 40
-                    },
-                    {id: "$index", header: "NO.", width: 45},
-                    {id: "dogInfo.dogName", header: "犬名", width: 90, template: function(obj){ return obj.dogInfo.dogName || ''; } },
-                    {id: "wormDate", header: "除虫日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
-                    {id: "wormDesc", header: "除虫周期", width: 100},
-                    {id: "wormState", header: "状态", width: 55, template: function(obj, common, value){
-                        if(value == 2){
-                            return '<span class="green_color">已完成</span>';
-                        }else if(new Date(obj.wormDate) <= new Date()){
-                            return '<span class="red_color">已超期</span>'
-                        }else{
-                            return '未进行';
-                        }
-                    }},
-                    {id: "nestNo", header: "窝编号", width: 130, sort: "string"},
-                    {id: "dogInfo.chipNo", header: "芯片号", width: 90, template: function(obj){ return obj.dogInfo.chipNo || ''; } },
-                    {id: "dogInfo.chipNoInject", header: "芯片注入日期", width: 85, template: function(item){
-                        return webix.Date.dateToStr("%Y-%m-%d")(item.dogInfo.chipNoInject);
-                    }},
-                    {id: "dogInfo.sex", header: "性别", width: 50, template: function(obj){ return '<div align="center">' + (obj.dogInfo.sex == 1 ? '公' : '母') + '</div>'; } },
-                    {id: "dogInfo.birthday", header: "出生日期", width: 85, sort: "string", template: function(item){
-                        return webix.Date.dateToStr("%Y-%m-%d")(item.dogInfo.birthday);
-                    }},
-                    {id: "dogInfo.breed", header: "品种", width: 70, sort: "string", template: function(obj){ return obj.dogInfo.breed || ''; } },
-                    {id: "dogInfo.dogSource", header: "来源", width: 50, sort: "string", template: function(obj){ return obj.dogInfo.dogSource || ''; } },
-                    {id: "dogInfo.dogColour", header: "毛色", width: 50, sort: "string", template: function(obj){ return obj.dogInfo.dogColour || ''; } },
-                    {id: "dogInfo.hairType", header: "毛型", width: 50, sort: "string", template: function(obj){ return obj.dogInfo.hairType || ''; } },
-                    {id: "dogInfo.breeder", header: "繁育员", width: 80, sort: "string", template: function(obj){ return obj.dogInfo.breeder || ''; } }
-                ],
+                columns: columns,
                 on: {
                     onBeforeLoad: function () {
                         this.showOverlay("Loading...");

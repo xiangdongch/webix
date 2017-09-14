@@ -32,11 +32,8 @@ define([
     var search = function () {
         var datatable = $$(datatableId);
         var params = $$('form').getValues();
-        for(var n in params){
-            if(params[n].length == 0){
-                delete params[n];
-            }
-        }
+        removeEmptyProperty(params);
+        params.growthStage = 2;
         datatable.config.customUrl.params = params;
         datatable.reload();
     };
@@ -197,21 +194,24 @@ define([
                         cols: [
                             {view: "text", label: "警犬芯片号", name: "chipNo", width: 150, labelWidth: 70},
                             {width: DEFAULT_PADDING},
-                            {view: "text", label: "窝编号", name: "nestNo", width: 160, labelWidth: 50},
-                            {width: DEFAULT_PADDING},
                             {view: "text", label: "父犬芯片号", name: "fatherId", width: 180, labelWidth: 70},
                             {width: DEFAULT_PADDING},
                             {view: "text", label: "母犬芯片号", name: "motherId", width: 180, labelWidth: 70},
                             {width: DEFAULT_PADDING},
-                            {view: "button", label: "查找", type: "form", width: 90, paddingX: 10, click: search},
+                            {cols: [
+                                {view: "datepicker", label: "出生日期", name: "birthdayStart", id: 'start',labelWidth: 60, width: 180, format:"%Y-%m-%d", stringResult: true},
+                                {view: "datepicker", label: "-", name: "birthdayEnd", id: 'end', labelWidth: 10, width: 120, format:"%Y-%m-%d", stringResult: true},
+                                {}
+                            ]} ,
+                            {width: DEFAULT_PADDING},
+                            {view: "button", label: "清空", type: "form", width: 70, paddingX: 10, click: function(){
+                                $$('form').clear();
+                            }},
+                            {view: "button", label: "查找", type: "form", width: 70, paddingX: 10, click: search},
                             {}
                         ]
                     }
-                ],
-                rules:{
-                    "father":webix.rules.isNotEmpty,
-                    "mother":webix.rules.isNotEmpty
-                }
+                ]
             }
         ]
     };
@@ -274,7 +274,7 @@ define([
                     // autoload: true,
                     url: webix.proxy('customProxy','/policeDog/services/dogBaseInfo/getAll/{pageSize}/{curPage}'),
                     httpMethod: 'post',
-                    // params: {id: 1, dogName: 'xus', pageSize: 12},
+                    params: {growthStage: 1},
                     datatype: 'customJson'
                 },
                 pager: "pagerA"
