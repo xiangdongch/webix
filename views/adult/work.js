@@ -215,12 +215,11 @@ define([
                 tooltip:true,
                 minHeight: 80,
                 datafetch: 20,//default
-                data: [],
-                // customUrl: {
-                //     url: webix.proxy('customProxy','/policeDog/services/profession/getList/{pageSize}/{curPage}'),
-                //     httpMethod: 'post',
-                //     datatype: 'customJson'
-                // },
+                customUrl: {
+                    url: webix.proxy('customProxy','/policeDog/services/work/getList/{pageSize}/{curPage}'),
+                    httpMethod: 'post',
+                    datatype: 'customJson'
+                },
                 pager: "pagerA"
             },
             {
