@@ -2759,8 +2759,8 @@ body:not(:-moz-handler-blocked) .webix_el_select select {
 input.webix_invalid,
 select.webix_invalid,
 textarea.webix_invalid {
-  background-color: #fff6f6;
-  border-color: #fea5a8;
+  background-color: rgb(255, 248, 164);
+  border-color: #FF0000;
 }
 .webix_invalid .webix_inp_bottom_label {
   font-size: 10px;
@@ -2797,7 +2797,7 @@ textarea.webix_invalid {
 .webix_view.webix_control .webix_disabled_box label,
 .webix_view.webix_control .webix_disabled_box .webix_input_icon,
 .webix_view.webix_control .webix_disabled_box button {
-  color: #aaaaaa;
+  color: #C1C1C1;
 }
 .webix_view.webix_control .webix_disabled_box input,
 .webix_view.webix_control .webix_disabled_box select,

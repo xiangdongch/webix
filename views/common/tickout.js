@@ -77,7 +77,7 @@ define([
 
             };
             var win = {};
-            win = getWin("填写淘汰申请", {
+            win = getWin("填写申请", {
                 rows: [
                     {
                         view:"scrollview",

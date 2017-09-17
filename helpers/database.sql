@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `t_dog_base` (
   KEY `chip_no` (`chip_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=356 DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_base 的数据：~341 rows (大约)
+-- 正在导出表  police_dog.t_dog_base 的数据：~342 rows (大约)
 DELETE FROM `t_dog_base`;
 /*!40000 ALTER TABLE `t_dog_base` DISABLE KEYS */;
 INSERT INTO `t_dog_base` (`id`, `dog_name`, `chip_no`, `chip_no_inject`, `sex`, `birthday`, `breed`, `dog_source`, `dog_colour`, `hair_type`, `dog_type`, `dog_level`, `inbreeding`, `tutor`, `breeder`, `train_score`, `next_train_date`, `work_place`, `work_area`, `work_city`, `work_province`, `file_no`, `create_doc_date`, `dog_photo`, `nest_no`, `father_id`, `mother_id`, `growth_stage`, `work_stage`, `belonging`, `creation_date`, `last_update_date`) VALUES
@@ -455,7 +455,7 @@ CREATE TABLE IF NOT EXISTS `t_dog_base_1` (
   `last_update_date` date default NULL COMMENT '最后修改日期'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  police_dog.t_dog_base_1 的数据：~336 rows (大约)
+-- 正在导出表  police_dog.t_dog_base_1 的数据：~311 rows (大约)
 DELETE FROM `t_dog_base_1`;
 /*!40000 ALTER TABLE `t_dog_base_1` DISABLE KEYS */;
 INSERT INTO `t_dog_base_1` (`id`, `dog_name`, `chip_no`, `chip_no_inject`, `sex`, `birthday`, `breed`, `dog_source`, `dog_colour`, `hair_type`, `dog_type`, `dog_level`, `inbreeding`, `tutor`, `breeder`, `train_score`, `next_train_date`, `work_place`, `work_area`, `work_province`, `file_no`, `create_doc_date`, `dog_photo`, `nest_no`, `father_id`, `mother_id`, `growth_stage`, `work_stage`, `belonging`, `creation_date`, `last_update_date`) VALUES
@@ -1071,8 +1071,8 @@ DROP TABLE IF EXISTS `t_dog_work`;
 CREATE TABLE IF NOT EXISTS `t_dog_work` (
   `id` int(11) NOT NULL auto_increment COMMENT '	id	',
   `work_type` varchar(16) default NULL COMMENT '检查类型',
-  `start_time` date default NULL COMMENT '	日期	',
-  `end_time` date default NULL COMMENT '	时间	',
+  `start_time` timestamp NULL default NULL COMMENT '	日期	',
+  `end_time` timestamp NULL default NULL COMMENT '	时间	',
   `work_unit` varchar(32) default NULL COMMENT '	用犬单位	',
   `att_person` varchar(255) default NULL COMMENT '	出勤人员	',
   `dog_chip_no` varchar(128) default NULL COMMENT '	警犬id	',
@@ -1085,13 +1085,15 @@ CREATE TABLE IF NOT EXISTS `t_dog_work` (
   `creation_date` date default NULL,
   `last_update_date` date default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  police_dog.t_dog_work 的数据：~1 rows (大约)
 DELETE FROM `t_dog_work`;
 /*!40000 ALTER TABLE `t_dog_work` DISABLE KEYS */;
 INSERT INTO `t_dog_work` (`id`, `work_type`, `start_time`, `end_time`, `work_unit`, `att_person`, `dog_chip_no`, `case_property`, `case_no`, `is_work`, `security_check_area`, `work_result`, `work_pic`, `creation_date`, `last_update_date`) VALUES
-	(1, '安检', '2017-09-16', '2017-09-16', '朝阳', '张三', '1', NULL, NULL, NULL, 12, '起作用', NULL, '2017-09-16', '2017-09-16');
+	(1, '安检', '2017-09-16 12:00:00', '2017-09-16 18:00:00', '朝阳', '张三', '1', NULL, NULL, '起作用', 12, '完成任务', NULL, '2017-09-16', '2017-09-16'),
+	(2, '巡逻', '2017-09-17 17:35:03', '2017-09-17 18:35:04', '东城分局', '李四', '1', NULL, NULL, '起作用', NULL, '完成任务', NULL, '2017-09-17', '2017-09-17'),
+	(5, '安检', '2017-09-05 00:00:00', '2017-08-27 00:00:00', '12', '2', '23', '', '', '起作用', 2, '32', '1505655170172.jpg,1505655170170.jpg,1505655170161.jpg,1505655170166.jpg', '2017-09-17', '2017-09-17');
 /*!40000 ALTER TABLE `t_dog_work` ENABLE KEYS */;
 
 -- 导出  表 police_dog.t_dog_worm 结构
