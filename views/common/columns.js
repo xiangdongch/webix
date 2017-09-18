@@ -37,9 +37,11 @@ define([], function () {
 
 
         '类型': {id: "dogSource", header: "类型", width: 60, template: function(item){ var dic = {"1": "培训", "2": "复训", "3": "考核"}; return dic[item.trainStage] || '';}},
-        '日期': {id: "trainDate", header: "日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+        '开始日期': {id: "trainStartDate", header: "开始日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+        '结束日期': {id: "trainEndDate", header: "结束日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
         '复训日期': {id: "trainDate", header: "复训日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
         '考核日期': {id: "trainDate", header: "考核日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+        '培训课程': {id: "trainName", header: "培训课程", width: 100},
         '班级名称': {id: "trainClassName", header: "班级名称", width: 100},
         '培训单位': {id: "trainUnit", header: "培训单位", width: 100},
         '培训地点': {id: "trainAddr", header: "培训地点", width: 130},
@@ -70,7 +72,11 @@ define([], function () {
                 }
             }
             for(var i = 0; i<headers.length; i++){
-                cols.push(methods.get(headers[i]));
+                if(typeof(headers[i]) == 'object'){
+                    cols.push(headers[i]);
+                }else {
+                    cols.push(methods.get(headers[i]));
+                }
             }
             return cols;
         },

@@ -60,7 +60,8 @@ gulp.task('build', ["js", "css"], function(){
 			  gulp.src("./libs/webix/**/*.*")
 		.pipe(gulp.dest("./deploy/libs/webix/")),
 		//index
-			  gulp.src("./index.html")
+		gulp.src("./deploy.html").pipe(gulp.dest("./deploy/index.html"))
+
 		.pipe(replace('data-main="app" src="libs/require.js"', 'src="app.js"'))
 		.pipe(replace('<script type="text/javascript" src="libs/less.min.js"></script>', ''))
 		.pipe(replace(/rel\=\"stylesheet\/less\" href=\"(.*?)\.less\"/g, 'rel="stylesheet" href="$1.css"'))

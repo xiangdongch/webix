@@ -33,12 +33,13 @@ define(function(){
                         { id: "dashboard", value: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首页", icon: "", details: "" },
 
 						{id: "work", value: "警犬使用", open: true, data:[
-                            { id: "adult.work", value: "技术使用", icon: "flag-o", $css: "products", details:""},
+                            { id: "adult.work", value: "警犬工作管理", icon: "flag-o", $css: "products", details:""},
 						]},
 
                         {id: "train", open: true, value:"培训/考核", data:[
-                            { id: "train.publish", value: "培训/考核管理", icon: "pencil-square", $css: "products", details:""},
-                            { id: "train.train", value: "报名管理", icon: "dribbble", $css: "products", details:""},
+                            { id: "train.publish", value: "培训/考核信息", icon: "pencil", $css: "products", details:""},
+                            { id: "train.createTrain", value: "创建培训考核名单", icon: "file-text", $css: "products", details:""},
+                            { id: "train.train", value: "培训成绩管理", icon: "check-square-o", $css: "products", details:""},
                             { id: "train.signMgmt", value: "成绩管理", icon: "list", $css: "products", details:""},
                             { id: "adult.profession", value: "专业技能", icon: "list-alt", $css: "products", details:""},
                         ]},
@@ -46,7 +47,7 @@ define(function(){
                         {id: "adult", open: true, value:"配发管理", data:[
                             { id: "adult.applyIssue", value: "申请配发", icon: "table", $css: "products", details:""},
                             { id: "adult.applySendBack", value: "申请退回", icon: "table", $css: "products", details:""},
-                            { id: "adult.adultList", value: "申请列表", icon: "table", $css: "products", details:""},
+                            { id: "adult.adultList", value: "警犬管理", icon: "table", $css: "products", details:""},
                             { id: "adult.applyList", value: "待配发警犬", icon: "table", $css: "products", details:""},
                         ]},
 

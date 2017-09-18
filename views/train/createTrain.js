@@ -65,9 +65,7 @@ define([
     };
 
     var signTrain = function () {
-        var datatable = $$(datatableId);
-        var data = datatable.getCheckedData();
-        if(data.length == 0){
+        if(checkCount.length == 0){
             msgBox("请至少选择一条数据");
             return ;
         }
@@ -76,7 +74,44 @@ define([
         var submitSign = function () {
             var tab = $$(tabid);
             var data = tab.getCheckedData();
-            console.log(data);
+
+            if(data.length == 0){
+                msgBox("请选择一条培训/考核信息");
+                return ;
+            }
+            data = data[0];
+            var arr = [];
+            for(var n in checkMap){
+                var dog = checkMap[n];
+                arr.push({
+                    growStage: 2,
+                    dogId: dog.id,
+                    trainId: data.id,
+                    trainName: data.trainName,
+                    trainStartDateStr: data.startDate,
+                    trainEndDateStr: data.endDate,
+                    trainClassName: '',
+                    trainLevel: '',
+                    trainStage: 1,
+                    trainUnit: data.trainUnit,
+                    trainAddr: data.trainAddr,
+                    trainUser: data.trainUser,
+                    policeId: dog.policeId,
+                    policeName: dog.policeName,
+                    mainTrainUser: '',
+                });
+            }
+            console.log(arr);
+            doIPost('train/add', arr, function (data) {
+                console.log(data);
+                win.close();
+                if (data.success) {
+                    // $$(datatableId).reload();
+                    msgBox('操作成功，名单已生成');
+                } else {
+                    msgBox('操作失败<br>' + data.message)
+                }
+            })
         };
 
         var win = {};
@@ -217,14 +252,8 @@ define([
     };
 
     var cols = columns.getColumns(
-        ["窝编号", "犬名", "芯片号", "芯片注入日期", "性别", "出生日期", "父亲芯片号", "母亲芯片号", "品种", "来源", "毛色", "毛型", "繁育员", "训导员" ],
-        [{
-            id: "id",
-            header: "操作",
-            template: '<div align="center"><a class="my_link edit" href="javascript:void(0)"><span class="webix_icon icon fa-pencil-square-o"></span></a></div>',
-            tooltip: '编辑',
-            width: 48
-        }]
+        [{id: "dogName", header: "犬名", width: 120}, "芯片号", "芯片注入日期", "性别", "出生日期", "品种", "来源", "毛色", "毛型", "繁育员", "训导员" ],
+        []
     );
 var checkMap = {};
 var checkCount = 0;
@@ -237,15 +266,7 @@ var checkCount = 0;
                 paddingX: 10,
                 height: 36,
                 cols: [
-                    {view: "button", label: "调配", width: 50},
-                    {view: "button", label: "退回", width: 50},
-                    {view: "button", label: "培训报名", width: 70, click: signTrain},
-                    {view: "button", label: "技术使用", width: 80},
-                    {view: "button", label: "淘汰申请", width: 80, click: tickOut},
-                    {view: "button", label: "死亡申请", width: 80, click: died},
-                    {view: "button", label: "导出登记卡", width: 90, click: function(){
-                        window.open('webix/警犬登记卡.doc', '_blank');
-                    }},
+                    {view: "button", label: "生成培训考核名单", width: 130, click: signTrain},
                     {},
                 ]
             },
@@ -262,7 +283,6 @@ var checkCount = 0;
                         this.hideOverlay();
                     },
                     onCheck: function(row, column, state){
-                        console.log([row, column, state]);
                         var item = $$(datatableId).getItem(row);
                         if(state){
                             checkCount ++;
@@ -271,7 +291,6 @@ var checkCount = 0;
                             checkCount --;
                             delete checkMap[item.chipNo];
                         }
-                        console.log(checkMap);
                         document.getElementById("checkCount").innerHTML = checkCount;
                     }
                 },
@@ -298,7 +317,7 @@ var checkCount = 0;
                 id: "pagerA",
                 size: 20,
                 group: 5,
-                template: "{common.first()}{common.prev()}{common.pages()}{common.next()}{common.last()}<div style='float: right'>已选择<span id='checkCount'>0</span>条&nbsp;&nbsp;&nbsp;&nbsp;总共#count#条</div>",
+                template: "{common.first()}{common.prev()}{common.pages()}{common.next()}{common.last()}&nbsp;&nbsp;&nbsp;&nbsp;已选择<span id='checkCount'>0</span>条<div style='float: right'>总共#count#条</div>",
                 on: {
                     onItemClick: function(){
                         setTimeout(function () {

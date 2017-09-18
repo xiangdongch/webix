@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>北京市公安局警犬技术工作管理与实战应用系统</title>
+    <script type="text/javascript" src="webix/lodash.js"></script>
+    <script type="text/javascript" src="webix_new/extension.js"></script>
+    <!-- Webix Library -->
+
+    <!--<script type="text/javascript" src="webix/webix_debug.js"></script>-->
+    <script type="text/javascript" src="webix_new/webix.js"></script>
+    <script type="text/javascript" src="webix_new/skin.js"></script>
+    <link rel="stylesheet" href="webix_new/webix.css">
+    <link rel="stylesheet/less" href="assets/theme.siberia.less">
+
+    <!-- The app's logic -->
+    <script type="text/javascript" data-main="app" src="libs/require.js"></script>
+
+    <script type="text/javascript">
+        require.config({
+            paths: {text: "libs/text"}
+        });
+    </script>
+
+    <script type="text/javascript" src="webix_new/common.js"></script>
+
+    <!-- Development only -->
+    <script type="text/javascript" src="libs/less.min.js"></script>
+    <!--<script type="text/javascript" src="echarts/echarts.min.js"></script>-->
+    <style>
+        .dashboard .webix_view {
+            background-color: transparent;
+            border-top: 1px solid;
+        }
+        .load_page_border {
+            border-top: 1px solid #D6D6D6;
+        }
+        body{
+            background-image: url("assets/imgs/ocean.jpg")
+        }
+    </style>
+</head>
+<body></body>
+</html>
