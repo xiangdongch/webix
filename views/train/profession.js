@@ -2,26 +2,79 @@ define([
     "views/common/columns"
 ], function (column) {
     var datatableId = webix.uid().toString();
-    /**
-     * 除虫操作
-     */
-    var doWorm = function () {
+
+    var del = function(){
         var datatable = $$(datatableId);
         var data = datatable.getCheckedData();
         if(data.length == 0){
             msgBox("请至少选择一条数据");
             return ;
         }
-        var w = loading();
-        doPost('wormImmue/finishWorm', data, function(data){
-            console.log(data);
-            w.close();
-            if(data.success){
-                datatable.reload();
-            }else{
-                msgBox('操作失败<br>' + data.message)
+        webix.confirm({
+            text:"确定删除？删除不可恢复", ok:"是", cancel:"否",
+            callback:function(res){
+                if(res){
+                    var w = loading();
+                    doPost('train/delete', data, function(data){
+                        w.close();
+                        if(data.success){
+                            datatable.reload();
+                        }else{
+                            msgBox('操作失败<br>' + data.message)
+                        }
+                    });
+                }
             }
         });
+    };
+
+    var setScore = function () {
+        var datatable = $$(datatableId);
+        var data = datatable.getCheckedData();
+        if(data.length == 0){
+            msgBox("请至少选择一条数据");
+            return ;
+        }
+        var win = getWin("批量设置成绩", {
+            rows: [{
+                height: 30,
+                borderless: true,
+                template: '一共选择了'+data.length+'只警犬，请设置培训成绩'
+            }, {
+                view: "richselect", label: "培训成绩", id: 'trainResult', width: 200, value: '合格', labelWidth: 60,
+                options: [
+                    {id: '合格', value: "合格"},
+                    {id: '优秀', value: "优秀"},
+                    {id: '不合格', value: "不合格"},
+                ]
+            },
+            {width: 400},
+            {
+                cols:[
+                    {},
+                    {view: "button", label: "取消", css: 'non-essential', width: 65, click: function () {
+                        win.close();
+                    }},
+                    {width: DEFAULT_PADDING/2},
+                    {view: "button", label: "提交", width: 65, click: function () {
+                        var da = [];
+                        var trainResult = $$('trainResult').getValue();
+                        for(var i = 0; i<data.length; i++){
+                            da.push({id: data[i].id, trainResult: trainResult});
+                        }
+                        doIPost('train/batchUpdate', da, function(res){
+                            win.close();
+                            if(res.success){
+                                $$(datatableId).reload();
+                            }else{
+                                msgBox('操作失败<br>' + res.message)
+                            }
+                        });
+                    }}
+                ]
+            }]
+        }, {width: 400, height: 160});
+        win.show();
     };
 
     /**
@@ -32,75 +85,6 @@ define([
         var params = $$('form').getValues();
         datatable.config.customUrl.params = params;
         datatable.reload();
-    };
-
-    var addWorm = function () {
-        var submit = function () {
-            var form = $$('tickout_form');
-            if(form.validate()){
-                // doIPost('dogBaseInfo/tickout', data, function (data) {
-                //     if (data.success) {
-                //         datatable.reload();
-                        msgBox('操作成功，记录新增成功');
-                    win.close();
-                    // } else {
-                    //     msgBox('操作失败<br>' + data.message)
-                    // }
-                // });
-            }else{
-                msgBox('请填写除虫信息');
-            }
-
-        };
-        var win = {};
-        win = getWin("补充除虫记录", {
-            rows: [
-                {
-                    view:"scrollview",
-                    id:"scrollview",
-                    scroll:"y",
-                    height: 200,
-                    body:{
-                        rows:[
-                            {
-                                view:"form",
-                                id: 'tickout_form',
-                                elementsConfig: {
-                                    labelAlign: 'right',
-                                    labelWidth: 70
-                                },
-                                elements:[
-                                    {view: "text", label: "警犬窝编号", name: "nestNo", width: 300, attributes:{ maxlength: 64 }},
-                                    {view: "text", label: "警犬芯片号", name: "dogId", width: 300, attributes:{ maxlength: 64 }},
-                                    {view: "text", label: "除虫周期", name: "wormDesc", value: '补充', width: 300, attributes:{ maxlength: 64 }},
-                                    {view: "datepicker", label: "除虫日期", name: "wormDateStr", width: 240, format:"%Y-%m-%d", stringResult: true},
-                                    {view: "text", label: "操作人员", name: "policeName", width: 300, attributes:{ maxlength: 128 }}
-                                ],
-                                rules:{
-                                    "nestNo":webix.rules.isNotEmpty,
-                                    "dogId":webix.rules.isNotEmpty,
-                                    "wormDesc":webix.rules.isNotEmpty,
-                                    "wormDateStr":webix.rules.isNotEmpty,
-                                    "policeName":webix.rules.isNotEmpty
-                                }
-                            }
-                        ]
-                    }
-                },
-                {width: 400},
-                {
-                    cols:[
-                        {},
-                        {view: "button", label: "取消申请", css: 'non-essential', width: 65, click: function () {
-                            win.close();
-                        }},
-                        {width: DEFAULT_PADDING/2},
-                        {view: "button", label: "提交申请", width: 65, click: submit}
-                    ]
-                }
-            ]
-        }, {height: 290});
-        win.show();
     };
 
     var searchForm = {
@@ -150,29 +134,41 @@ define([
         ]
     };
 
-    var cols = column.getColumns([
-        "类型", "日期", "培训单位", "班级名称", "犬名_2", "窝编号_2", "芯片号_2", "教练员", "带犬民警", "基础评分", "总分", "下次复训时间", "培训地点"
+    var cols = column.getColumns([//"类型",
+         "培训课程", "开始日期", "结束日期", "培训单位", "犬名_2", "芯片号_2", "教练员", "带犬民警", "考核结果", "下次培训时间", "培训地点"
     ], []);
 
     var gridPager = {
         rows: [
-            {
-                view: "form",
-                css: "toolbar",
-                paddingY: 5,
-                paddingX: 10,
-                height: 36,
-                cols: [
-                    {view: "button", label: "添加", width: 70, click: addWorm},
-                    {view: "button", label: "取消报名", width: 50, click: cancel},
-                    {}
-                ]
-            },
+            // {
+            //     view: "form",
+            //     css: "toolbar",
+            //     paddingY: 5,
+            //     paddingX: 10,
+            //     height: 36,
+            //     cols: [
+            //         {},
+            //     ]
+            // },
             {
                 id: datatableId,
                 view: "datatable",
                 select: true,
-                columns: cols,
+                columns: [
+                    {
+                        id: "$check",
+                        header: {content: "masterCheckbox"},
+                        checkValue: true,
+                        uncheckValue: false,
+                        template: "{common.checkbox()}",
+                        width: 40
+                    },
+                    {id: "$index", header: "NO.", width: 45},
+                    {id: "", header: "警犬名称", width: 130, template: function(obj){ return obj.dogInfo.dogName || ''; } },
+                    {id: "", header: "警犬芯片号", width: 130, template: function(obj){ return obj.dogInfo.chipNo || ''; } },
+                    {id: "profName", header: "专业名称", width: 130},
+                    {id: "creationDate", header: "获取日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+                ],
                 on: {
                     onBeforeLoad: function () {
                         this.showOverlay("Loading...");
@@ -200,7 +196,7 @@ define([
                 minHeight: 80,
                 datafetch: 20,//default
                 customUrl: {
-                    url: webix.proxy('customProxy','/policeDog/services/train/getList/{pageSize}/{curPage}'),
+                    url: webix.proxy('customProxy','/policeDog/services/profession/getList/{pageSize}/{curPage}'),
                     httpMethod: 'post',
                     datatype: 'customJson'
                 },

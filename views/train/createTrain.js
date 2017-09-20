@@ -80,6 +80,12 @@ define([
                 return ;
             }
             data = data[0];
+            var startDate = new Date(data.startDate);
+            var nextTrainDate = data.startDate;
+            var year = startDate.getFullYear();
+            var nextYear = year + 1;
+            nextTrainDate = nextTrainDate.replace(year + '', nextYear + '');
+
             var arr = [];
             for(var n in checkMap){
                 var dog = checkMap[n];
@@ -98,6 +104,7 @@ define([
                     trainUser: data.trainUser,
                     policeId: dog.policeId,
                     policeName: dog.policeName,
+                    nextTrainDateStr: nextTrainDate,
                     mainTrainUser: '',
                 });
             }

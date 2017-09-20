@@ -56,8 +56,29 @@ define([
                             {view: "datepicker", label: "-", name: "endDateStr", id: 'end', labelWidth: 10, width: 120, format:"%Y-%m-%d", stringResult: true, on: { onChange: dateCheck }},
                             {}
                         ]} ,
-                        {view: "text", label: "培训单位", name: "trainUnit", width: 300, attributes:{ maxlength: 128 }},
-                        {view: "text", label: "培训地址", name: "trainAddr", width: 300, attributes:{ maxlength: 200 }},
+                        // {view: "text", label: "培训单位", name: "trainUnit", width: 300, attributes:{ maxlength: 128 }},
+                        {view: "richselect", label: "培训单位", name: 'trainUnit', width: 300,  value: '北京',
+                            options:[
+                                {id: '北京', value: "北京"},
+                                {id: '沈阳', value: "沈阳"},
+                                {id: '南京', value: "南京"},
+                                {id: '南昌', value: "南昌"},
+                                {id: '昆明', value: "昆明"},
+                            ],
+                            on: {
+                                onChange: function(newVal){
+                                    var addr = {
+                                        "北京": "北京xxx",
+                                        "沈阳": "沈阳xxx",
+                                        "南京": "南京xxx",
+                                        "南昌": "南昌xxx",
+                                        "昆明": "昆明xxx",
+                                    }[newVal] || '';
+                                    $$('trainAddr').setValue(addr);
+                                }
+                            }
+                        },
+                        {view: "text", label: "培训地址", id: 'trainAddr', name: "trainAddr", value: '北京xxx', width: 300, attributes:{ maxlength: 200 }},
                         {view: "text", label: "主考人", name: 'trainUser', width: 300, attributes:{ maxlength: 64 }},
                         {view: "textarea", label: "主要内容", name: "trainDesc", width: 300, attributes:{ maxlength: 200 }}
                     ],
@@ -143,8 +164,28 @@ define([
                             {view: "datepicker", label: "-", name: "endDateStr", value: item.endDate, id: 'end', labelWidth: 10, width: 120, format:"%Y-%m-%d", stringResult: true, on: { onChange: dateCheck }},
                             {}
                         ]} ,
-                        {view: "text", label: "培训单位", name: "trainUnit", value: item.trainUnit, width: 300, attributes:{ maxlength: 128 }},
-                        {view: "text", label: "培训地址", name: "trainAddr", value: item.trainAddr, width: 300, attributes:{ maxlength: 200 }},
+                        {view: "richselect", label: "培训单位", name: 'trainUnit', width: 300,  value: item.trainUnit,
+                            options:[
+                                {id: '北京', value: "北京"},
+                                {id: '沈阳', value: "沈阳"},
+                                {id: '南京', value: "南京"},
+                                {id: '南昌', value: "南昌"},
+                                {id: '昆明', value: "昆明"},
+                            ],
+                            on: {
+                                onChange: function(newVal){
+                                    var addr = {
+                                        "北京": "北京xxx",
+                                        "沈阳": "沈阳xxx",
+                                        "南京": "南京xxx",
+                                        "南昌": "南昌xxx",
+                                        "昆明": "昆明xxx",
+                                    }[newVal] || '';
+                                    $$('trainAddr').setValue(addr);
+                                }
+                            }
+                        },
+                        {view: "text", label: "培训地址", id: 'trainAddr', name: "trainAddr", value: item.trainAddr, width: 300, attributes:{ maxlength: 200 }},
                         {view: "text", label: "主考人", name: 'trainUser',  value: item.trainUser, width: 300, attributes:{ maxlength: 64 }},
                         {view: "textarea", label: "主要内容", name: "trainDesc", value: item.trainDesc, width: 300, attributes:{ maxlength: 200 }}
                     ],
@@ -223,7 +264,7 @@ define([
                 elements: [
                     {
                         cols: [
-                            {view: "richselect", label: "培训科目", name: 'trainName', value:"安检", width: 180, labelWidth: 60,
+                            {view: "richselect", label: "培训科目", name: 'trainName', value:"", width: 180, labelWidth: 60,
                                 options:[
                                     {id: '体能考核', value: "体能考核"},
                                     {id: '服从性考核', value: "服从性考核"},

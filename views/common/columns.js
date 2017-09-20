@@ -48,7 +48,8 @@ define([], function () {
         '教练员': {id: "trainUser", header: "教练员", width: 130},
         '基础评分': {id: "trainUser", header: "基础评分", width: 80, template: '<a class="score_detail">点击查看</a>'},
         '总分': {id: "totalScore", header: "总分", width: 80},
-        '下次复训时间': {id: "nextTrainDate", header: "下次复训时间", width: 100, format: webix.Date.dateToStr("%Y-%m-%d")},
+        '考核结果': {id: "trainResult", header: "考核结果", width: 80},
+        '下次培训时间': {id: "nextTrainDate", header: "下次培训时间", width: 100, format: webix.Date.dateToStr("%Y-%m-%d")},
         '带犬民警': {id: "policeName", header: "带犬民警", width: 80},
         '主考人': {id: "main_train_user", header: "主考人", width: 80},
 

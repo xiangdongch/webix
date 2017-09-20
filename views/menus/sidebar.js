@@ -39,9 +39,9 @@ define(function(){
                         {id: "train", open: true, value:"培训/考核", data:[
                             { id: "train.publish", value: "培训/考核信息", icon: "pencil", $css: "products", details:""},
                             { id: "train.createTrain", value: "创建培训考核名单", icon: "file-text", $css: "products", details:""},
-                            { id: "train.train", value: "培训成绩管理", icon: "check-square-o", $css: "products", details:""},
-                            { id: "train.signMgmt", value: "成绩管理", icon: "list", $css: "products", details:""},
-                            { id: "adult.profession", value: "专业技能", icon: "list-alt", $css: "products", details:""},
+                            { id: "train.scoreMgmt", value: "培训成绩管理", icon: "check-square-o", $css: "products", details:""},
+                            { id: "train.trainSocre", value: "我的培训", icon: "list", $css: "products", details:""},
+                            { id: "train.profession", value: "专业技能", icon: "list-alt", $css: "products", details:""},
                         ]},
 
                         {id: "adult", open: true, value:"配发管理", data:[
