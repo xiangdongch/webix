@@ -28,6 +28,55 @@ define([
         });
     };
 
+    var setScore = function () {
+        var datatable = $$(datatableId);
+        var data = datatable.getCheckedData();
+        if(data.length == 0){
+            msgBox("请至少选择一条数据");
+            return ;
+        }
+        var win = getWin("批量设置成绩", {
+            rows: [{
+                height: 30,
+                borderless: true,
+                template: '一共选择了'+data.length+'只警犬，请设置培训成绩'
+            }, {
+                view: "richselect", label: "培训成绩", id: 'trainResult', width: 200, value: '合格', labelWidth: 60,
+                options: [
+                    {id: '合格', value: "合格"},
+                    {id: '优秀', value: "优秀"},
+                    {id: '不合格', value: "不合格"},
+                ]
+            },
+            {width: 400},
+            {
+                cols:[
+                    {},
+                    {view: "button", label: "取消", css: 'non-essential', width: 65, click: function () {
+                        win.close();
+                    }},
+                    {width: DEFAULT_PADDING/2},
+                    {view: "button", label: "提交", width: 65, click: function () {
+                        var da = [];
+                        var trainResult = $$('trainResult').getValue();
+                        for(var i = 0; i<data.length; i++){
+                            da.push({id: data[i].id, trainResult: trainResult});
+                        }
+                        doIPost('train/batchUpdate', da, function(res){
+                            win.close();
+                            if(res.success){
+                                $$(datatableId).reload();
+                            }else{
+                                msgBox('操作失败<br>' + res.message)
+                            }
+                        });
+                    }}
+                ]
+            }]
+        }, {width: 400, height: 160});
+        win.show();
+    };
+
     /**
      * 执行搜索
      */
@@ -86,7 +135,7 @@ define([
     };
 
     var cols = column.getColumns([//"类型",
-         "培训课程", "开始日期", "结束日期", "培训单位", "犬名_2", "芯片号_2", "教练员", "带犬民警", "基础评分", "总分", "下次复训时间", "培训地点"
+         "培训课程", "开始日期", "结束日期", "培训单位", "犬名_2", "芯片号_2", "教练员", "带犬民警", "考核结果", "下次培训时间", "培训地点"
     ], []);
 
     var gridPager = {
@@ -99,7 +148,8 @@ define([
                 height: 36,
                 cols: [
                     // {view: "button", label: "添加", width: 70},
-                    {view: "button", label: "设置成绩", width: 80},
+                    {view: "button", label: "设置成绩", width: 80, click: setScore},
+                    {view: "button", label: "设置专业技能", width: 100, click: setProf},
                     {view: "button", label: "删除", width: 70, click: del},
                     {}
                 ]

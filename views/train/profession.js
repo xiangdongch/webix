@@ -15,7 +15,7 @@ define([
             callback:function(res){
                 if(res){
                     var w = loading();
-                    doPost('train/delete', data, function(data){
+                    doPost('profession/delete', data, function(data){
                         w.close();
                         if(data.success){
                             datatable.reload();
@@ -140,16 +140,18 @@ define([
 
     var gridPager = {
         rows: [
-            // {
-            //     view: "form",
-            //     css: "toolbar",
-            //     paddingY: 5,
-            //     paddingX: 10,
-            //     height: 36,
-            //     cols: [
-            //         {},
-            //     ]
-            // },
+            {
+                view: "form",
+                css: "toolbar",
+                paddingY: 5,
+                paddingX: 10,
+                height: 36,
+                cols: [
+                    // {view: "button", label: "添加", width: 70},
+                    {view: "button", label: "删除", width: 70, click: del},
+                    {}
+                ]
+            },
             {
                 id: datatableId,
                 view: "datatable",
