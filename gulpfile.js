@@ -60,7 +60,7 @@ gulp.task('build', ["js", "css"], function(){
 			  gulp.src("./libs/webix/**/*.*")
 		.pipe(gulp.dest("./deploy/libs/webix/")),
 		//index
-		gulp.src("./deploy.html").pipe(gulp.dest("./deploy/index.html"))
+		gulp.src("./deploy.html")
 
 		.pipe(replace('data-main="app" src="libs/require.js"', 'src="app.js"'))
 		.pipe(replace('<script type="text/javascript" src="libs/less.min.js"></script>', ''))
@@ -71,7 +71,7 @@ gulp.task('build', ["js", "css"], function(){
 		.pipe(replace(/\.\.\/webix\/codebase\//g, '//cdn.webix.com/site/'))
 		.pipe(replace(/cdn\.webix\.com\/edge/g, 'cdn.webix.com/site'))
 
-		.pipe(gulp.dest("./deploy/")),
+		.pipe(gulp.dest("./deploy/index.html")),
         //server
         gulp.src("./server/**/*.*").pipe(gulp.dest("./deploy/server/")),
         //webix
@@ -79,7 +79,9 @@ gulp.task('build', ["js", "css"], function(){
         //webix_new
         gulp.src("./webix_new/**/*.*").pipe(gulp.dest("./deploy/webix_new/")),
         //echarts
-        gulp.src("./echarts/**/*.*").pipe(gulp.dest("./deploy/echarts/"))
+        gulp.src("./echarts/**/*.*").pipe(gulp.dest("./deploy/echarts/")),
+        gulp.src("./login/**/*.*").pipe(gulp.dest("./deploy/login/")),
+        gulp.src("./views/portal.html").pipe(gulp.dest("./deploy/views/portal.html"))
 
 	);
 	

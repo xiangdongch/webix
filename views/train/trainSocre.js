@@ -76,6 +76,55 @@ define([
         }, {width: 400, height: 160});
         win.show();
     };
+    var setProf = function(){
+        var datatable = $$(datatableId);
+        var data = datatable.getCheckedData();
+        if(data.length == 0){
+            msgBox("请至少选择一条数据");
+            return ;
+        }
+        var win = getWin("批量设置专业技能", {
+            rows: [{
+                height: 30,
+                borderless: true,
+                template: '一共选择了'+data.length+'只警犬，为它们赋予专业技能'
+            }, {
+                view: "text", label: "专业技能名称", id: 'profName', width: 270, value: '', labelWidth: 86, attributes:{ maxlength: 16 }
+            },
+                {width: 400},
+                {
+                    cols:[
+                        {},
+                        {view: "button", label: "取消", css: 'non-essential', width: 65, click: function () {
+                            win.close();
+                        }},
+                        {width: DEFAULT_PADDING/2},
+                        {view: "button", label: "提交", width: 65, click: function () {
+                            var profData = [];
+                            var profName = $$('profName').getValue();
+                            if(profName == ''){
+                                msgBox('专业技能不能为空');
+                                return;
+                            }
+                            for(var i = 0; i<data.length; i++){
+                                var item = data[i];
+                                profData.push({dogId: item.dogId, profName: profName});
+                            }
+                            console.log(profData);
+                            doIPost('profession/add', profData, function(res){
+                                if(res.success){
+                                    win.close();
+                                    $$(datatableId).reload();
+                                }else{
+                                    msgBox('操作失败<br>' + res.message)
+                                }
+                            });
+                        }}
+                    ]
+                }]
+        }, {width: 400, height: 160});
+        win.show();
+    };
 
     /**
      * 执行搜索

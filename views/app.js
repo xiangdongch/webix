@@ -13,7 +13,7 @@ define([
 
         css: 'load_page_border',
         elements: [
-            {view: "label", label: "<img class='photo' src='assets/imgs/logo.png' height='45'/>", width: 60},
+            {view: "label", label: "<img class='photo' src='assets/imgs/logo_gold.png' height='48'/>", width: 60},
             {template: '北京市公安局警犬技术工作管理与实战应用系统', css: "header_title"},
             // {template: 'webix-master', css: "header_title"},
 
