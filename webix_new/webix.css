@@ -475,7 +475,7 @@ button,
   cursor: pointer;
   border-bottom: 1px solid #d5d9db;
   text-align: left;
-  color: #05243C;
+  color: #fff;
 }
 .webix_list_item.webix_invalid {
   background-color: #ffeeee;
@@ -3149,12 +3149,12 @@ label.webix_required:after {
   pointer-events: none;
 }
 .webix_fieldset fieldset {
-  border: 1px solid #818f96;
+  border: 1px solid #F5F5F5;
   margin: 0px;
   padding: 5px 8px;
 }
 .webix_fieldset legend {
-  color: #1a1a1a;
+  color: #fff;
   font-size: 12px;
 }
 .webix_forminput fieldset {

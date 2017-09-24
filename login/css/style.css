@@ -1719,7 +1719,7 @@ a.list-group-item.active > .badge,
 }
 
 .tile , .tile-dark, .tile-title, .table th {
-    background: rgba(20, 55, 84, 0.92);
+    background: rgba(20, 55, 84, 0.66);
 }
 
 /* Media */
@@ -1928,7 +1928,7 @@ a.list-group-item.active > .badge,
     }
 
     #skin-blur-ocean {
-        background-image: url(../img/body/ocean.png);
+        background-image: url(../img/body/ocean.jpg);
     }
 
     #skin-blur-sunset {

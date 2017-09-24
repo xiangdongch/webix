@@ -237,10 +237,10 @@ var checkCount = 0;
                 paddingX: 10,
                 height: 36,
                 cols: [
-                    {view: "button", label: "调配", width: 50},
-                    {view: "button", label: "退回", width: 50},
-                    {view: "button", label: "培训报名", width: 70, click: signTrain},
-                    {view: "button", label: "技术使用", width: 80},
+                    // {view: "button", label: "调配", width: 50},
+                    // {view: "button", label: "退回", width: 50},
+                    // {view: "button", label: "培训报名", width: 70, click: signTrain},
+                    // {view: "button", label: "技术使用", width: 80},
                     {view: "button", label: "淘汰申请", width: 80, click: tickOut},
                     {view: "button", label: "死亡申请", width: 80, click: died},
                     {view: "button", label: "导出登记卡", width: 90, click: function(){

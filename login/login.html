@@ -27,22 +27,34 @@
             <section id="login" style="padding: 0">
                 <!-- Login -->
                 <form class="box tile animated active" style="font-size: 14px;">
-                    <div align="center">
-                        <h3 class="m-t-0 m-b-15">系统登录中心</h3>
-                    </div>
                     <div>
-                        &nbsp;警号<input type="text" class="login-control m-b-10" id="username" placeholder="请输入警号" value="">
-                        &nbsp;密码<input type="password" class="login-control" id="password" placeholder="请输入密码" value="">
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src="../assets/imgs/logo_grey.png" style="width: 240px"/>
+                                </td>
+                                <td>
+                                    <div style="margin-left:10px">
+                                        <div align="center">
+                                            <h3 class="m-t-0 m-b-15">系统登录中心</h3>
+                                        </div>
+                                        &nbsp;警号<input type="text" class="login-control m-b-10" id="username" placeholder="请输入警号" value="">
+                                        &nbsp;密码<input type="password" class="login-control" id="password" placeholder="请输入密码" value="">
+                                        <div class="m-b-5">&nbsp;</div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                如忘记密码，请于管理员联系
+                                            </div>
+                                            <div class="col-md-4" align="right">
+                                                <button type="button" class="btn btn-sm m-r-5" onclick="loginValidate()">登录</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="m-b-5">&nbsp;</div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            &nbsp;如果忘记密码，请于管理员联系
-                        </div>
-                        <div class="col-md-6" align="right">
-                            <button type="button" class="btn btn-sm m-r-5" onclick="loginValidate()">登录</button>
-                        </div>
-                    </div>
+
                 </form>
             </section>
         </td>

@@ -44,11 +44,8 @@ define(function(){
                             { id: "train.profession", value: "专业技能", icon: "list-alt", $css: "products", details:""},
                         ]},
 
-                        {id: "adult", open: true, value:"配发管理", data:[
-                            { id: "adult.applyIssue", value: "申请配发", icon: "table", $css: "products", details:""},
-                            { id: "adult.applySendBack", value: "申请退回", icon: "table", $css: "products", details:""},
-                            { id: "adult.adultList", value: "警犬管理", icon: "table", $css: "products", details:""},
-                            { id: "adult.applyList", value: "待配发警犬", icon: "table", $css: "products", details:""},
+                        {id: "apply", open: true, value:"配发管理", data:[
+                            { id: "apply.list", value: "申请配发", icon: "table", $css: "products", details:""}
                         ]},
 
                         {id: "main", value: "繁育管理", open: true, data:[
@@ -60,12 +57,18 @@ define(function(){
                             { id: "wormImmue.immue", value: "免疫管理", icon: "eyedropper", details: ""}
                         ]},
 
-                        {id: "news", open: true, value:"宣传模块", data:[
-                            { id: "news.publish", value: "动态发布", icon: "pencil", $css: "products", details:""},
-                            { id: "news.management", value: "动态管理", icon: "list", $css: "products", details:""},
+
+                        {id: "dogMgmt", value: "警犬管理", open: true, data:[
+                            { id: "adult.adultList", value: "成犬列表", icon: 'list', $css: "dashboard", details:""},
+                            { id: "adult.addDog", value: "外来警犬信息录入", icon: "plus", details: "" },
                         ]},
 
-                        {id: "news", open: true, value:"流程管理", data:[
+                        {id: "news", open: true, value:"宣传模块", data:[
+                            { id: "news.publish", value: "动态发布", icon: "pencil", $css: "products", details:""},
+                            { id: "news.list", value: "动态管理", icon: "list", $css: "products", details:""},
+                        ]},
+
+                        /*{id: "news", open: true, value:"流程管理", data:[
                             { id: "news.publish", value: "我的申请", icon: "check-square", $css: "products", details:""},
                             { id: "news.management", value: "我的待办", icon: "list", $css: "products", details:""},
                         ]},
@@ -75,7 +78,7 @@ define(function(){
                             { id: "system.user", value: "人员管理", icon: "users", $css: "products", details:""},
                             { id: "system.immue", value: "疫苗周期", icon: "bug", $css: "products", details:""},
                             { id: "system.worm", value: "除虫周期", icon: "eyedropper", $css: "products", details:""},
-                        ]}
+                        ]}*/
 
 					]
 				}

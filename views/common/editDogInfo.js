@@ -15,14 +15,14 @@ define([
                     rows:[{
                         cols: [{
                             rows: [
-                                {view: "text", label: "警犬名称", name: "tickoutDate", format:"%Y-%m-%d", stringResult: true},
+                                {view: "text", label: "警犬名称", name: "tickoutDate"},
                                 {view: "text", label: "芯片编号", name: "tickoutReason", attributes:{ maxlength: 128 }},
-                                {view: "datepicker", label: "注入日期", name: "tickoutReason", attributes:{ maxlength: 128 }},
+                                {view: "datepicker", label: "注入日期", name: "tickoutReason", format:"%Y-%m-%d", stringResult: true},
                                 {view: "richselect", label: "性别", value:"-1", options:[
                                     {id: '1', value: "公犬"},
                                     {id: '2', value: "母犬"}
                                 ]},
-                                {view: "datepicker", label: "出生日期", name: "tickoutReason", attributes:{ maxlength: 128 }},
+                                {view: "datepicker", label: "出生日期", name: "tickoutReason", format:"%Y-%m-%d", stringResult: true},
                                 {view: "richselect", label: "品种", value:"-1", options: constant.getBreedTypeOptions() },
                                 {view: "richselect", label: "来源", value:"-1", options: constant.getDogSourceOptions() },
                                 {view: "richselect", label: "毛色", value:"-1", options: constant.getDogColorOptions() },
