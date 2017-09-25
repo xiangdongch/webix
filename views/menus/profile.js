@@ -4,6 +4,7 @@ return {
 	$ui:{
 		view: "submenu",
 		id: "profilePopup",
+		css: 'profile',
 		width: 150,
 		padding:0,
 		data: [
@@ -12,6 +13,14 @@ return {
 			{ $template:"Separator" },
 			{id: 4, icon: "sign-out", value: "退出系统"}
 		],
+        on: {
+            onItemClick: function (id, e, el) {
+                if(id == 4){
+                    sessionStorage.removeItem('_user_info_');
+                    checkLogin();
+				}
+            }
+        },
 		type:{
 			template: function(obj){
 				if(obj.type)

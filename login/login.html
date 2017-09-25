@@ -38,8 +38,8 @@
                                         <div align="center">
                                             <h3 class="m-t-0 m-b-15">系统登录中心</h3>
                                         </div>
-                                        &nbsp;警号<input type="text" class="login-control m-b-10" id="username" placeholder="请输入警号" value="">
-                                        &nbsp;密码<input type="password" class="login-control" id="password" placeholder="请输入密码" value="">
+                                        &nbsp;警号<input type="text" class="login-control m-b-10" id="username" placeholder="请输入警号" value="123">
+                                        &nbsp;密码<input type="password" class="login-control" id="password" placeholder="请输入密码" value="123">
                                         <div class="m-b-5">&nbsp;</div>
                                         <div class="row">
                                             <div class="col-md-8">
@@ -65,5 +65,37 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script>
+    function loginValidate(){
+        var username = $('#username').val();
+        if(username.length == 0){
+            alert("警号不可以为空");
+            return ;
+        }
+
+        var password = $('#password').val();
+        if(password.length == 0){
+            alert("密码不可以为空");
+            return ;
+        }
+
+        $.post("/policeDog/services/user/login", {
+            policeId: username,
+            password: password
+        }, function (response, status) {
+            console.log(status);
+            if(status){
+                if(response.success){
+                    sessionStorage.setItem("_user_info_", JSON.stringify(response.result));
+                    window.open('../#!/app/wormImmue.worm', '_self');
+                }else{
+                    alert('密码不对，请重新输入');
+                }
+            }else{
+                alert('密码不对，请重新输入');
+            }
+        });
+    }
+</script>
 </body>
 </html>

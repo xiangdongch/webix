@@ -3,6 +3,18 @@
 <head>
     <meta charset="utf-8">
     <title>北京市公安局警犬技术工作管理与实战应用系统</title>
+    <script>
+        function checkLogin() {
+            //_user_info_
+            var ui = sessionStorage.getItem("_user_info_");
+            if(!ui){
+                window.open('login/login.html', '_self');
+            }else{
+                window.USER_INFO = JSON.parse(ui);
+            }
+        }
+        checkLogin();
+    </script>
     <script type="text/javascript" src="webix/lodash.js"></script>
     <script type="text/javascript" src="webix_new/extension.js"></script>
     <!-- Webix Library -->
