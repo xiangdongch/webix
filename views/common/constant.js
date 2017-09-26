@@ -16,8 +16,11 @@ define([], function () {
             "杂交犬",
             "其他"
         ],
-        getBreedTypeOptions: function () {
+        getBreedTypeOptions: function (hasAll) {
             var options = [];
+            if(hasAll){
+                options.push({id: '-1', value: '全部'});
+            }
             for(var i = 0; i<constant.breedType.length; i++){
                 var v = constant.breedType[i];
                 options.push({id: v, value: v});
@@ -41,8 +44,11 @@ define([], function () {
             '枯草黄',
             '其他'
         ],
-        getDogColorOptions: function () {
+        getDogColorOptions: function (hasAll) {
             var options = [];
+            if(hasAll){
+                options.push({id: '-1', value: '全部'});
+            }
             for(var i = 0; i<constant.dogColor.length; i++){
                 var v = constant.dogColor[i];
                 options.push({id: v, value: v});

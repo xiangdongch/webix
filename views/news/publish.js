@@ -17,7 +17,7 @@ define([], function () {
                 },
 
                 {
-                    height: 360,
+                    height: 450,
                     borderless: true,
                     view:"iframe", id:"content-body", src:"news/publish.html", on: {
                         onAfterLoad: function(){

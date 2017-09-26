@@ -226,7 +226,7 @@ define([
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "警犬芯片号", name: "dogChipNo", width: 180, labelWidth: 75},
+                            {view: "text", label: "警犬芯名", name: "dogNameLike", width: 180, labelWidth: 60},
                             {width: DEFAULT_PADDING},
                             {view: "text", label: "用犬单位", name: "workUnit", width: 180, labelWidth: 60},
                             {width: DEFAULT_PADDING},
