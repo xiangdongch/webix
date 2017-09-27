@@ -197,9 +197,9 @@ define([
                 height: 36,
                 cols: [
                     // {view: "button", label: "添加", width: 70},
-                    {view: "button", label: "设置成绩", width: 80, click: setScore},
-                    {view: "button", label: "设置专业技能", width: 100, click: setProf},
-                    {view: "button", label: "删除", width: 70, click: del},
+                    {view: "button", label: "设置成绩", width: 80, permission: 'train.myList.btn.setScore', click: setScore},
+                    {view: "button", label: "设置专业技能", width: 100, permission: 'train.myList.btn.setProf', click: setProf},
+                    {view: "button", label: "删除", width: 70, permission: 'train.myList.btn.del', click: del},
                     {}
                 ]
             },

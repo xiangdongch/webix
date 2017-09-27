@@ -243,3 +243,17 @@ function removeEmptyProperty(obj, remove_1){
         }
     }
 }
+
+function getBase(){
+    webix.ajax().sync().post('/policeDog/services/user/base', {}, function(result){
+        var data = JSON.parse(result);
+        if(data.success){
+            console.log(data);
+            sessionStorage.setItem("_user_info_", JSON.stringify(data.result));
+        }else{
+            console.log('not login');
+            window.open('login/login.html', '_self');
+        }
+    })
+}
+getBase();

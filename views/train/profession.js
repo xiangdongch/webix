@@ -148,7 +148,7 @@ define([
                 height: 36,
                 cols: [
                     // {view: "button", label: "添加", width: 70},
-                    {view: "button", label: "删除", width: 70, click: del},
+                    {view: "button", label: "删除", width: 70, permission: 'train.prof.btn.del', click: del},
                     {}
                 ]
             },

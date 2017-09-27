@@ -1,12 +1,12 @@
-window.permissions = ["aaaa"];
 window.webix_view = {
     $init: function (config) {
         this.callEvent && this._evs_events && this.callEvent("test", []);
     },
     permission_setter: function(permission) {
+        console.log(permission);
         if(permissions.indexOf(permission) == -1){
-//                    this.hide();
-            this.disable();
+                   this.hide();
+            // this.disable();
         }else{
             this.show();
         }
