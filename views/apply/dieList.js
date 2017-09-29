@@ -14,7 +14,7 @@ define([
             callback:function(res){
                 if(res){
                     var w = loading();
-                    doPost('apply/dog/delete', data, function(data){
+                    doPost('apply/die/delete', data, function(data){
                         w.close();
                         if(data.success){
                             datatable.reload();
@@ -166,13 +166,13 @@ define([
                 borderless: true,
                 template: '一共选择了'+data.length+'条申请，请审批'
             }, {
-                view: "richselect", label: "审批结果", id: 'applyState', width: 200, value: '合格', labelWidth: 60,
+                view: "richselect", label: "审批结果", id: 'applyState', width: 200, value: '2', labelWidth: 60,
                 options: [
-                    {id: '2', value: "通过，等待配发"},
+                    {id: '2', value: "通过"},
                     {id: '3', value: "驳回"}
                 ]
             },
-            {view: "text", label: "备注", name: "approveDetail", id: 'approveDetail', labelWidth: 60, width: 280},
+                {view: "text", label: "审批意见", name: "approveDetail", id: 'approveDetail', labelWidth: 60, width: 280},
                 {width: 400},
                 {
                     cols:[
@@ -186,9 +186,15 @@ define([
                             var applyState = $$('applyState').getValue();
                             var approveDetail = $$('approveDetail').getValue();
                             for(var i = 0; i<data.length; i++){
-                                da.push({id: data[i].id, applyState: applyState, approveDetail: approveDetail});
+                                da.push({
+                                    id: data[i].id,
+                                    dogId: data[i].dogId,
+                                    applyState: applyState,
+                                    applyDateStr: webix.Date.dateToStr("%Y-%m-%d")(new Date()) ,
+                                    approveDetail: approveDetail
+                                });
                             }
-                            doIPost('apply/dog/approve', da, function(res){
+                            doIPost('apply/die/update', da, function(res){
                                 win.close();
                                 if(res.success){
                                     $$(datatableId).reload();
@@ -229,9 +235,8 @@ define([
                             {view: "richselect", label: "申请状态", name: 'applyState', value:"-1", width: 200, labelWidth: 60, options:[
                                 {id: '-1', value: "全部"},
                                 {id: '1', value: "待审批"}, //1：带审批，2：审批通过，带配发，3：申请驳回，4：配发完成
-                                {id: '2', value: "审批通过，待配发"},
-                                {id: '3', value: "申请驳回"},
-                                {id: '4', value: "配发完成"}
+                                {id: '2', value: "审批通过"},
+                                {id: '3', value: "申请驳回"}
                             ]},
                             {width: DEFAULT_PADDING},
                             {view: "button", label: "清空", type: "form", width: 70, paddingX: 10, click: function(){
@@ -263,7 +268,6 @@ define([
                 paddingX: 10,
                 height: 36,
                 cols: [
-                    {view: "button", label: "新建申请", width: 70, click: add},
                     {view: "button", label: "批量审批", width: 70, click: approve, permission: 'apply.dog.approve'},
                     {view: "button", label: "删除", width: 70, click: del},
                     {},
@@ -283,32 +287,26 @@ define([
                         width: 40
                     },
                     {id: "$index", header: "NO.", width: 45},
-                    {
-                        id: "id",
-                        header: "操作",
-                        template: function (item) {
-                            if(item.applyState == 1 || item.applyState == 3){
-                                return '<a class="my_link edit" href="javascript:void(0)"><span class="webix_icon icon fa-pencil-square-o"></span></a>';
-                            }else{
-                                return '';//<span class="webix_icon icon fa-pencil-square-o"></span>'
-                            }
-                        },
-                        tooltip: '编辑',
-                        width: 60
-                    },
-                    // {id: "workUnit", header: "申请单位", width: 80, sort: "string"},
-                    {id: "creationDate", header: "申请日期", width: 90, format: webix.Date.dateToStr("%Y-%m-%d") },
-                    {id: "applyAmount", header: "数量", width: 50, sort: "string"},
-                    {id: "applyState", header: "审批状态", width: 130, template: function(obj, common, value){
+                    {id: "applyUnit", header: "申请单位", width: 80, sort: "string"},
+                    {id: "applyState", header: "审批状态", width: 100, template: function(obj, common, value){
                         return {
                             "1": "待审批",
-                            "2": "审批通过，待配发",
-                            "3": "申请驳回",
-                            "4": "配发完成"}[value] || "";
+                            "2": "通过",
+                            "3": "驳回"}[value] || "";
                     }},
-                    {id: "lastUpdateDate", header: "审批日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
-                    {id: "approveDetail", header: "审批日志", width: 150},
-                    {id: "applyDesc", header: "备注", sort: "string", fillspace: 1},
+                    {id: "dogInfo", header: "警犬名称", width: 100, sort: "string", template: '#dogInfo.dogName#'},
+                    {id: "dogInfo", header: "警犬芯片号", width: 100, sort: "string", template: '#dogInfo.chipNo#'},
+                    {id: "applyDate", header: "申请日期", width: 90, format: webix.Date.dateToStr("%Y-%m-%d") },
+                    {id: "sickReason", header: "病因", width: 150, sort: "string"},
+                    {id: "sickDate", header: "生病日期", width: 90, format: webix.Date.dateToStr("%Y-%m-%d") },
+                    {id: "cureDetail", header: "救治情况", width: 150, sort: "string"},
+                    {id: "dieDate", header: "死亡日期", width: 90, format: webix.Date.dateToStr("%Y-%m-%d") },
+                    {id: "dieReason", header: "死亡原因", width: 100, sort: "string"},
+                    {id: "conclus", header: "结论", width: 150, sort: "string"},
+                    {id: "photos", header: "附件", width: 50, sort: "string"},
+
+                    {id: "approveDate", header: "审批日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+                    {id: "approveDetail", header: "审批意见", width: 150},
                 ],
                 on: {
                     onBeforeLoad: function () {
@@ -344,7 +342,7 @@ define([
                 minHeight: 80,
                 datafetch: 20,//default
                 customUrl: {
-                    url: webix.proxy('customProxy','/policeDog/services/apply/dog/getList/{pageSize}/{curPage}'),
+                    url: webix.proxy('customProxy','/policeDog/services/apply/die/getList/{pageSize}/{curPage}'),
                     httpMethod: 'post',
                     datatype: 'customJson'
                 },

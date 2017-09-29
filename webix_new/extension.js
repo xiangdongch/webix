@@ -3,7 +3,6 @@ window.webix_view = {
         this.callEvent && this._evs_events && this.callEvent("test", []);
     },
     permission_setter: function(permission) {
-        console.log(permission);
         if(permissions.indexOf(permission) == -1){
                    this.hide();
             // this.disable();

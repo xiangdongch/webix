@@ -4,9 +4,26 @@ define([
     return {
         doTickOut: function(data, datatable){
             var submit = function () {
+                console.log(data);
                 var form = $$('tickout_form');
                 if(form.validate()){
-                    doIPost('dogBaseInfo/tickout', data, function (data) {
+                    var values = form.getValues();
+                    var params = [];
+                    for(var i = 0; i<data.length; i++){
+                        var da = data[i];
+                        params.push({
+                            applyUnit: values.applyUnit,
+                            dogId: da.id,
+                            applyUser: USER_INFO.policeName,
+                            tickoutDateStr: values.tickoutDate,
+                            tickoutReason: values.tickoutReason,
+                            tickoutDesc: values.tickoutDesc,
+                            belongTo: values.belongTo,
+                            applyState: 1,
+                            applyDateStr: webix.Date.dateToStr("%Y-%m-%d")(new Date())
+                        });
+                    }
+                    doIPost('apply/tickout/add', params, function (data) {
                         win.close();
                         if (data.success) {
                             datatable.reload();
@@ -30,9 +47,10 @@ define([
                             labelAlign: 'right'
                         },
                         elements:[
-                            {view: "richselect", label: "申请单位", name: "applyUnit", id:'mother_type', labelWidth: 60,width: 200, options: constant.getUnitOptions()},
+                            {view: "richselect", label: "申请单位", name: "applyUnit", id:'mother_type', labelWidth: 60,width: 200, options: constant.getUnitOptions(), value: USER_INFO.workUnit, readonly: true},
                             {view: "datepicker", label: "淘汰日期", name: "tickoutDate", width: 200, labelWidth: 60, format:"%Y-%m-%d", stringResult: true},
                             {view: "text", label: "淘汰原因", name: "tickoutReason", width: 300, labelWidth: 60, attributes:{ maxlength: 128 }},
+                            {view: "text", label: "淘汰归属", name: "belongTo", width: 300, labelWidth: 60, attributes:{ maxlength: 50 }},
                             {view: "textarea", label: "备注", name: "tickoutDesc", width: 300, labelWidth: 60, height:70, attributes:{ maxlength: 254 }}
                         ],
                         rules:{
@@ -53,7 +71,7 @@ define([
                         ]
                     }
                 ]
-            }, {height: 290});
+            }, {height: 320});
             win.show();
 
         },
@@ -62,7 +80,32 @@ define([
             var submit = function () {
                 var form = $$('tickout_form');
                 if(form.validate()){
-                    doIPost('dogBaseInfo/tickout', data, function (data) {
+                    var values = form.getValues();
+                    var params = [];
+                    var uploader = $$('uploader_pic');
+                    var picList = [];
+                    uploader.files.data.getRange().each(function(item){
+                        picList.push(item.serverName);
+                    });
+                    for(var i = 0; i<data.length; i++){
+                        var da = data[i];
+                        params.push({
+                            dogId: da.id,
+                            applyUnit: values.applyUnit,
+                            sickReason: values.sickReason,
+                            applyDateStr: webix.Date.dateToStr("%Y-%m-%d")(new Date()),
+                            sickDateStr: values.sickDate,
+                            cureDetail: values.cureDetail,
+                            dieDateStr: values.dieDate,
+                            photos: picList.join(','),
+                            dieReason: values.dieReason,
+                            conclus: values.conclus,
+                            applyState: 1,
+                            applyUser: USER_INFO.policeName
+                        });
+                    }
+                    console.log(params);
+                    doIPost('apply/die/add', params, function (data) {
                         win.close();
                         if (data.success) {
                             datatable.reload();
@@ -93,21 +136,21 @@ define([
                                         labelAlign: 'right'
                                     },
                                     elements:[
-                                        {view: "richselect", label: "申请单位", name: "applyUnit", id:'mother_type', labelWidth: 60,width: 200, options: constant.getUnitOptions()},
+                                        {view: "richselect", label: "申请单位", name: "applyUnit", id:'mother_type', labelWidth: 60,width: 200, options: constant.getUnitOptions(), value: USER_INFO.workUnit, readonly: true},
                                         {view: "text", label: "病因", name: "sickReason", width: 300, labelWidth: 60, attributes:{ maxlength: 64 }},
-                                        {view: "datepicker", label: "发病日期", name: "sickDate", width: 240, timepicker: true, editable: true, labelWidth: 60, format:"%Y-%m-%d %h:%i:%s", stringResult: true},
+                                        {view: "datepicker", label: "发病日期", name: "sickDate", width: 240, timepicker: true, editable: true, labelWidth: 60, format:"%Y-%m-%d", stringResult: true},
                                         {view: "text", label: "救治情况", name: "cureDetail", width: 300, labelWidth: 60, attributes:{ maxlength: 128 }},
-                                        {view: "datepicker", label: "死亡时间", name: "dieDate", width: 240, timepicker: true, editable: true, labelWidth: 60, format:"%Y-%m-%d %h:%i:%s", stringResult: true},
+                                        {view: "datepicker", label: "死亡时间", name: "dieDate", width: 240, timepicker: true, editable: true, labelWidth: 60, format:"%Y-%m-%d", stringResult: true},
                                         {view: "text", label: "死亡原因", name: "dieReason", width: 300, labelWidth: 60, attributes:{ maxlength: 128 }},
                                         {view: "textarea", label: "结论", name: "conclus", width: 300, labelWidth: 60, height:70, attributes:{ maxlength: 255 }},
                                         {
                                             rows: [
                                                 {
                                                     view:"uploader",
-                                                    id: "uploader_1",
+                                                    id: "uploader_pic",
                                                     value:"上传图片",
                                                     link:"mylist",
-                                                    upload:"php/upload.php",
+                                                    upload:"/policeDog/services/file/upload",
                                                     datatype:"json"
                                                 },
                                                 {
@@ -142,7 +185,7 @@ define([
                                 win.close();
                             }},
                             {width: DEFAULT_PADDING/2},
-                            {view: "button", label: "提交申请", width: 65, click: submit}
+                            {view: "button", label: "提交报告", width: 65, click: submit}
                         ]
                     }
                 ]

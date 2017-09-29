@@ -27,7 +27,7 @@ define(["models/orders"], function (orders) {
                     {view: "button", label: "复训", width: 65},
                     {view: "button", label: "考核", width: 65},
                     {view: "button", label: "申请淘汰", width: 90},
-                    {view: "button", label: "死亡申请", width: 90},
+                    {view: "button", label: "死亡报告", width: 90},
                     {view: "button", label: "技术使用", width: 90},
                     {}
                 ]

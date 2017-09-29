@@ -170,6 +170,7 @@ define([
                     {id: "", header: "警犬芯片号", width: 130, template: function(obj){ return obj.dogInfo.chipNo || ''; } },
                     {id: "profName", header: "专业名称", width: 130},
                     {id: "creationDate", header: "获取日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+                    {fillspace: 1},
                 ],
                 on: {
                     onBeforeLoad: function () {

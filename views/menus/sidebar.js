@@ -21,8 +21,8 @@ define(function(){
         {id: "train", open: true, value:"培训/考核", data:[
             { id: "train.publish", value: "培训/考核信息", permission: 'train.publish', icon: "pencil", $css: "products", details:""},
             { id: "train.createTrain", value: "创建培训考核名单", permission: 'train.create', icon: "file-text", $css: "products", details:""},
-            { id: "train.scoreMgmt", value: "培训成绩管理", permission: 'train.score.mgmt', icon: "check-square-o", $css: "products", details:""},
-            { id: "train.trainSocre", value: "我的培训", permission: 'train.myList', icon: "list", $css: "products", details:""},
+            // { id: "train.scoreMgmt", value: "培训成绩管理", permission: 'train.score.mgmt', icon: "check-square-o", $css: "products", details:""},
+            { id: "train.trainSocre", value: "警犬培训", permission: 'train.myList', icon: "list", $css: "products", details:""},
             { id: "train.profession", value: "专业技能", permission: 'train.prof', icon: "list-alt", $css: "products", details:""},
         ]},
 
@@ -43,6 +43,8 @@ define(function(){
         {id: "dogMgmt", value: "警犬管理", open: true, data:[
             { id: "adult.adultList", value: "警犬列表", permission: 'dog.list', icon: 'list', $css: "dashboard", details:""},
             { id: "adult.addDog", value: "外来警犬信息录入", permission: 'dog.addDog', icon: "plus", details: "" },
+            { id: "apply.tickoutList", value: "淘汰申请", permission: 'dog.addDog', icon: "list", details: "" },
+            { id: "apply.dieList", value: "死亡报告", permission: 'dog.addDog', icon: "list", details: "" },
         ]},
 
         {id: "news", open: true, value:"宣传模块", data:[

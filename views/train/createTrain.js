@@ -1,8 +1,9 @@
 define([
     'views/common/columns',
     'views/common/tickout',
-    'views/common/editDogInfo'
-], function (columns, tickout, editDog) {
+    'views/common/editDogInfo',
+    'views/common/constant',
+], function (columns, tickout, editDog, constant) {
     var datatableId = webix.uid().toString();
     /**
      * 除虫操作
@@ -32,7 +33,7 @@ define([
     var search = function () {
         var datatable = $$(datatableId);
         var params = $$('form').getValues();
-        removeEmptyProperty(params);
+        removeEmptyProperty(params, true);
         params.growthStage = 2;
         datatable.config.customUrl.params = params;
         datatable.reload();
@@ -65,8 +66,9 @@ define([
     };
 
     var signTrain = function () {
-        if(checkCount.length == 0){
-            msgBox("请至少选择一条数据");
+        console.log(checkCount);
+        if(checkCount == 0){
+            msgBox("请至少选择一条数据，支持跨页选择");
             return ;
         }
         var tabid = webix.uid().toString();
@@ -234,11 +236,17 @@ define([
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "警犬芯片号", name: "chipNo", width: 150, labelWidth: 70},
+                            {view: "text", label: "警犬芯名", name: "dogNameLike", width: 180, labelWidth: 60},
                             {width: DEFAULT_PADDING},
-                            {view: "text", label: "父犬芯片号", name: "fatherId", width: 180, labelWidth: 70},
+                            {
+                                view: "richselect", label: "犬种", name: 'breed', width: 150, value: '-1', labelWidth: 40,
+                                options: constant.getBreedTypeOptions(true)
+                            },
                             {width: DEFAULT_PADDING},
-                            {view: "text", label: "母犬芯片号", name: "motherId", width: 180, labelWidth: 70},
+                            {
+                                view: "richselect", label: "毛色", name: 'dogColour',  width: 150, value: '-1', labelWidth: 40,
+                                options: constant.getDogColorOptions(true)
+                            },
                             {width: DEFAULT_PADDING},
                             {cols: [
                                 {view: "datepicker", label: "出生日期", name: "birthdayStart", id: 'start',labelWidth: 60, width: 180, format:"%Y-%m-%d", stringResult: true},
@@ -273,7 +281,7 @@ var checkCount = 0;
                 paddingX: 10,
                 height: 36,
                 cols: [
-                    {view: "button", label: "生成培训考核名单", width: 130, click: signTrain},
+                    {view: "button", label: "报名培训考核", width: 100, click: signTrain},
                     {},
                 ]
             },
@@ -324,7 +332,7 @@ var checkCount = 0;
                 id: "pagerA",
                 size: 20,
                 group: 5,
-                template: "{common.first()}{common.prev()}{common.pages()}{common.next()}{common.last()}&nbsp;&nbsp;&nbsp;&nbsp;已选择<span id='checkCount'>0</span>条<div style='float: right'>总共#count#条</div>",
+                template: "{common.first()}{common.prev()}{common.pages()}{common.next()}{common.last()}&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#fbff00'>已选择<span id='checkCount'>0</span>条</span><div style='float: right'>总共#count#条</div>",
                 on: {
                     onItemClick: function(){
                         setTimeout(function () {
