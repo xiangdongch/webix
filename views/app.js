@@ -20,7 +20,7 @@ define([
             {},
             // {view: "icon", icon: "search",  width: 45, popup: "searchPopup"},
             // {view: "icon", icon: "envelope-o", value: 3, width: 45, popup: "mailPopup"},
-            {view: "icon", icon: "comments-o", value: 5, width: 45, popup: "messagePopup"},
+            // {view: "icon", icon: "comments-o", value: 5, width: 45, popup: "messagePopup"},
             {
                 height: 46, id: "person_template", css: "header_person", borderless: true, width: 150,
                 data: {id: 3, name: USER_INFO.policeName},

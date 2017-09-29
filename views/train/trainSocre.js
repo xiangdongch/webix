@@ -83,14 +83,28 @@ define([
             msgBox("请至少选择一条数据");
             return ;
         }
-        var win = getWin("批量设置专业技能", {
+        var win = getWin("批量赋予专业技能", {
             rows: [{
                 height: 30,
                 borderless: true,
-                template: '一共选择了'+data.length+'只警犬，为它们赋予专业技能'
-            }, {
-                view: "text", label: "专业技能名称", id: 'profName', width: 270, value: '', labelWidth: 86, attributes:{ maxlength: 16 }
+                template: '一共选择了'+data.length+'只警犬，请按照培训结果赋予专业技能'
             },
+                {view: "richselect", label: "专业技能名称", name: 'trainName', value:"", width: 270, labelWidth: 86,
+                    options:[
+                        {id: '追踪', value: "追踪"},
+                        {id: '鉴别', value: "鉴别"},
+                        {id: '物证搜索', value: "物证搜索"},
+                        {id: '搜捕', value: "搜捕"},
+                        {id: '治安防范', value: "治安防范"},
+                        {id: '搜爆', value: "搜爆"},
+                        {id: '搜毒', value: "搜毒"},
+                        {id: '救援', value: "救援"},
+                        {id: '其他', value: "其他"}
+                    ]
+                },
+            // ,{
+            //     view: "text", label: "专业技能名称", id: 'profName', width: 270, value: '', labelWidth: 86, attributes:{ maxlength: 16 }
+            // },
                 {width: 400},
                 {
                     cols:[
@@ -198,7 +212,7 @@ define([
                 cols: [
                     // {view: "button", label: "添加", width: 70},
                     {view: "button", label: "设置成绩", width: 80, permission: 'train.myList.btn.setScore', click: setScore},
-                    {view: "button", label: "设置专业技能", width: 100, permission: 'train.myList.btn.setProf', click: setProf},
+                    {view: "button", label: "授予专业技能", width: 100, permission: 'train.myList.btn.setProf', click: setProf},
                     {view: "button", label: "删除", width: 70, permission: 'train.myList.btn.del', click: del},
                     {}
                 ]

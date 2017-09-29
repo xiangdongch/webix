@@ -50,6 +50,10 @@ define(function(){
         {id: "news", open: true, value:"宣传模块", data:[
             { id: "news.publish", value: "动态发布", permission:'news.publish', icon: "pencil", $css: "products", details:""},
             { id: "news.list", value: "动态管理", permission: 'news.list', icon: "list", $css: "products", details:""},
+        ]},
+
+        {id: "sysConfig", open: true, value:"系统设置", data:[
+            { id: "user.list", value: "民警管理", permission: 'news.list', icon: "list", $css: "products", details:""},
         ]}
 
     ];

@@ -45,10 +45,15 @@ define([
                     elements:[
                         {view: "richselect", label: "培训科目", name: 'trainName', width: 300,
                             options:[
-                                {id: '体能考核', value: "体能考核"},
-                                {id: '服从性考核', value: "服从性考核"},
-                                {id: '防爆考核', value: "防爆考核"},
-                                {id: '搜寻考核', value: "搜寻考核"}
+                                {id: '追踪', value: "追踪"},
+                                {id: '鉴别', value: "鉴别"},
+                                {id: '物证搜索', value: "物证搜索"},
+                                {id: '搜捕', value: "搜捕"},
+                                {id: '治安防范', value: "治安防范"},
+                                {id: '搜爆', value: "搜爆"},
+                                {id: '搜毒', value: "搜毒"},
+                                {id: '救援', value: "救援"},
+                                {id: '其他', value: "其他"}
                             ]
                         },
                         {cols: [
@@ -153,10 +158,15 @@ define([
                     elements:[
                         {view: "richselect", label: "培训科目", name: 'trainName', width: 300,  value: item.trainName,
                             options:[
-                                {id: '体力培训', value: "体力培训"},
-                                {id: '服从性培训', value: "服从性培训"},
-                                {id: '防爆培训', value: "防爆培训"},
-                                {id: '搜索培训', value: "搜索培训"}
+                                {id: '追踪', value: "追踪"},
+                                {id: '鉴别', value: "鉴别"},
+                                {id: '物证搜索', value: "物证搜索"},
+                                {id: '搜捕', value: "搜捕"},
+                                {id: '治安防范', value: "治安防范"},
+                                {id: '搜爆', value: "搜爆"},
+                                {id: '搜毒', value: "搜毒"},
+                                {id: '救援', value: "救援"},
+                                {id: '其他', value: "其他"}
                             ]
                         },
                         {cols: [
@@ -266,10 +276,15 @@ define([
                         cols: [
                             {view: "richselect", label: "培训科目", name: 'trainName', value:"", width: 180, labelWidth: 60,
                                 options:[
-                                    {id: '体能考核', value: "体能考核"},
-                                    {id: '服从性考核', value: "服从性考核"},
-                                    {id: '防爆考核', value: "防爆考核"},
-                                    {id: '搜寻考核', value: "搜寻考核"}
+                                    {id: '追踪', value: "追踪"},
+                                    {id: '鉴别', value: "鉴别"},
+                                    {id: '物证搜索', value: "物证搜索"},
+                                    {id: '搜捕', value: "搜捕"},
+                                    {id: '治安防范', value: "治安防范"},
+                                    {id: '搜爆', value: "搜爆"},
+                                    {id: '搜毒', value: "搜毒"},
+                                    {id: '救援', value: "救援"},
+                                    {id: '其他', value: "其他"}
                                 ]
                             },
                             {width: DEFAULT_PADDING},
