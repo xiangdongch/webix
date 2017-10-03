@@ -87,7 +87,12 @@
             if(status){
                 if(response.success){
                     sessionStorage.setItem("_user_info_", JSON.stringify(response.result));
-                    window.open('../#!/app/adult.adultList', '_self');
+                    var url = sessionStorage.getItem("red_url");
+                    console.log(url);
+                    if(!url){
+                        url = '../#!/app/adult.adultList';
+                    }
+                    window.open(url, '_self');
                 }else{
                     alert('密码不对，请重新输入');
                 }

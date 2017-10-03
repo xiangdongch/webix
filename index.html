@@ -8,6 +8,7 @@
             //_user_info_
             var ui = sessionStorage.getItem("_user_info_");
             if(!ui){
+                sessionStorage.setItem("red_url", location.href);
                 window.open('login/login.html', '_self');
             }else{
                 window.USER_INFO = JSON.parse(ui);
@@ -132,7 +133,6 @@
     <link rel="stylesheet/less" href="assets/theme.siberia.less">
 
     <script type="text/javascript" src="webix_new/common.js"></script>
-    <script src="echarts/echarts.min (1).js"></script>
 
     <script>
 //        getBase();

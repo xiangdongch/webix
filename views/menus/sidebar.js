@@ -72,7 +72,7 @@ define(function(){
                     }
                 }
             }
-            if (children.length > 0) {
+            if (children.length > 0 || !item.data) {
                 item.data = children;
                 data.push(item);
             }
