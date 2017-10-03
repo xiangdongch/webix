@@ -74,7 +74,7 @@ define([
                     }
                 },
                 {
-                    view:"fieldset", label:"除虫/疫苗信息",
+                    view:"fieldset", label:"驱虫/疫苗信息",
                     body: {
                         rows: [
                             {
@@ -124,12 +124,12 @@ define([
                                 elements: [
                                     {
                                         cols: [
-                                            {view: "richselect", label: "类别", value:"除虫操作", name: 'type', width: 250, labelWidth: 40, options:[
-                                                {id: '除虫操作', value: "除虫"},
+                                            {view: "richselect", label: "类别", value:"驱虫操作", name: 'type', width: 250, labelWidth: 40, options:[
+                                                {id: '驱虫操作', value: "驱虫"},
                                                 {id: '疫苗接种', value: "免疫"}
                                             ]},
                                             {view: "datepicker", label: "完成日期", name: "date", width: 200, format:"%Y-%m-%d", stringResult: true},
-                                            {view: "text", label: "除虫/免疫", name: "name"},
+                                            {view: "text", label: "驱虫/免疫", name: "name"},
                                             {view: "button", label: "新增一条", width: 70, click: function () {
                                                 var fom = $$('immueForm');
                                                 $$('wormImmueData').add( fom.getValues() );
@@ -273,7 +273,7 @@ define([
                                     }
                                     var wormCount = wormImmueData.length - data.wormCount - data.immuCount;
                                     if(wormCount > 0){
-                                        msg += '除虫/免疫信息有' + trainCount + '条，添加失败，请稍后单独添加<br>';
+                                        msg += '驱虫/免疫信息有' + trainCount + '条，添加失败，请稍后单独添加<br>';
                                     }
                                     msgBox('操作成功，数据已经添加<br>' + msg);
                                     $$('baseInfoForm').clear();

@@ -17,7 +17,7 @@ define([
                 // }
                 // });
             }else{
-                msgBox('请填写除虫信息');
+                msgBox('请填写驱虫信息');
             }
 
         };
@@ -149,7 +149,7 @@ define([
                 datafetch: 20,//default
                 data: [
                     {privName: '繁殖培育', privDesc: '繁殖培养警犬模块的相关的权限'},
-                    {privName: '除虫管理', privDesc: '幼犬除虫'},
+                    {privName: '驱虫管理', privDesc: '幼犬驱虫'},
                     {privName: '免疫管理', privDesc: '幼犬管理'},
                     {privName: '专业技能', privDesc: '管理警犬专业技能'},
                     {privName: '技术使用', privDesc: '管理警犬的技术使用'},
@@ -159,7 +159,7 @@ define([
                     {privName: '人员管理', privDesc: '初始化民警、辅警的信息，添加辅警信息'},
                     {privName: '系统配置', privDesc: '系统全局配置'},
                     {privName: '免疫周期配置', privDesc: '配置不同疫苗的免疫周期，用于预先提醒'},
-                    {privName: '除虫周期配置', privDesc: '配置除虫的周期，用于预先提醒'},
+                    {privName: '驱虫周期配置', privDesc: '配置驱虫的周期，用于预先提醒'},
                 ]
                 // customUrl: {
                 //     url: webix.proxy('customProxy','/policeDog/services/wormImmue/list/worm/{pageSize}/{curPage}'),

@@ -3,7 +3,7 @@ define([
 ], function (column) {
     var datatableId = webix.uid().toString();
     /**
-     * 除虫操作
+     * 驱虫操作
      */
     var doWorm = function () {
         var datatable = $$(datatableId);
@@ -48,7 +48,7 @@ define([
                 // }
                 // });
             }else{
-                msgBox('请填写除虫信息');
+                msgBox('请填写驱虫信息');
             }
 
         };

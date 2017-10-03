@@ -250,25 +250,25 @@ define([
             win.close();
             var msgInfo = [];
             if(data.success){
-                win = loading('基本信息添加完成，生成除虫计划');
+                win = loading('基本信息添加完成，生成驱虫计划');
                 webix.message('基本信息添加完成');
                 msgInfo.push('窝编号：' + nestNo);
                 msgInfo.push('1、基本信息添加完成');
                 doPost('dogBaseInfo/initWormInfo/' + nestNo, {}, function(data){
                     win.close();
                     if(data.success){
-                        win = loading('除虫计划创建完成，正在创建免疫计划');
-                        webix.message('除虫计划创建完成');
-                        msgInfo.push('2、除虫计划创建完成');
+                        win = loading('驱虫计划创建完成，正在创建免疫计划');
+                        webix.message('驱虫计划创建完成');
+                        msgInfo.push('2、驱虫计划创建完成');
                     }else{
-                        msgBox('除虫计划创建失败，请稍后手动添加');
-                        msgInfo.push('2、除虫计划创建失败，请稍后手动添加');
+                        msgBox('驱虫计划创建失败，请稍后手动添加');
+                        msgInfo.push('2、驱虫计划创建失败，请稍后手动添加');
                     }
                     createImmue(nestNo, win, callback, msgInfo);
                 }, function () {
-                    msgBox('除虫计划创建失败，请稍后手动添加');
+                    msgBox('驱虫计划创建失败，请稍后手动添加');
                     createImmue(nestNo, win, callback, msgInfo);
-                    msgInfo.push('2、除虫计划创建失败，请稍后手动添加');
+                    msgInfo.push('2、驱虫计划创建失败，请稍后手动添加');
                 });
             }else{
                 msgBox('操作失败，请稍后再试');
@@ -281,7 +281,7 @@ define([
 
     var createImmue = function (nestNo, win, callback, msgInfo) {
         win.close();
-        win = loading('除虫计划创建完成，正在创建免疫计划');
+        win = loading('驱虫计划创建完成，正在创建免疫计划');
         doPost('dogBaseInfo/initImmueInfo/' + nestNo, {}, function(data){
             win.close();
             if(data.success){

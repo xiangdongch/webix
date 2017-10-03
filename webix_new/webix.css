@@ -1305,7 +1305,7 @@ div.webix_modal_cover {
 }
 /*alter styles for even and odd rows*/
 .webix_column > div:nth-child(even) {
-  background-color: rgba(0, 0, 0, 0.28);
+  /*background-color: rgba(0, 0, 0, 0.28);*/
 }
 /*header selection in column mode*/
 .webix_sel_hcell,

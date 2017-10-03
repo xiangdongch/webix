@@ -24,7 +24,7 @@ define([
         rows: [
             {
                 view: "datatable",
-                select: true,
+                select: false,
 
                 rowHeight: 70,
                 // autoheight:true,

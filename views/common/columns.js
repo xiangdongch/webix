@@ -55,6 +55,55 @@ define([], function () {
 
     };
     var methods = {
+        getDogInfo: function () {
+            return [{
+                id: "$check",
+                header: {content: "masterCheckbox"},
+                checkValue: true,
+                uncheckValue: false,
+                template: "{common.checkbox()}",
+                width: 40
+            },
+                {header: '', fillspace: 1, css: 'tab', template: function(item){
+                    try{
+                        var age = new Date().getFullYear() - new Date(item.birthday).getFullYear() + 1;
+                        if(age == 0){
+                            age = 1;
+                        }
+                        item.age = age;
+                        item.birthday = item.birthday.split(' ')[0];
+                    }catch(e){}
+
+                    var html = '<table width="100%">' +
+                        '<tr style="height: 120px">' +
+                        '<td style="width: 120px"><img src="#dogPhoto#" height="120" width="140"></td>' +
+                        '<td>' +
+                        '<div style="margin-top:-15px;padding-left: 6px">' +
+                        '<table width="100%">' +
+                        '<tr>' +
+                        '<td style="width:350px">' +
+                        '<div><span class="tab_label">犬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>#dogName#</div>' +
+                        '<div><span class="tab_label">品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种：</span>#breed#</div>' +
+                        '<div><span class="tab_label">带犬民警：</span>#tutor#</div>' +
+                        '<div><span class="tab_label">工作单位：</span>#workPlace#</div>'+
+                        '</td>' +
+                        '<td valign="top">' +
+                        '<div><span class="tab_label">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</span>#age#岁（#birthday#）</div>' +
+                        '<div><span class="tab_label">专业技能：</span></div>' +
+                        '<div><span class="tab_label">立功受奖：</span></div>' +
+                        '</td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td style="width: 80px"><span class="tab_detail">详细信息</span></td>' +
+                        '</tr>' +
+                        '</table>';
+                    return webix.template(html)(item);// '<div style="height: 50px">22<br>dioi8<br>dioi8<br>dioi8</div>';
+                }}
+            ];
+
+        },
         getColumns: function (headers, startCols) {
             var cols = [
                 {

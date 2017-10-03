@@ -2,7 +2,7 @@ define([
 ], function () {
     var datatableId = webix.uid().toString();
     /**
-     * 除虫操作
+     * 驱虫操作
      */
     var doWorm = function () {
         var datatable = $$(datatableId);
@@ -66,12 +66,12 @@ define([
                     }
                 });
             }else{
-                msgBox('请填写除虫信息');
+                msgBox('请填写驱虫信息');
             }
 
         };
         var win = {};
-        win = getWin("补充除虫记录", {
+        win = getWin("补充驱虫记录", {
             rows: [
                 {
                     view:"scrollview",
@@ -90,8 +90,8 @@ define([
                                 elements:[
                                     {view: "text", label: "警犬窝编号", name: "nestNo", width: 300, attributes:{ maxlength: 64 }},
                                     {view: "text", label: "警犬芯片号", name: "dogId", width: 300, attributes:{ maxlength: 64 }},
-                                    {view: "text", label: "除虫周期", name: "wormDesc", value: '补充', width: 300, attributes:{ maxlength: 64 }},
-                                    {view: "datepicker", label: "除虫日期", name: "wormDateStr", width: 240, format:"%Y-%m-%d", stringResult: true},
+                                    {view: "text", label: "驱虫周期", name: "wormDesc", value: '补充', width: 300, attributes:{ maxlength: 64 }},
+                                    {view: "datepicker", label: "驱虫日期", name: "wormDateStr", width: 240, format:"%Y-%m-%d", stringResult: true},
                                     {view: "text", label: "操作人员", name: "policeName", width: 300, attributes:{ maxlength: 128 }}
                                 ],
                                 rules:{
@@ -150,7 +150,7 @@ define([
                             {view: "text", label: "窝编号", name: "nestNo", width: 180, labelWidth: 50},
                             {width: DEFAULT_PADDING},
                             {cols: [
-                                {view: "datepicker", label: "除虫日期", name: "wormDateStart", id: 'start',labelWidth: 60, width: 180, format:"%Y-%m-%d", stringResult: true},
+                                {view: "datepicker", label: "驱虫日期", name: "wormDateStart", id: 'start',labelWidth: 60, width: 180, format:"%Y-%m-%d", stringResult: true},
                                 {view: "datepicker", label: "-", name: "wormDateEnd", id: 'end', labelWidth: 10, width: 120, format:"%Y-%m-%d", stringResult: true},
                                 {}
                             ]} ,
@@ -195,8 +195,8 @@ define([
         },
         {id: "$index", header: "NO.", width: 45},
         {id: "dogInfo.dogName", header: "犬名", width: 90, template: function(obj){ return _.get(obj, 'dogInfo.dogName','') ; } },
-        {id: "wormDate", header: "除虫日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
-        {id: "wormDesc", header: "除虫周期", width: 100},
+        {id: "wormDate", header: "驱虫日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+        {id: "wormDesc", header: "驱虫周期", width: 100},
         {id: "wormState", header: "状态", width: 55, template: function(obj, common, value){
             if(value == 2){
                 return '<span class="green_color">已完成</span>';
@@ -222,8 +222,8 @@ define([
     var column2 = [
         {id: "$index", header: "NO.", width: 45},
         {id: "dogInfo.dogName", header: "犬名", width: 90, template: function(obj){ return _.get(obj, 'dogInfo.dogName','') ; } },
-        {id: "wormDate", header: "除虫日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
-        {id: "wormDesc", header: "除虫周期", width: 100},
+        {id: "wormDate", header: "驱虫日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
+        {id: "wormDesc", header: "驱虫周期", width: 100},
         {id: "wormState", header: "状态", width: 55, template: function(obj, common, value){
             if(value == 2){
                 return '已完成';
@@ -297,7 +297,7 @@ define([
                 height: 36,
                 cols: [
                     {view: "button", label: "补充记录", width: 70, click: addWorm},
-                    {view: "button", label: "完成除虫", width: 70, click: doWorm},
+                    {view: "button", label: "完成驱虫", width: 70, click: doWorm},
                     {view: "button", label: "删除", width: 70, click: del},
                     {},
                     {view: "button", label: "导出名单", width: 70, click: exportFile},

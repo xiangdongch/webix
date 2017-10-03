@@ -6,7 +6,7 @@ define([
 ], function (columns, tickout, editDog, constant) {
     var datatableId = webix.uid().toString();
     /**
-     * 除虫操作
+     * 驱虫操作
      */
     var doWorm = function () {
         var datatable = $$(datatableId);

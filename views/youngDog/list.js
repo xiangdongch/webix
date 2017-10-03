@@ -5,7 +5,7 @@ define([
 ], function (columns, tickout, editDog) {
     var datatableId = webix.uid().toString();
     /**
-     * 除虫操作
+     * 驱虫操作
      */
     var doWorm = function () {
         var datatable = $$(datatableId);
@@ -140,8 +140,13 @@ define([
             {
                 id: datatableId,
                 view: "datatable",
-                select: true,
-                columns: cols,
+                select: false,
+                tooltip:true,
+                minHeight: 80,
+                rowHeight: 120,
+                datafetch: 20,//default
+                tooltip:false,
+                columns: columns.getDogInfo(),
                 on: {
                     onBeforeLoad: function () {
                         this.showOverlay("Loading...");
@@ -156,9 +161,6 @@ define([
                         editDog.openEdit('');
                     }
                 },
-                tooltip:true,
-                minHeight: 80,
-                datafetch: 20,//default
                 customUrl: {
                     // autoload: true,
                     url: webix.proxy('customProxy','/policeDog/services/dogBaseInfo/getAll/{pageSize}/{curPage}'),

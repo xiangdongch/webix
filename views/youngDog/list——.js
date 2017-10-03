@@ -23,7 +23,7 @@ define(["models/orders"], function (orders) {
                 paddingX: 10,
                 height: 36,
                 cols: [
-                    {view: "button", label: "除虫", width: 65},
+                    {view: "button", label: "驱虫", width: 65},
                     {view: "button", label: "免疫", width: 65},
                     {}
                 ]

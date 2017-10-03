@@ -35,7 +35,7 @@ define(function(){
             { id: "breed.index", value: "警犬繁殖", icon: 'venus-mars', $css: "dashboard", details:""},
             { id: "youngDog.index", value: "幼犬管理", icon: "github-alt", $css: "orders", details:""},
 
-            { id: "wormImmue.worm", value: "除虫管理", icon: "bug", details: "" },
+            { id: "wormImmue.worm", value: "驱虫管理", icon: "bug", details: "" },
             { id: "wormImmue.immue", value: "免疫管理", icon: "eyedropper", details: ""}
         ]},
 

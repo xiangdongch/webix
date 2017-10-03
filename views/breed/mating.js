@@ -2,7 +2,7 @@ define([
 ], function () {
     var datatableId = webix.uid().toString();
     /**
-     * 除虫操作
+     * 驱虫操作
      */
     var del = function () {
         var datatable = $$(datatableId);
