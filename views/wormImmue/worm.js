@@ -147,8 +147,6 @@ define([
                         cols: [
                             {view: "text", label: "警犬芯片号", name: "dogChipNo",labelWidth: 70, width: 180},
                             {width: DEFAULT_PADDING},
-                            {view: "text", label: "窝编号", name: "nestNo", width: 180, labelWidth: 50},
-                            {width: DEFAULT_PADDING},
                             {cols: [
                                 {view: "datepicker", label: "驱虫日期", name: "wormDateStart", id: 'start',labelWidth: 60, width: 180, format:"%Y-%m-%d", stringResult: true},
                                 {view: "datepicker", label: "-", name: "wormDateEnd", id: 'end', labelWidth: 10, width: 120, format:"%Y-%m-%d", stringResult: true},
@@ -165,7 +163,7 @@ define([
                                 $$('form').clear();
                                 $$('form').setValues({wormState: -1});
                             }},
-                            {view: "button", label: "查找", type: "form", width: 70, paddingX: 10, click: function(){
+                            {view: "button", label: "查找", type: "form", id: 'sub_btn', width: 70, paddingX: 10, click: function(){
                                 var params = $$('form').getValues();
                                 removeEmptyProperty(params, true);
                                 var tab = $$(datatableId);
@@ -200,13 +198,14 @@ define([
         {id: "wormState", header: "状态", width: 55, template: function(obj, common, value){
             if(value == 2){
                 return '<span class="green_color">已完成</span>';
+            }else if(value == 3){
+                return '<span class="orange_color" style="font-weight: bold;">进行中</span>'
             }else if(new Date(obj.wormDate) <= new Date()){
                 return '<span class="red_color">已超期</span>'
             }else{
                 return '未进行';
             }
         }},
-        {id: "nestNo", header: "窝编号", width: 130, sort: "string"},
         {id: "dogInfo.chipNo", header: "芯片号", width: 90, template: function(obj){ return _.get(obj, 'dogInfo.chipNo', ''); } },
         {id: "dogInfo.sex", header: "性别", width: 50, template: function(obj){ return '<div align="center">' + ({'1': '公', '2':'母', '3': ''}[_.get(obj, 'dogInfo.sex', '3')]) + '</div>'; } },
         {id: "dogInfo.birthday", header: "出生日期", width: 85, sort: "string", template: function(item){
@@ -226,9 +225,11 @@ define([
         {id: "wormDesc", header: "驱虫周期", width: 100},
         {id: "wormState", header: "状态", width: 55, template: function(obj, common, value){
             if(value == 2){
-                return '已完成';
+                return '<span class="green_color">已完成</span>';
+            }else if(value == 3){
+                return '<span class="orange_color" style="font-weight: bold;">进行中</span>'
             }else if(new Date(obj.wormDate) <= new Date()){
-                return '已超期'
+                return '<span class="red_color">已超期</span>'
             }else{
                 return '未进行';
             }
@@ -299,6 +300,25 @@ define([
                     {view: "button", label: "补充记录", width: 70, click: addWorm},
                     {view: "button", label: "完成驱虫", width: 70, click: doWorm},
                     {view: "button", label: "删除", width: 70, click: del},
+                    {view: "button", label: "未来7天要驱虫的", width: 130, click: function () {
+                        $$('form').setValues({
+                            wormDateEnd: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + (new Date().getDate() + 7),
+                            wormState: 1
+                        });
+                        $$('sub_btn').config.click()
+                    }},
+                    {view: 'button', label: '设置当前条件下为进行中', width: 160, click: function () {
+                        var params = $$(datatableId).config.customUrl.params;
+                        params.wormStateSet = 3;
+
+                        doIPost('wormImmue/updateWormState', params, function(data){
+                            if(data.success){
+                                msgBox('设置成功');
+                            }else{
+                                msgBox('操作失败，请稍后再试');
+                            }
+                        });
+                    }},
                     {},
                     {view: "button", label: "导出名单", width: 70, click: exportFile},
                 ]

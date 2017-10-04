@@ -409,7 +409,7 @@ define([
                 height: 35,
                 cols: [
                     {
-                        "template": "已发布的培训/考核信息",
+                        "template": "已发布的培训信息",
                         "css": "sub_title2",
                         borderless: true
                     }

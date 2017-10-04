@@ -9,6 +9,7 @@
             var ui = sessionStorage.getItem("_user_info_");
             if(!ui){
                 sessionStorage.setItem("red_url", location.href);
+                console.log(sessionStorage.getItem("red_url"));
                 window.open('login/login.html', '_self');
             }else{
                 window.USER_INFO = JSON.parse(ui);

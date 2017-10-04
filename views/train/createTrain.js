@@ -78,7 +78,7 @@ define([
             var data = tab.getCheckedData();
 
             if(data.length == 0){
-                msgBox("请选择一条培训/考核信息");
+                msgBox("请选择一条培训信息");
                 return ;
             }
             data = data[0];
@@ -126,7 +126,7 @@ define([
         var win = {};
 
 
-        win = getWin('报名培训、复训、考核', {
+        win = getWin('报名培训', {
             rows: [
                 {
                     height: 200,
@@ -195,7 +195,7 @@ define([
                 },
                 {
                     cols: [{
-                        template: '提醒：请从上方列表中选择一个培训/复训/考核项目，提交后即刻生效，可以在“报名管理”中查看',
+                        template: '提醒：请从上方列表中选择一个培训项目，提交后即刻生效，可以在“警犬培训”中查看',
                         borderless: true,
                     },
                     {
@@ -236,7 +236,7 @@ define([
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "警犬芯名", name: "dogNameLike", width: 180, labelWidth: 60},
+                            {view: "text", label: "警犬名", name: "dogNameLike", width: 180, labelWidth: 50},
                             {width: DEFAULT_PADDING},
                             {
                                 view: "richselect", label: "犬种", name: 'breed', width: 150, value: '-1', labelWidth: 40,
@@ -267,7 +267,7 @@ define([
     };
 
     var cols = columns.getColumns(
-        [{id: "dogName", header: "犬名", width: 120}, "芯片号", "芯片注入日期", "性别", "出生日期", "品种", "来源", "毛色", "毛型", "繁育员", "训导员" ],
+        [{id: "dogName", header: "犬名", width: 120}, "下次培训时间", "芯片号", "性别", "出生日期", "品种", "来源", "毛色", "毛型", "繁育员", "训导员" ],
         []
     );
 var checkMap = {};
@@ -281,14 +281,14 @@ var checkCount = 0;
                 paddingX: 10,
                 height: 36,
                 cols: [
-                    {view: "button", label: "报名培训考核", width: 100, click: signTrain},
+                    {view: "button", label: "报名培训", width: 90, click: signTrain},
                     {},
                 ]
             },
             {
                 id: datatableId,
                 view: "datatable",
-                select: true,
+                select: false,
                 columns: cols,
                 on: {
                     onBeforeLoad: function () {
@@ -322,7 +322,7 @@ var checkCount = 0;
                     // autoload: true,
                     url: webix.proxy('customProxy','/policeDog/services/dogBaseInfo/getAll/{pageSize}/{curPage}'),
                     httpMethod: 'post',
-                    params: {growthStage: 1},
+                    params: {growthStage: 2},
                     datatype: 'customJson'
                 },
                 pager: "pagerA"

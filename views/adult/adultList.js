@@ -83,7 +83,7 @@ define([
         var win = {};
 
 
-        win = getWin('报名培训、复训、考核', {
+        win = getWin('报名培训', {
             rows: [
                 {
                     height: 200,
@@ -152,7 +152,7 @@ define([
                 },
                 {
                     cols: [{
-                        template: '提醒：请从上方列表中选择一个培训/复训/考核项目，提交后即刻生效，可以在“报名管理”中查看',
+                        template: '提醒：请从上方列表中选择一个培训项目，提交后即刻生效，可以在“警犬培训”中查看',
                         borderless: true,
                     },
                     {
@@ -193,7 +193,7 @@ define([
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "警犬芯名", name: "dogNameLike", width: 180, labelWidth: 60},
+                            {view: "text", label: "警犬名称", name: "dogNameLike", width: 180, labelWidth: 60},
                             {width: DEFAULT_PADDING},
                             // {view: "text", label: "父犬芯片号", name: "fatherId", width: 180, labelWidth: 70},
                             // {width: DEFAULT_PADDING},
@@ -263,7 +263,6 @@ var checkCount = 0;
                 id: datatableId,
                 view: "datatable",
                 select: false,
-                tooltip:true,
                 minHeight: 80,
                 rowHeight: 120,
                 datafetch: 20,//default
@@ -294,6 +293,10 @@ var checkCount = 0;
                     edit: function (a, b, c) {
                         console.log([a, b, c]);
                         editDog.openEdit('');
+                    },
+                    tab_detail: function(e, obj){
+                        var item = $$(datatableId).getItem(obj.row);
+                        constant.showDogDetail(item);
                     }
                 },
                 customUrl: {

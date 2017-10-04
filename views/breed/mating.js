@@ -1,5 +1,7 @@
 define([
-], function () {
+    "views/common/columns",
+    'views/common/constant',
+], function (column, constant) {
     var datatableId = webix.uid().toString();
     /**
      * 驱虫操作
@@ -58,8 +60,10 @@ define([
                                 elements:[
                                     {
                                         cols: [
-                                            {view: "text", label: "公犬芯片号", name: "fatherDogChipNo", width: 200},
-                                            {view: "text", label: "母犬芯片号", name: "motherDogChipNo", width: 200}
+                                            {view: "text", label: "公犬名", name: 'fatherDogName', id: 'father_dog_name', width: 200,  on: constant.setDogList('father_dog_name', 'fatherDogChipNo') },
+                                            {view: 'text', hidden: true, name: "fatherDogChipNo", id: 'fatherDogChipNo'},
+                                            {view: "text", label: "母犬名", name: 'motherDogName', id: 'motherDogLabel', width: 200,   on: constant.setDogList('motherDogLabel', 'motherDogChipNo') },
+                                            {view: 'text', hidden: true, name: "motherDogChipNo", id: 'motherDogChipNo'}
                                         ]
                                     },
                                     {
@@ -111,28 +115,39 @@ define([
                         }},
                         {width: DEFAULT_PADDING/2},
                         {view: "button", label: "保存", width: 65, click: function(){
+                            //
                             var values = $$('form').getValues();
-                            console.log(values);
-                            var mateData = {
-                                fatherDogChipNo: values.fatherDogChipNo,
-                                motherDogChipNo: values.motherDogChipNo,
-                                mateDateStr: values.mateDate,
-                                bMuDateStr: values.bMuDate,
-                                expectDateStr: values.expectDate,
-                                breedCount: values.breedCount,
-                                liveCount7: values.liveCount7,
-                                liveCount21: values.liveCount21,
-                                mateState: values.mateState
-                            };
-                            removeEmptyProperty(mateData);
-                            doIPost('dogMating/add', [mateData], function(resp){
-                                console.log(resp);
-                                if(resp.success){
-                                    msgBox('添加成功');
-                                    win.close();
-                                    $$(datatableId).reload();
+                            var lod = loading('近亲校验中...');
+                            doPost('dogBaseInfo/relativeCheck/'+values.fatherDogChipNo+'/' + values.motherDogChipNo, {}, function(data){
+                                lod.close();
+                                if(!data.success){
+                                    constant.showRelative(data);
+                                }else{
+                                    var mateData = {
+                                        fatherDogChipNo: values.fatherDogChipNo,
+                                        motherDogChipNo: values.motherDogChipNo,
+                                        fatherDogName: values.fatherDogName,
+                                        motherDogName: values.motherDogName,
+                                        mateDateStr: values.mateDate,
+                                        bMuDateStr: values.bMuDate,
+                                        expectDateStr: values.expectDate,
+                                        breedCount: values.breedCount,
+                                        liveCount7: values.liveCount7,
+                                        liveCount21: values.liveCount21,
+                                        mateState: values.mateState
+                                    };
+                                    removeEmptyProperty(mateData);
+                                    doIPost('dogMating/add', [mateData], function(resp){
+                                        console.log(resp);
+                                        if(resp.success){
+                                            msgBox('添加成功');
+                                            win.close();
+                                            $$(datatableId).reload();
+                                        }
+                                    });
                                 }
                             });
+
                         }}
                     ]
                 }
@@ -163,8 +178,10 @@ define([
                                     {view: "text", name: "id", hidden:true},
                                     {
                                         cols: [
-                                            {view: "text", label: "公犬芯片号", name: "fatherDogChipNo", width: 200 },
-                                            {view: "text", label: "母犬芯片号", name: "motherDogChipNo", width: 200}
+                                            {view: "text", label: "公犬名", name: 'fatherDogName', id: 'father_dog_name', width: 200,  on: constant.setDogList('father_dog_name', 'fatherDogChipNo') },
+                                            {view: 'text', hidden: true, name: "fatherDogChipNo", id: 'fatherDogChipNo'},
+                                            {view: "text", label: "母犬名", name: 'motherDogName', id: 'motherDogLabel', width: 200,   on: constant.setDogList('motherDogLabel', 'motherDogChipNo') },
+                                            {view: 'text', hidden: true, name: "motherDogChipNo", id: 'motherDogChipNo'}
                                         ]
                                     },
                                     {
@@ -251,14 +268,14 @@ define([
                 view: "form",
                 id: 'search_form',
                 elementsConfig: {
-                    labelWidth: 90
+                    labelWidth: 55
                 },
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "公犬芯片号", name: "fatherDogChipNo", width: 300},
+                            {view: "text", label: "公犬名", name: "fatherDogName", width: 200},
                             {width: DEFAULT_PADDING},
-                            {view: "text", label: "母犬芯片号", name: "motherDogChipNo", width: 300},
+                            {view: "text", label: "母犬名", name: "motherDogName", width: 200},
                             {width: DEFAULT_PADDING},
                             {view: "richselect", label: "状态", value:"-1", name: 'mateState', width: 180, labelWidth: 60, options:[
                                 {id: '-1', value: "全部"},
@@ -298,7 +315,7 @@ define([
             {
                 id: datatableId,
                 view: "datatable",
-                select: true,
+                select: false,
                 columns: [
                     {
                         id: "$check",
@@ -319,19 +336,10 @@ define([
                     {id: "mateState", header: "状态", width: 65, template: function(obj, common, value){
                         return {"1": '完成交配', '2': '完成B超', '3': '已生产'}[value] || '';
                     }},
-                    {id: "fatherDogInfo.dogName", header: "公犬名称", width: 90,
-                        template: function(obj){
-                            return obj.fatherDogInfo && obj.fatherDogInfo.dogName || '';
-                        }
-                    },
+                    {id: "fatherDogName", header: "公犬名称", width: 90},
                     {id: "fatherDogChipNo", header: "公犬芯片号", width: 90},
 
-                    {
-                        id: "motherDogInfo.dogName", header: "母犬名称", width: 90,
-                        template: function (obj) {
-                            return obj.motherDogInfo && obj.motherDogInfo.dogName || '';
-                        }
-                    },
+                    {id: "fatherDogName", header: "母犬名称", width: 90},
                     {id: "motherDogChipNo", header: "母犬芯片号", width: 90},
 
                     {id: "mateDate", header: "交配日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},

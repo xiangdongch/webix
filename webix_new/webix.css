@@ -2900,7 +2900,7 @@ label.webix_required:after {
   vertical-align: middle;
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid #9da8ad;
+  /*border: 1px solid #9da8ad;*/
   border-left-width: 0px;
   color: #1a1a1a;
   font-size: 14px;
@@ -2927,8 +2927,8 @@ label.webix_required:after {
 .webix_item_tab.webix_selected {
   border-bottom-width: 0px;
   font-size: 14px;
-  color: #1a1a1a;
-  background: #ffffff;
+  color: #fff;
+  background: #14517A;
 }
 .webixtype_bottom .webix_item_tab.webix_selected {
   border-bottom-width: 1px ;
@@ -6242,7 +6242,7 @@ label.webix_required:after {
 .webix_item_tab {
   font-family: Trebuchet MS;
   font-size: 14px;
-  font-style: italic;
+  /*font-style: italic;*/
   border-bottom: 1px solid #9da8ad !important;
   border-left-width: 1px !important;
 }
@@ -6265,7 +6265,7 @@ label.webix_required:after {
 }
 .webix_before_all_tabs,
 .webix_all_tabs {
-  background: #3a7eab;
+  /*background: #3a7eab;*/
 }
 .skinBlueButtonActive {
   background: #cce3f3 !important;

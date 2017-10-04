@@ -1,8 +1,9 @@
 define([
     'views/common/columns',
     'views/common/tickout',
-    'views/common/editDogInfo'
-], function (columns, tickout, editDog) {
+    'views/common/editDogInfo',
+    'views/common/constant',
+], function (columns, tickout, editDog, constant) {
     var datatableId = webix.uid().toString();
     /**
      * 驱虫操作
@@ -32,7 +33,7 @@ define([
     var search = function () {
         var datatable = $$(datatableId);
         var params = $$('form').getValues();
-        removeEmptyProperty(params);
+        removeEmptyProperty(params, true);
         params.growthStage = 1;
         datatable.config.customUrl.params = params;
         datatable.reload();
@@ -83,16 +84,25 @@ define([
                 view: "form",
                 id: 'form',
                 elementsConfig: {
-                    labelWidth: 90
+                    labelWidth: 60
                 },
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "警犬芯片号", name: "chipNo", width: 150, labelWidth: 70},
+                            {view: "text", label: "警犬名称", name: "dogNameLike", width: 180, labelWidth: 60},
                             {width: DEFAULT_PADDING},
-                            {view: "text", label: "父犬芯片号", name: "fatherId", width: 180, labelWidth: 70},
+                            // {view: "text", label: "父犬芯片号", name: "fatherId", width: 180, labelWidth: 70},
+                            // {width: DEFAULT_PADDING},
+                            // {view: "text", label: "母犬芯片号", name: "motherId", width: 180, labelWidth: 70},
+                            {
+                                view: "richselect", label: "犬种", name: 'breed', width: 150, value: '-1', labelWidth: 40,
+                                options: constant.getBreedTypeOptions(true)
+                            },
                             {width: DEFAULT_PADDING},
-                            {view: "text", label: "母犬芯片号", name: "motherId", width: 180, labelWidth: 70},
+                            {
+                                view: "richselect", label: "毛色", name: 'dogColour',  width: 150, value: '-1', labelWidth: 40,
+                                options: constant.getDogColorOptions(true)
+                            },
                             {width: DEFAULT_PADDING},
                             {cols: [
                                 {view: "datepicker", label: "出生日期", name: "birthdayStart", id: 'start',labelWidth: 60, width: 180, format:"%Y-%m-%d", stringResult: true},
@@ -159,6 +169,10 @@ define([
                     edit: function (a, b, c) {
                         console.log([a, b, c]);
                         editDog.openEdit('');
+                    },
+                    tab_detail: function(e, obj){
+                        var item = $$(datatableId).getItem(obj.row);
+                        constant.showDogDetail(item);
                     }
                 },
                 customUrl: {

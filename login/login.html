@@ -92,6 +92,7 @@
                     if(!url){
                         url = '../#!/app/adult.adultList';
                     }
+                    sessionStorage.removeItem("red_url");
                     window.open(url, '_self');
                 }else{
                     alert('密码不对，请重新输入');

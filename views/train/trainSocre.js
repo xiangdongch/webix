@@ -60,7 +60,11 @@ define([
                         var da = [];
                         var trainResult = $$('trainResult').getValue();
                         for(var i = 0; i<data.length; i++){
-                            da.push({id: data[i].id, trainResult: trainResult});
+                            var nt = data[i].nextTrainDate;
+                            try{
+                                nt = nt.split(' ')[0]
+                            }catch(e){}
+                            da.push({id: data[i].id, trainResult: trainResult, nextTrainDateStr: nt, dogId: data[i].dogId});
                         }
                         doIPost('train/batchUpdate', da, function(res){
                             win.close();
@@ -212,8 +216,8 @@ define([
                 cols: [
                     // {view: "button", label: "添加", width: 70},
                     {view: "button", label: "设置成绩", width: 80, permission: 'train.myList.btn.setScore', click: setScore},
-                    {view: "button", label: "授予专业技能", width: 100, permission: 'train.myList.btn.setProf', click: setProf},
-                    {view: "button", label: "删除", width: 70, permission: 'train.myList.btn.del', click: del},
+                    // {view: "button", label: "授予专业技能", width: 100, permission: 'train.myList.btn.setProf', click: setProf},
+                    {view: "button", label: "取消报名（删除）", width: 120, permission: 'train.myList.btn.del', click: del},
                     {}
                 ]
             },

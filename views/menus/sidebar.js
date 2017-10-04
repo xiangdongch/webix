@@ -18,12 +18,12 @@ define(function(){
             { id: "adult.work", value: "警犬工作管理", permission: 'work', icon: "flag-o", $css: "products", details:""},
         ]},
 
-        {id: "train", open: true, value:"培训/考核", data:[
-            { id: "train.publish", value: "培训/考核信息", permission: 'train.publish', icon: "pencil", $css: "products", details:""},
-            { id: "train.createTrain", value: "创建培训考核名单", permission: 'train.create', icon: "file-text", $css: "products", details:""},
+        {id: "train", open: true, value:"培训管理", data:[
+            { id: "train.publish", value: "培训发布管理", permission: 'train.publish', icon: "pencil", $css: "products", details:""},
+            { id: "train.createTrain", value: "报名培训", permission: 'train.create', icon: "file-text", $css: "products", details:""},
             // { id: "train.scoreMgmt", value: "培训成绩管理", permission: 'train.score.mgmt', icon: "check-square-o", $css: "products", details:""},
             { id: "train.trainSocre", value: "警犬培训", permission: 'train.myList', icon: "list", $css: "products", details:""},
-            { id: "train.profession", value: "专业技能", permission: 'train.prof', icon: "list-alt", $css: "products", details:""},
+            // { id: "train.profession", value: "专业技能", permission: 'train.prof', icon: "list-alt", $css: "products", details:""},
         ]},
 
         {id: "apply", open: true, value:"配发管理", data:[

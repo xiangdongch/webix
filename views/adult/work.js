@@ -1,6 +1,7 @@
 define([
-    "views/common/columns"
-], function (column) {
+    "views/common/columns",
+    'views/common/constant',
+], function (column, constant) {
     var datatableId = webix.uid().toString();
 
     /**
@@ -87,7 +88,27 @@ define([
                                                     }
                                                 }
                                             },
-                                            {view: "text", label: "警犬芯片号", name: "dogChipNo", width: 240},
+                                            {view: 'text', value: '', name: "dogChipNo", id: 'dogChipNo', hidden: true},
+                                            {view: "text", label: "警犬", id: 'select_dog', width: 240,
+                                                on: {
+                                                    onItemClick: function () {
+                                                        constant.showDogList(function (datatable) {
+                                                            var data = datatable.getCheckedData();
+                                                            console.log(data);
+                                                            var item = data[data.length - 1];
+                                                            console.log(item.chipNo);
+                                                            $$('select_dog').setValue(item.dogName);
+                                                            $$('select_dog').config.val = item.dogName;
+                                                            $$('dogChipNo').setValue(item.chipNo);
+                                                        });
+                                                    },
+                                                    onChange: function (newVal, oldVal) {
+                                                        if($$('select_dog').config.val){
+                                                            $$('select_dog').setValue($$('select_dog').config.val);
+                                                        }
+                                                    }
+                                                }
+                                            },
                                         ]
                                     },
                                     {
@@ -131,7 +152,7 @@ define([
                                         rows: [
                                             {
                                                 view:"uploader",
-                                                value:"上传图片",
+                                                value:"上传附件",
                                                 id: 'uploader_pic',
                                                 name: 'workPic',
                                                 link:"mylist",
@@ -226,7 +247,7 @@ define([
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "警犬芯名", name: "dogNameLike", width: 180, labelWidth: 60},
+                            {view: "text", label: "警犬名", name: "dogNameLike", width: 180, labelWidth: 50},
                             {width: DEFAULT_PADDING},
                             {view: "text", label: "用犬单位", name: "workUnit", width: 180, labelWidth: 60},
                             {width: DEFAULT_PADDING},
@@ -258,9 +279,6 @@ define([
             {
                 view: "form",
                 css: "toolbar",
-                paddingY: 5,
-                paddingX: 10,
-                height: 36,
                 cols: [
                     {view: "button", label: "添加", width: 50, click: add},
                     {view: "button", label: "删除", width: 50, click: del},
@@ -270,7 +288,11 @@ define([
             {
                 id: datatableId,
                 view: "datatable",
-                select: true,
+                select: false,
+                minHeight: 80,
+                rowHeight: 70,
+                datafetch: 20,//default
+                tooltip:false,
                 columns: [
                     {
                         id: "$check",
@@ -280,8 +302,53 @@ define([
                         template: "{common.checkbox()}",
                         width: 40
                     },
-                    {id: "$index", header: "NO.", width: 45},
-                    {id: "workType", header: "类型", width: 100},
+                    {template: function(item){
+                        var arr = item.workPic || '';
+                        arr = arr.split(',');
+                        var picHtml = '';
+                        var extr = ["bmp", "png", "jpg", "gif", "jepg"];
+                        for(var i = 0; i<arr.length; i++){
+                            var isShow = false;
+                            for(var j = 0; j<extr.length; j++){
+                                if(arr[i].toLowerCase().indexOf(extr[j]) != -1){
+                                    isShow = true;
+                                    break;
+                                }
+                            }
+                            if(isShow) {
+                                picHtml += '<img height="50" src="' + arr[i] + '" class="clickPic">';
+                            }else{
+                                picHtml += '<a href="'+arr[i]+'" target="_blank">下载查看</a>';
+                            }
+                        }
+                        var caseInfo = '';
+                        if(item.workType == '刑侦'){
+                            caseInfo = '<div style="line-height:20px"><span class="tab_label">案件编号：</span>#caseNo#</div>' +
+                            '<div style="line-height:20px"><span class="tab_label">案件性质：</span>#caseProperty#</div>';
+                        }
+                        var html = '<table width="100%">' +
+                            '<tr>' +
+                            '<td style="width: 42px; font-size: 16px;">#workType#</td>'+
+                            '<td style="width: 180px" valign="top">' +
+                            '<div style="line-height: 20px"><span class="tab_label">犬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>#dogInfo.dogName#</div>' +
+                            '<div style="line-height: 20px"><span class="tab_label">出勤人员：</span>#attPerson#</div>' +
+                            '<div style="line-height: 20px"><span class="tab_label">用犬单位：</span>#workUnit#</div>' +
+                            '</td>' +
+                            '<td valign="top" style="width: 200px">' +
+                            '<div style="line-height:20px"><span class="tab_label">开始时间：</span>#startTime#</div>' +
+                            '<div style="line-height:20px"><span class="tab_label">结束时间：</span>#endTime#</div>' +
+                            '<div style="line-height:20px"><span class="tab_label">是否起作用：</span>#isWork#</div>' +
+                            '</td>' +
+                            '<td style="width: 150px" valign="top">' +
+                            caseInfo +
+                            '<div style="line-height:20px"><span class="tab_label">成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;果：</span>#workResult#</div>' +
+                            '</td>' +
+                            '<td style="line-height: 20px"><div style="overflow-x: auto; overflow-y: hidden; width:400px">'+picHtml +'</div></td>'+
+                            '</tr>' +
+                            '</table>';
+                        return webix.template(html)(item);
+                    }, fillspace: 1},
+                    /*{id: "workType", header: "类型", width: 100},
                     {id: "dogInfo.dogName", header: "犬名", width: 90, template: function(obj){ return obj.dogInfo.dogName || ''; } },
                     {id: "startTime", header: "开始时间", width: 140, format: webix.Date.dateToStr("%Y-%m-%d %h:%i:%s")},
                     {id: "endTime", header: "结束时间", width: 140, format: webix.Date.dateToStr("%Y-%m-%d %h:%i:%s")},
@@ -295,8 +362,7 @@ define([
                     {id: "", header: "图片", width: 110, template: function (item) {
                         console.log(item);
                         return '<a href="#">查看图片</a>';
-                    }},
-                    {width: 1}
+                    }},*/
                 ],
                 on: {
                     onBeforeLoad: function () {
@@ -310,6 +376,27 @@ define([
                     edit: function (a, b, c) {
                         console.log([a, b, c]);
                     },
+                    clickPic: function (a, b, c) {
+                        console.log([a, b, c]);
+                        var src = a.target.src;
+                        var arr = ["bmp", "png", "jpg", "gif", "jepg"];
+                        var isShow = false;
+                        for(var i = 0; i<arr.length; i++){
+                            if(src.toLowerCase().indexOf(arr[i]) != -1){
+                                isShow = true;
+                                break;
+                            }
+                        }
+                        if(!isShow){
+                            window.open(src, '_blank');
+                        }else{
+                            var win = getWin('图片预览', {
+                                template: '<div><img src="'+src+'" style="width:800px; height: 500px" height="500" width="800"></div>'
+                            }, {height: 500, width: 800});
+                            win.show();
+                        }
+
+                    },
                     webix_icon: function (e, id) {
                         webix.confirm({
                             text: "Are you sure sdfds", ok: "Yes", cancel: "Cancel",
@@ -321,9 +408,6 @@ define([
                         });
                     }
                 },
-                tooltip:true,
-                minHeight: 80,
-                datafetch: 20,//default
                 customUrl: {
                     url: webix.proxy('customProxy','/policeDog/services/work/getList/{pageSize}/{curPage}'),
                     httpMethod: 'post',
