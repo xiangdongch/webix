@@ -62,28 +62,16 @@ define([
                             {}
                         ]} ,
                         // {view: "text", label: "培训单位", name: "trainUnit", width: 300, attributes:{ maxlength: 128 }},
-                        {view: "richselect", label: "培训单位", name: 'trainUnit', width: 300,  value: '北京',
+                        {view: "richselect", label: "培训单位", name: 'trainUnit', width: 300,  value: '',
                             options:[
-                                {id: '北京', value: "北京"},
-                                {id: '沈阳', value: "沈阳"},
-                                {id: '南京', value: "南京"},
-                                {id: '南昌', value: "南昌"},
-                                {id: '昆明', value: "昆明"},
-                            ],
-                            on: {
-                                onChange: function(newVal){
-                                    var addr = {
-                                        "北京": "北京xxx",
-                                        "沈阳": "沈阳xxx",
-                                        "南京": "南京xxx",
-                                        "南昌": "南昌xxx",
-                                        "昆明": "昆明xxx",
-                                    }[newVal] || '';
-                                    $$('trainAddr').setValue(addr);
-                                }
-                            }
+                                {id: '北京市公安局警犬基地', value: "北京市公安局警犬基地"},
+                                {id: '公安部沈阳警犬技术学校', value: "公安部沈阳警犬技术学校"},
+                                {id: '公安部南昌警犬基地', value: "公安部南昌警犬基地"},
+                                {id: '公安部南京警犬基地', value: "公安部南京警犬基地"},
+                                {id: '公安部昆明警犬基地', value: "公安部昆明警犬基地"},
+                            ]
                         },
-                        {view: "text", label: "培训地址", id: 'trainAddr', name: "trainAddr", value: '北京xxx', width: 300, attributes:{ maxlength: 200 }},
+                        {view: "text", label: "培训地址", id: 'trainAddr', name: "trainAddr", value: '', width: 300, attributes:{ maxlength: 200 }},
                         {view: "text", label: "主考人", name: 'trainUser', width: 300, attributes:{ maxlength: 64 }},
                         {view: "textarea", label: "主要内容", name: "trainDesc", width: 300, attributes:{ maxlength: 200 }}
                     ],
@@ -176,24 +164,12 @@ define([
                         ]} ,
                         {view: "richselect", label: "培训单位", name: 'trainUnit', width: 300,  value: item.trainUnit,
                             options:[
-                                {id: '北京', value: "北京"},
-                                {id: '沈阳', value: "沈阳"},
-                                {id: '南京', value: "南京"},
-                                {id: '南昌', value: "南昌"},
-                                {id: '昆明', value: "昆明"},
-                            ],
-                            on: {
-                                onChange: function(newVal){
-                                    var addr = {
-                                        "北京": "北京xxx",
-                                        "沈阳": "沈阳xxx",
-                                        "南京": "南京xxx",
-                                        "南昌": "南昌xxx",
-                                        "昆明": "昆明xxx",
-                                    }[newVal] || '';
-                                    $$('trainAddr').setValue(addr);
-                                }
-                            }
+                                {id: '北京市公安局警犬基地', value: "北京市公安局警犬基地"},
+                                {id: '公安部沈阳警犬技术学校', value: "公安部沈阳警犬技术学校"},
+                                {id: '公安部南昌警犬基地', value: "公安部南昌警犬基地"},
+                                {id: '公安部南京警犬基地', value: "公安部南京警犬基地"},
+                                {id: '公安部昆明警犬基地', value: "公安部昆明警犬基地"},
+                            ]
                         },
                         {view: "text", label: "培训地址", id: 'trainAddr', name: "trainAddr", value: item.trainAddr, width: 300, attributes:{ maxlength: 200 }},
                         {view: "text", label: "主考人", name: 'trainUser',  value: item.trainUser, width: 300, attributes:{ maxlength: 64 }},
@@ -329,13 +305,23 @@ define([
                     {view: "button", label: "添加", width: 55, click: add},
                     {view: "button", label: "修改", width: 55, click: update},
                     {view: "button", label: "删除", width: 55, click: del},
+                    {view: "button", label: "发布通知", width: 80, click: function () {
+                        var datatable = $$(datatableId);
+                        var data = datatable.getCheckedData();
+                        console.log(data);
+                        if(data.length == 0){
+                            msgBox('请选择一条培训信息')
+                        }else{
+
+                        }
+                    }},
                     {}
                 ]
             },
             {
                 id: datatableId,
                 view: "datatable",
-                select: true,
+                select: false,
                 columns: [
                     {
                         id: "$check",
@@ -346,13 +332,13 @@ define([
                         width: 40
                     },
                     {id: "$index", header: "NO.", width: 45},
-                    {id: "trainName", header: "培训科目", width: 120},
+                    {id: "trainName", header: "培训科目", width: 100},
                     {id: "startDate", header: "开始日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
                     {id: "endDate", header: "结束日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
                     {id: "trainDesc", header: "培训内容", width: 200},
-                    {id: "trainUnit", header: "培训单位", width: 200},
-                    {id: "trainUser", header: "主考人", width: 200},
-                    {id: "trainAddr", header: "培训地点", minWidth: 400, fillspace: true}
+                    {id: "trainUnit", header: "培训单位", width: 100},
+                    {id: "trainUser", header: "主考人", width: 100},
+                    {id: "trainAddr", header: "培训地点", fillspace: true}
                 ],
                 on: {
                     onBeforeLoad: function () {

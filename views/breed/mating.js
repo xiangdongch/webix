@@ -309,6 +309,12 @@ define([
                 cols: [
                     {view: "button", label: "添加记录", width: 70, click: addWorm},
                     {view: "button", label: "删除", width: 70, click: del},
+                    {view: "button", label: "生成幼犬信息", width: 100, click: function () {
+                        var datatable = $$(datatableId);
+                        console.log(datatable);
+                        var data = datatable.getCheckedData();
+                        console.log(data);
+                    }},
                     {}
                 ]
             },

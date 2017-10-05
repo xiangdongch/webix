@@ -43,7 +43,7 @@ define([], function () {
         '考核日期': {id: "trainDate", header: "考核日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
         '培训课程': {id: "trainName", header: "培训课程", width: 100},
         '班级名称': {id: "trainClassName", header: "班级名称", width: 100},
-        '培训单位': {id: "trainUnit", header: "培训单位", width: 100},
+        '培训单位': {id: "trainUnit", header: "培训单位", width: 140},
         '培训地点': {id: "trainAddr", header: "培训地点", width: 130},
         '教练员': {id: "trainUser", header: "教练员", width: 130},
         '基础评分': {id: "trainUser", header: "基础评分", width: 80, template: '<a class="score_detail">点击查看</a>'},

@@ -15,10 +15,34 @@ define([
             callback:function(res){
                 if(res){
                     var w = loading();
+                    var params = data;
                     doPost('train/delete', data, function(data){
                         w.close();
                         if(data.success){
                             datatable.reload();
+                            webix.confirm({
+                                text:"是否恢复下次培训日期？", ok:"是", cancel:"否",
+                                callback:function(r){
+                                    if(r){
+                                        var par = [];
+                                        for(var i = 0; i<params.length; i++){
+                                            var it = params[i];
+                                            var nt = new Date(it.nextTrainDate);
+                                            var year = nt.getFullYear();
+                                            nt = it.nextTrainDate.replace(year, year - 1);
+
+                                            par.push({id: it.dogId, nextTrainDateStr: nt});
+                                        }
+
+                                        doPost('dogBaseInfo/update', par, function (d) {
+                                            if(d.success){
+                                                msgBox('操作成功')
+                                            }else{
+                                                msgBox('操作失败<br>' + data.message)
+                                            }
+                                        });
+                                    }
+                                }});
                         }else{
                             msgBox('操作失败<br>' + data.message)
                         }
@@ -150,6 +174,7 @@ define([
     var search = function () {
         var datatable = $$(datatableId);
         var params = $$('form').getValues();
+        removeEmptyProperty(params);
         datatable.config.customUrl.params = params;
         datatable.reload();
     };
@@ -173,22 +198,16 @@ define([
                 view: "form",
                 id: 'form',
                 elementsConfig: {
-                    labelWidth: 90
+                    labelWidth: 60
                 },
                 elements: [
                     {
                         cols: [
-                            {view: "text", label: "警犬芯片号", name: "father", width: 300},
+                            {view: "text", label: "带犬民警", name: "policeName", width: 250},
                             {width: DEFAULT_PADDING},
-                            {view: "text", label: "窝编号", name: "nestNo", width: 300, labelWidth: 60},
+                            {view: "text", label: "警犬名", name: "dogName", width: 250, labelWidth: 55},
                             {width: DEFAULT_PADDING},
-                            {view: "richselect", label: "完成状态", value:"-1", width: 180, labelWidth: 60, options:[
-                                {id: '-1', value: "全部"},
-                                {id: '2', value: "未完成"},
-                                {id: '1', value: "已完成"}
-                            ]},
-                            {width: DEFAULT_PADDING},
-                            {view: "button", label: "查找幼犬", type: "form", width: 100, paddingX: 10, click: search},
+                            {view: "button", label: "查找", type: "form", width: 100, paddingX: 10, click: search},
                             {}
                         ]
                     }
@@ -202,7 +221,7 @@ define([
     };
 
     var cols = column.getColumns([//"类型",
-         "培训课程", "开始日期", "结束日期", "培训单位", "犬名_2", "芯片号_2", "教练员", "带犬民警", "考核结果", "下次培训时间", "培训地点"
+         "开始日期", "结束日期", "培训单位", "犬名_2", "带犬民警", "培训课程", "考核结果",  "教练员", "下次培训时间", "培训地点"
     ], []);
 
     var gridPager = {
@@ -224,7 +243,7 @@ define([
             {
                 id: datatableId,
                 view: "datatable",
-                select: true,
+                select: false,
                 columns: cols,
                 on: {
                     onBeforeLoad: function () {

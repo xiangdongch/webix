@@ -94,6 +94,7 @@ define([
                 arr.push({
                     growStage: 2,
                     dogId: dog.id,
+                    dogName: dog.dogName,
                     trainId: data.id,
                     trainName: data.trainName,
                     trainStartDateStr: data.startDate,
@@ -112,11 +113,10 @@ define([
             }
             console.log(arr);
             doIPost('train/add', arr, function (data) {
-                console.log(data);
                 win.close();
                 if (data.success) {
-                    // $$(datatableId).reload();
-                    msgBox('操作成功，名单已生成');
+                    $$(datatableId).reload();
+                    msgBox('操作成功');
                 } else {
                     msgBox('操作失败<br>' + data.message)
                 }
@@ -132,7 +132,7 @@ define([
                     height: 200,
                     id: tabid,
                     view: "datatable",
-                    select: true,
+                    select: false,
                     columns: [
                         {
                             id: "$check",
@@ -267,7 +267,7 @@ define([
     };
 
     var cols = columns.getColumns(
-        [{id: "dogName", header: "犬名", width: 120}, "下次培训时间", "芯片号", "性别", "出生日期", "品种", "来源", "毛色", "毛型", "繁育员", "训导员" ],
+        [{id: "dogName", header: "犬名", width: 120}, "下次培训时间", {id: 'isSign', header: '是否报名', width: 80}, "训导员" , "性别", "出生日期", {id: "breed", header: "品种", width: 110, sort: "string"}],
         []
     );
 var checkMap = {};
@@ -320,9 +320,9 @@ var checkCount = 0;
                 datafetch: 20,//default
                 customUrl: {
                     // autoload: true,
-                    url: webix.proxy('customProxy','/policeDog/services/dogBaseInfo/getAll/{pageSize}/{curPage}'),
+                    url: webix.proxy('customProxy','/policeDog/services/dogBaseInfo/getTrainList/{pageSize}/{curPage}'),
                     httpMethod: 'post',
-                    params: {growthStage: 2},
+                    params: {growthStage: 2, workStage: 2},
                     datatype: 'customJson'
                 },
                 pager: "pagerA"
