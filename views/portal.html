@@ -14,6 +14,7 @@
         }
         tr, td {
             /*border: 1px solid red;*/
+            /*vertical-align: top;*/
         }
         .def_bk {
             background-color: rgba(0, 0, 0, 0.07);
@@ -42,9 +43,10 @@
 <div class="contain">
     <table width="100%" height="510">
         <tr>
-            <td class="def_bk" style="width:50%" valign="top">
-                <div style="font-weight: bold; margin: 16px 0 0 8px; ">各分局排名</div>
+            <td class="def_bk" style="width:42%" valign="top">
+                <div style="font-weight: bold; margin: 16px 0 0 8px; ">各分局工作情况</div>
                 <div id="order" class="table-c" style="height:520px;padding: 16px">
+                    <!--<div style="height: 25px">全国警犬技术排名前三名：北京、贵州、海南&nbsp;<a>查看明细</a></div>-->
                     <table border="0" cellspacing="0" cellpadding="0">
                         <tr style="height: 40px" class="point" onclick="doOrder" id="tab_header">
                             <td style="width: 140px" id="tab_1">分局</td>
@@ -97,9 +99,24 @@
     <div style="height: 16px;"></div>
     <table width="100%">
         <tr>
-            <td id="col1" class="def_bk">
-                <div style="font-weight: bold; margin: -2px 0 0 8px; ">北京市各区警犬数量分布</div>
-                <div id="main" style="height:550px;"></div>
+            <td id="col1" class="def_bk" style="width: 50%" valign="top">
+                <div style="font-weight: bold; margin: 16px 0 0 8px; ">北京市各区警犬数量分布</div>
+                <div id="main" style="height:520px;"></div>
+                <div style=" height: 117px; margin: 2px 10px 0px 10px" class="table-c">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr onclick="onSpecialDataClick">
+                            <td width="60px"></td>
+                            <td width="60px" onclick="onSpecialDataClick('刑侦总队')" style="cursor: pointer;">刑侦总队</td>
+                            <td width="60px" onclick="onSpecialDataClick('公交总队')" style="cursor: pointer;">公交总队</td>
+                            <td width="60px" onclick="onSpecialDataClick('特警总队')" style="cursor: pointer;">特警总队</td>
+                            <td width="60px" onclick="onSpecialDataClick('天安门')" style="cursor: pointer;">天安门<br>分局</td>
+                            <td width="60px" onclick="onSpecialDataClick('西站分局')" style="cursor: pointer;">西站分局</td>
+                            <td width="60px" onclick="onSpecialDataClick('开发局')" style="cursor: pointer;">开发局<br>分局</td>
+                            <td width="60px" onclick="onSpecialDataClick('清河分局')" style="cursor: pointer;">清河分局</td>
+                        </tr>
+                        <tbody id="special_da"> </tbody>
+                    </table>
+                </div>
             </td>
             <td style="width: 16px"></td>
             <td valign="top" class="def_bk">
@@ -224,9 +241,9 @@
 <script>
     (function(){
         var w = $(window).width();
-        var left = (w - 16)/5 * 2;
-        $('#col1').css('width', left + 'px');
-        console.log(w);
+//        var left = (w - 16)/5 * 2;
+//        $('#col1').css('width', left + 'px');
+//        console.log(w);
     })();
 
     var table = $('#orderTable');
@@ -246,8 +263,9 @@
         {fj: '平谷分局',policeCount: 838, dogCount: 35, per: 24, workCount: 0, newsCount: 0},
         {fj: '顺义分局',policeCount: 1631, dogCount: 54, per: 30, workCount: 0, newsCount: 0},
         {fj: '密云分局',policeCount: 1071, dogCount: 35, per: 31, workCount: 0, newsCount: 0},
-        {fj: '延庆分局',policeCount: 917, dogCount: 20, per: 46, workCount: 0, newsCount: 0}
+        {fj: '延庆分局',policeCount: 917, dogCount: 20, per: 46, workCount: 0, newsCount: 0},
     ];
+
     function renderOrder(){
         table.empty();
         var htm = '<tr style="height: 40px" class="point" onclick="doOrder" id="tab_header">' +
@@ -410,6 +428,90 @@
         $('#newList2').append(ht);
     }
     renderBullent();
+
+    //非区域分局
+    var otherFj = [
+        {fj: '刑侦总队',policeCount: 2000, dogCount: 45, per: 46, workCount: 0, newsCount: 0},
+        {fj: '公交总队',policeCount: 917, dogCount: 30, per: 46, workCount: 0, newsCount: 0},
+        {fj: '特警总队',policeCount: 876, dogCount: 23, per: 46, workCount: 0, newsCount: 0},
+        {fj: '天安门分局',policeCount: 924, dogCount: 28, per: 46, workCount: 0, newsCount: 0},
+        {fj: '西站分局',policeCount: 744, dogCount: 26, per: 46, workCount: 0, newsCount: 0},
+        {fj: '开发区分局',policeCount: 743, dogCount: 19, per: 46, workCount: 0, newsCount: 0},
+        {fj: '清河分局',policeCount: 906, dogCount: 12, per: 46, workCount: 0, newsCount: 0}
+    ];
+    function renderOrgFj(){
+        /*var userCount = "<tr style=\"height: 23px\">\n" +
+            "                            <td>民警总数</td>\n" +
+            "                            <td>1032</td>\n" +
+            "                            <td>892</td>\n" +
+            "                            <td>2000</td>\n" +
+            "                            <td>800</td>\n" +
+            "                            <td>870</td>\n" +
+            "                            <td>987</td>\n" +
+            "                            <td>876</td>\n" +
+            "                        </tr>\n" +
+            "                        <tr style=\"height: 23px\">\n" +
+            "                            <td>警犬总数</td>\n" +
+            "                            <td>30</td>\n" +
+            "                            <td>25</td>\n" +
+            "                            <td>50</td>\n" +
+            "                            <td>30</td>\n" +
+            "                            <td>35</td>\n" +
+            "                            <td>38</td>\n" +
+            "                            <td>33</td>\n" +
+            "                        </tr>\n" +
+            "                        <tr style=\"height: 23px\">\n" +
+            "                            <td>人犬比</td>\n" +
+            "                            <td>40:1</td>\n" +
+            "                            <td>1</td>\n" +
+            "                            <td>1</td>\n" +
+            "                            <td>1</td>\n" +
+            "                            <td>1</td>\n" +
+            "                            <td>1</td>\n" +
+            "                            <td>1</td>\n" +
+            "                        </tr>";*/
+        var userCount = '<tr style="height: 23px"><td>警犬总数</td>';
+        var docCount = '<tr style="height: 23px"><td>警犬总数</td>';
+        var perCount = '<tr style="height: 23px"><td>人犬比</td>';
+        for(var i = 0; i<otherFj.length; i++) {
+            var item = otherFj[i];
+            item.per = parseInt(item.policeCount / item.dogCount);
+            userCount += '<td>' + item.policeCount + '</td>';
+            docCount += '<td>' + item.dogCount + '</td>';
+            perCount += '<td>' + item.per + ':1</td>';
+        }
+        userCount += '</tr>';
+        docCount += '</tr>';
+        perCount += '</tr>';
+        $('#special_da').empty();
+        $('#special_da').html( userCount + docCount + perCount);
+    }
+    renderOrgFj();
+    function onSpecialDataClick(name){
+        switch (name){
+            case '刑侦总队':
+                console.log(1221);
+                break;
+            case '公交总队':
+                console.log(1221);
+                break;
+            case '特警总队':
+                console.log(1221);
+                break;
+            case '天安门分局':
+                console.log(1221);
+                break;
+            case '西站分局':
+                console.log(1221);
+                break;
+            case '开发区分局':
+                console.log(1221);
+                break;
+            case '清河分局':
+                console.log(1221);
+                break;
+        }
+    };
 </script>
 
 </body>
@@ -569,25 +671,25 @@
     var myChart = echarts.init(document.getElementById('main'), 'vintage');
     myChart.setOption(option = {
 //        backgroundColor: 'rgba(0, 0, 0, 0.25)',
-//        visualMap: {
-//            left: -10000,
-//            type: 'piecewise',
-//            pieces: [
-//                {min: 0, max: 40, color: '#00fefe'},
-//                {min: 41, max: 60, color: '#FEFE01'},
-//                {min: 61, max: 1000, color: '#E71F1C'}
-//            ],
-//            color: ['#E0022B', '#E09107', '#A3E00B']
-//        },
         visualMap: {
-            min: 0,
-            max: 100,
-            left: -1000,
-            inRange: {
-                color: ['#006edd', '#e0ffff']
-            },
-            calculable : true
+            left: -10000,
+            type: 'piecewise',
+            pieces: [
+                {min: 0, max: 40, color: '#6cfe2b'},
+                {min: 41, max: 60, color: '#fcfe1d'},
+                {min: 61, max: 1000, color: '#e73c43'}
+            ],
+            color: ['#E0022B', '#E09107', '#A3E00B']
         },
+//        visualMap: {
+//            min: 0,
+//            max: 100,
+//            left: -1000,
+//            inRange: {
+//                color: ['#006edd', '#e0ffff']
+//            },
+//            calculable : true
+//        },
         tooltip: {
             trigger: 'item',
             formatter: function(params){
