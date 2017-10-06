@@ -43,7 +43,7 @@
 <div class="contain">
     <table width="100%" height="510">
         <tr>
-            <td class="def_bk" style="width:42%" valign="top">
+            <td class="def_bk" style="width:50%" valign="top">
                 <div style="font-weight: bold; margin: 16px 0 0 8px; ">各分局工作情况</div>
                 <div id="order" class="table-c" style="height:520px;padding: 16px">
                     <!--<div style="height: 25px">全国警犬技术排名前三名：北京、贵州、海南&nbsp;<a>查看明细</a></div>-->
@@ -97,22 +97,93 @@
         </tr>
     </table>
     <div style="height: 16px;"></div>
+    <!--全局各项指标-->
+    <table width="100%">
+        <tr style="height: 220px">
+            <td style="width: 14.2%;">
+                <div style="margin: 0 8px 0 0;height: 220px" class="def_bk">
+                    <div style="height: 190px" id="qj_col1"></div>
+                    <div style="height: 30px; padding: 4px" align="center">人犬比</div>
+                </div>
+            </td>
+            <td style="width: 14.2%;">
+                <div style="margin: 0 8px 0 0;height: 220px" class="def_bk">
+                    <div style="height: 190px" id="qj_col2"></div>
+                    <div style="height: 30px; padding: 4px" align="center">带犬民警</div>
+                </div>
+            </td>
+            <td style="width: 14.2%;">
+                <div style="margin: 0 8px 0 0;height: 220px" class="def_bk">
+                    <div style="height: 190px" id="qj_col3"></div>
+                    <div style="height: 30px; padding: 4px" align="center">警犬专业</div>
+                </div>
+            </td>
+            <td style="width: 14.2%;">
+                <div style="margin: 0 8px 0 0;height: 220px" class="def_bk">
+                    <div style="height: 190px" id="qj_col4"></div>
+                    <div style="height: 30px; padding: 4px" align="center">培训工作</div>
+                </div>
+            </td>
+            <td style="width: 14.2%;">
+                <div style="margin: 0 8px 0 0;height: 220px" class="def_bk">
+                    <div style="height: 190px" id="qj_col5"></div>
+                    <div style="height: 30px; padding: 4px" align="center">警犬配发</div>
+                </div>
+            </td>
+            <td style="width: 14.2%;">
+                <div style="margin: 0 8px 0 0;height: 220px" class="def_bk">
+                    <div style="height: 190px" id="qj_col6"></div>
+                    <div style="height: 30px; padding: 4px" align="center">繁育工作</div>
+                </div>
+            </td>
+            <td style="width: 14.2%;">
+                <div style="margin: 0 0px 0 0;height: 220px" class="def_bk">
+                    <div style="height: 190px" id="qj_col7"></div>
+                    <div style="height: 30px; padding: 4px" align="center">淘汰死亡</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div style="height: 16px;"></div>
+    <div style="height: 290px" class="def_bk">
+        <table width="100%">
+            <tr>
+                <td style="width: 200px">
+                    <div style="padding: 16px 0 0 8px;font-weight: bold;">警犬工作</div>
+                </td>
+                <td align="right" style="padding-right: 8px" class="table-c">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td style="width: 50px; background-color: #002F75;cursor: pointer" onclick="workChange(1)" id="work_type_1">安检</td>
+                            <td style="width: 50px;cursor: pointer" onclick="workChange(2)" id="work_type_2">巡逻</td>
+                            <td style="width: 50px;cursor: pointer" onclick="workChange(3)" id="work_type_3">刑侦</td>
+                            <td style="width: 50px;cursor: pointer" onclick="workChange(4)" id="work_type_4">其他</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div style="height: 240px;" id="qj_work"></div>
+    </div>
+    <div style="height: 16px;"></div>
+    <!-- 北京市各区警犬数量分布 -->
     <table width="100%">
         <tr>
             <td id="col1" class="def_bk" style="width: 50%" valign="top">
-                <div style="font-weight: bold; margin: 16px 0 0 8px; ">北京市各区警犬数量分布</div>
+                <div style="font-weight: bold; margin: 16px 0 0 8px; ">警犬技术力量分布</div>
                 <div id="main" style="height:520px;"></div>
                 <div style=" height: 117px; margin: 2px 10px 0px 10px" class="table-c">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr onclick="onSpecialDataClick">
                             <td width="60px"></td>
-                            <td width="60px" onclick="onSpecialDataClick('刑侦总队')" style="cursor: pointer;">刑侦总队</td>
-                            <td width="60px" onclick="onSpecialDataClick('公交总队')" style="cursor: pointer;">公交总队</td>
-                            <td width="60px" onclick="onSpecialDataClick('特警总队')" style="cursor: pointer;">特警总队</td>
-                            <td width="60px" onclick="onSpecialDataClick('天安门')" style="cursor: pointer;">天安门<br>分局</td>
-                            <td width="60px" onclick="onSpecialDataClick('西站分局')" style="cursor: pointer;">西站分局</td>
-                            <td width="60px" onclick="onSpecialDataClick('开发局')" style="cursor: pointer;">开发局<br>分局</td>
-                            <td width="60px" onclick="onSpecialDataClick('清河分局')" style="cursor: pointer;">清河分局</td>
+                            <td width="60px" onclick="onSpecialDataClick('刑侦总队')" style="cursor: pointer;color: #00F1FF">刑侦总队</td>
+                            <td width="60px" onclick="onSpecialDataClick('公交总队')" style="cursor: pointer;color: #00F1FF">公交总队</td>
+                            <td width="60px" onclick="onSpecialDataClick('特警总队')" style="cursor: pointer;color: #00F1FF">特警总队</td>
+                            <td width="60px" onclick="onSpecialDataClick('天安门')" style="cursor: pointer;color: #00F1FF">天安门<br>分局</td>
+                            <td width="60px" onclick="onSpecialDataClick('西站分局')" style="cursor: pointer;color: #00F1FF">西站分局</td>
+                            <td width="60px" onclick="onSpecialDataClick('开发局')" style="cursor: pointer;color: #00F1FF">开发局<br>分局</td>
+                            <td width="60px" onclick="onSpecialDataClick('清河分局')" style="cursor: pointer;color: #00F1FF">清河分局</td>
                         </tr>
                         <tbody id="special_da"> </tbody>
                     </table>
@@ -173,25 +244,7 @@
             </td>
         </tr>
     </table>
-    <div style="height: 16px;"></div>
-    <table width="100%">
-        <tr style="height: 240px">
-            <td style="width: 33%;" class="def_bk">
-                <div class="title">警犬数量</div>
-                <div id="dog_bar" style="height: 220px"></div>
-            </td>
-            <td style="width: 16px;"></td>
-            <td style="width: 32%;" class="def_bk">
-                <div class="title">带犬民警</div>
-                <div id="policeman_bar" style="height: 220px"></div>
-            </td>
-            <td style="width: 16px;"></td>
-            <td style="width: 33%;" class="def_bk">
-                <div class="title">工作量统计</div>
-                <div id="work_bar" style="height: 220px"></div>
-            </td>
-        </tr>
-    </table>
+
 
     <div style="height: 16px"></div>
     <div style="height: 340px;" class="def_bk">
@@ -393,9 +446,9 @@
                 title = title.substr(0, 20)
             }
             ht += '<tr>' +
-                '<td style="width: 120px"><a href="">'+ne.org+'</a></td>' +
+                '<td style="width: 120px">'+ne.org+'</td>' +
                 '<td><a href=""><div style="overflow: hidden">'+title+'</div></a></td>' +
-                '<td style="width: 120px" align="right"><a href="">'+ne.date+'</a></td>' +
+                '<td style="width: 120px" align="right">'+ne.date+'</td>' +
                 '</tr>';
         }
         $('#newList').append(ht);
@@ -420,9 +473,9 @@
         for(var i =0; i<newsArr.length; i++){
             var ne = newsArr[i];
             ht += '<tr>' +
-                '<td style="width: 120px"><a href="">'+ne.org+'</a></td>' +
+                '<td style="width: 120px">'+ne.org+'</td>' +
                 '<td><a href=""><div style="overflow: hidden">'+ne.title+'</div></a></td>' +
-                '<td style="width: 120px" align="right"><a href="">'+ne.date+'</a></td>' +
+                '<td style="width: 120px" align="right">'+ne.date+'</td>' +
                 '</tr>';
         }
         $('#newList2').append(ht);
@@ -512,6 +565,16 @@
                 break;
         }
     };
+
+    //工作量切换整理
+    var lastTab = 1;
+    function workChange(tag){
+        if(tag != lastTab){
+            $('#work_type_' + lastTab).css('backgroundColor', '');
+            $('#work_type_' + tag).css('backgroundColor', '#002F75');
+            lastTab = tag;
+        }
+    }
 </script>
 
 </body>
@@ -748,161 +811,390 @@
         renderWork();
     });
 
-    //警犬数量
-    echarts.init(document.getElementById('dog_bar'), 'vintage').setOption({
-        title: {
-            text: '现役警犬只数统计：2801只，目前幼犬数量：925只',
-            top: 10,
-            left: 4,
-            textStyle:{
-                fontSize: 14,
-                fontWeight: 'normal'
-            }
-        },
+    //人犬比
+    echarts.init(document.getElementById('qj_col1'), 'vintage').setOption({
+        color:["#00e35b","#ffec1d"],
         tooltip: {
-            trigger: 'axis'
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
         },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            splitLine: {
-                show: false
-            },
-            data: ['10月','11月','12月', '1月','2月','3月','4月','5月','6月','7月','8月','9月']
-        },
-        yAxis: {
-            type: 'value',
-            splitLine: {
-                show: true,
-                lineStyle: {
-                    color: 'rgba(255, 255, 255, 0.3)',
-                    type: 'dashed'
-                }
-            }
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            bottom: -400,
+            data:['总人数','总警犬数']
         },
         series: [
             {
-                name:'成犬数量',
-                type:'line',
-                stack: '总量1',
-                data:[2387, 2412, 2501, 2710, 2317, 2720, 2750, 2760, 2768, 2570, 2790, 2801]
-            },
+                name:'人犬比',
+                type:'pie',
+                radius: ['45%', '80%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '16',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value: 7000, name:'总人数'},
+                    {value: 3210, name:'总警犬数'},
+                ]
+            }
+        ]
+    });
+    //带犬民警
+    echarts.init(document.getElementById('qj_col2'), 'vintage').setOption({
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            bottom: -400,
+            data:['民警','辅警', '保安', '其他']
+        },
+        series: [
             {
-                name:'幼犬数量',
-                type:'line',
-                stack: '总量2',
-                data: [161, 64, 213, 213, 354, 103, 955, 541, 552, 844, 370, 925]
+                name:'带犬民警',
+                type:'pie',
+                radius: ['45%', '80%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '16',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value: 7000, name:'民警'},
+                    {value: 3210, name:'辅警'},
+                    {value: 3210, name:'保安'},
+                    {value: 3210, name:'其他'},
+                ]
+            }
+        ]
+    });
+    //警犬专业
+    echarts.init(document.getElementById('qj_col3'), 'vintage').setOption({
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            bottom: -400,
+            data:['总人数','总警犬数']
+        },
+        series: [
+            {
+                name:'警犬专业',
+                type:'pie',
+                radius: ['45%', '80%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '16',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value: 7000, name:'总人数'},
+                    {value: 3210, name:'总警犬数'},
+                ]
+            }
+        ]
+    });
+    //培训、待培训
+    echarts.init(document.getElementById('qj_col4'), 'vintage').setOption({
+        color:["#a2e500", "#ffec1d"],
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            bottom: -400,
+            data:['已培训','待培训']
+        },
+        series: [
+            {
+                name:'培训工作',
+                type:'pie',
+                radius: ['45%', '80%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '16',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value: 7000, name:'已培训'},
+                    {value: 3210, name:'待培训'},
+                ]
+            }
+        ]
+    });
+    //警犬配发
+    echarts.init(document.getElementById('qj_col5'), 'vintage').setOption({
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            bottom: -400,
+            data:['已配发','待配发']
+        },
+        series: [
+            {
+                name:'警犬配发',
+                type:'pie',
+                radius: ['45%', '80%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '16',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value: 7000, name:'已配发'},
+                    {value: 3210, name:'待配发'},
+                ]
+            }
+        ]
+    });
+    //繁育工作
+    echarts.init(document.getElementById('qj_col6'), 'vintage').setOption({
+        color:["#e2e08f", "#cbb3dd"],
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            bottom: -400,
+            data:['繁育数','繁育任务']
+        },
+        series: [
+            {
+                name:'繁育工作',
+                type:'pie',
+                radius: ['45%', '80%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '16',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value: 7000, name:'繁育数'},
+                    {value: 3210, name:'繁育任务'},
+                ]
+            }
+        ]
+    });
+    //淘汰死亡
+    echarts.init(document.getElementById('qj_col7'), 'vintage').setOption({
+        color:["#00e35b", "#00FEFE", '#e54300'],
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            bottom: -400,
+            data:['警犬总数', '淘汰数量', '死亡数量']
+        },
+        series: [
+            {
+                name:'淘汰死亡',
+                type:'pie',
+                radius: ['45%', '80%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '16',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value: 7000, name:'警犬总数'},
+                    {value: 3210, name:'淘汰数量'},
+                    {value: 2210, name:'死亡数量'},
+                ]
             }
         ]
     });
 
-    //民警数量
-    echarts.init(document.getElementById('policeman_bar'), 'vintage').setOption({
-        title: {
-            text: '系统带犬民警统计：45024人，辅警人数：3051人',
-            top: 10,
-            left: 4,
-            textStyle:{
-                fontSize: 14,
-                fontWeight: 'normal'
-            }
-        },
+    //全局工作量
+    echarts.init(document.getElementById('qj_work'), 'vintage').setOption({
         tooltip: {
             trigger: 'axis'
         },
         grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
+            left: 60,
+            right: 30,
+            bottom: 30
         },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            splitLine: {
-                show: false
-            },
-            data: ['10月','11月','12月', '1月','2月','3月','4月','5月','6月','7月','8月','9月']
+        legend: {
+            data:['人','物','车辆', '面积']
         },
-        yAxis: {
-            type: 'value',
-            splitLine: {
-                show: true,
-                lineStyle: {
-                    color: 'rgba(255, 255, 255, 0.3)',
-                    type: 'dashed'
+        xAxis: [
+            {
+                type: 'category',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                axisLabel: {
+//                    rotate: 60
+                },
+                data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+                axisPointer: {
+                    type: 'shadow'
                 }
             }
-        },
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '工作量',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)',
+                        type: 'dashed'
+                    }
+                },
+                min: 0,
+                max: 1500
+            }
+        ],
         series: [
             {
-                name:'民警数量',
-                type:'line',
-                stack: '总量1',
-                data:[47, 685, 73, 649, 506, 674, 142, 821, 706, 269, 895, 53]
+                name:'人',
+                type:'bar',
+                data: [ parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000),
+                    parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), 0, 0, 0]
             },
             {
-                name:'辅警数量',
-                type:'line',
-                stack: '总量2',
-                data: [580, 500, 762, 857, 849, 989, 604, 816, 822, 900, 1200, 3051]
+                name:'物',
+                type:'bar',
+                data: [ parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000),
+                    parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), 0, 0, 0]
+            },
+            {
+                name:'车辆',
+                type:'bar',
+                data: [ parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000),
+                    parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), 0, 0, 0]
+            },
+            {
+                name:'面积',
+                type:'bar',
+                data: [ parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000),
+                    parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), parseInt(Math.random() * 1000), 0, 0, 0]
             }
         ]
     });
 
-    //工作量
-    echarts.init(document.getElementById('work_bar'), 'vintage').setOption({
-        title: {
-            text: '当年截止目前累计：35029次',
-            top: 10,
-            left: 4,
-            textStyle:{
-                fontSize: 14,
-                fontWeight: 'normal'
-            }
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            splitLine: {
-                show: false
-            },
-            data: ['10月','11月','12月', '1月','2月','3月','4月','5月','6月','7月','8月','9月']
-        },
-        yAxis: {
-            type: 'value',
-            splitLine: {
-                show: true,
-                lineStyle: {
-                    color: 'rgba(255, 255, 255, 0.3)',
-                    type: 'dashed'
-                }
-            }
-        },
-        series: [
-            {
-                name:'民警数量',
-                type:'line',
-                stack: '总量1',
-                data:[9200, 9665, 10568, 4697, 7783, 9534, 5602, 5947, 4745, 3898, 7107, 4587]
-            }
-        ]
-    });
 
     //警犬品种
     echarts.init(document.getElementById('dog_bread_pie'), 'vintage').setOption({
