@@ -12,10 +12,10 @@ define([], function () {
                             ]
                         },
                         {
-                            view: "richselect", label: "分类：", width: 150, name: 'orgArea', labelAlign: 'right',labelWidth: 55, value: '通知公告',
+                            view: "richselect", label: "分类：", width: 150, name: 'orgArea', labelAlign: 'right',labelWidth: 55, value: '动态新闻',
                             options: [
-                                {id: '通知公告', value: '通知公告'},
                                 {id: '动态新闻', value: '动态新闻'},
+                                {id: '通知公告', value: '通知公告'},
                             ]
                         },
                         {view: "datepicker", label: "发布日期：", name: "date", labelWidth: 70, width: 180, value: new Date(), labelAlign: 'right', format:"%Y-%m-%d", stringResult: true},

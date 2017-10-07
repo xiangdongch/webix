@@ -150,7 +150,23 @@ define([
 
                                         ]
                                     },
-                                    {view: "text", label: "查获物品", hidden: isXl, name: "searchWp", attributes:{ maxlength: 7 }},
+                                    {
+                                        hidden: isAj,
+                                        cols: [
+                                            {view: "text", label: "安检人次", name: "ajPer", width: 240, attributes:{ maxlength: 7 }},
+                                            {template: '人次', borderless: true}
+
+                                        ]
+                                    },
+                                    {
+                                        hidden: isAj,
+                                        cols: [
+                                            {view: "text", label: "安检物品", name: "ajPer", width: 240, attributes:{ maxlength: 7 }},
+                                            {}
+
+                                        ]
+                                    },
+                                    {view: "text", label: "异常物品", hidden: isXl, name: "searchWp", attributes:{ maxlength: 7 }},
                                     {view: "text", label: "安检车辆", hidden: isAj, name: "ajCar", width: 240, attributes:{ maxlength: 7 }},
                                     {view: "text", label: "地点", hidden: isAj && isXl, name: "ajAddr", attributes:{ maxlength: 7 }},
                                     {view: "textarea", label: "补充说明", name: "workResult", attributes:{ maxlength: 200 }, height: 80},

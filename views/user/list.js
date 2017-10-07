@@ -136,27 +136,30 @@ define([
         }
         var options = [
             {id: "JingYuan", value: "带犬民警"},
-            {id: "JuZhang", value: "局长"},
+            {id: "FJ_JuZhang", value: "分局局长"},
             {id: "GuanLiYuan", value: "分局管理员"}
         ];
         if(USER_INFO.userRole == 'JiuZhiDui' || USER_INFO.userRole == 'SuperMan'){
             options = [
                 {id: "JingYuan", value: "带犬民警"},
-                {id: "JuZhang", value: "局长"},
+                {id: "FJ_JuZhang", value: "分局局长"},
                 {id: "GuanLiYuan", value: "分局管理员"},
                 {id: "JiuZhiDui", value: "九支队"},
                 {id: "FanZhiRenYuan", value: "繁殖人员"},
                 {id: "PeiXunRenYuan", value: "培训人员"},
+                {id: "JuZhang", value: "市局局长"},
                 {id: "SuperMan", value: "超级管理员"}
             ]
         }
         if(USER_INFO.userRole == 'FanZhiRenYuan'){
             options = [
+                {id: "JingYuan", value: "带犬民警"},
                 {id: "FanZhiRenYuan", value: "繁殖人员"}
             ]
         }
         if(USER_INFO.userRole == 'PeiXunRenYuan'){
             options = [
+                {id: "JingYuan", value: "带犬民警"},
                 {id: "PeiXunRenYuan", value: "培训人员"}
             ]
         }
