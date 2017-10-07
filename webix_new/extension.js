@@ -16,7 +16,7 @@ window.webix_view = {
         var res = [];
         if(data){
             data.getRange().each(function(val){
-                if(val.$check){
+                if(val && val.$check){
                     res.push(val);
                 }
             });

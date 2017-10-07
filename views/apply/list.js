@@ -1,5 +1,6 @@
 define([
-], function () {
+    "views/adult/allot"
+], function (allot) {
     var datatableId = webix.uid().toString();
 
     var del = function(){
@@ -266,13 +267,19 @@ define([
                     {view: "button", label: "新建申请", width: 70, click: add},
                     {view: "button", label: "批量审批", width: 70, click: approve, permission: 'apply.dog.approve'},
                     {view: "button", label: "删除", width: 70, click: del},
+                    {view: "button", label: "分配警犬", width: 70, click: function(){
+                        var datatable = $$(datatableId);
+                        var data = datatable.getCheckedData();
+                        sessionStorage.removeItem("_allot_");
+                        sessionStorage.setItem("_allot_", JSON.stringify(data[0]));
+                        window.open('#!/app/adult.allot', '_self');
+                    }},
                     {},
                 ]
             },
             {
                 id: datatableId,
                 view: "datatable",
-                select: true,
                 columns: [
                     {
                         id: "$check",
@@ -298,6 +305,7 @@ define([
                     },
                     // {id: "workUnit", header: "申请单位", width: 80, sort: "string"},
                     {id: "creationDate", header: "申请日期", width: 90, format: webix.Date.dateToStr("%Y-%m-%d") },
+                    {id: "workUnit", header: "申请单位", width: 80, sort: "string"},
                     {id: "applyAmount", header: "数量", width: 50, sort: "string"},
                     {id: "applyState", header: "审批状态", width: 130, template: function(obj, common, value){
                         return {

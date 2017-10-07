@@ -6,13 +6,21 @@ define([], function () {
                 {
                     cols: [
                         {
-                            width: 700,
+                            width: 410,
                             rows: [
-                                {view: "text", label: "标题", name: "title", id: 'ntitle', width: 600, labelWidth: 60},
+                                {view: "text", label: "标题：", name: "title", id: 'ntitle', width: 400, labelWidth: 55, labelAlign: 'right'}
                             ]
                         },
-                        {view: "datepicker", label: "发布日期", name: "date", id: 'date',labelWidth: 60, width: 180, value: new Date(), format:"%Y-%m-%d", stringResult: true},
-                        {}
+                        {
+                            view: "richselect", label: "分类：", width: 150, name: 'orgArea', labelAlign: 'right',labelWidth: 55, value: '通知公告',
+                            options: [
+                                {id: '通知公告', value: '通知公告'},
+                                {id: '动态新闻', value: '动态新闻'},
+                            ]
+                        },
+                        {view: "datepicker", label: "发布日期：", name: "date", labelWidth: 70, width: 180, value: new Date(), labelAlign: 'right', format:"%Y-%m-%d", stringResult: true},
+                        {view: 'text', label: '工作单位：', value: USER_INFO.workUnit, readonly: true, labelAlign: 'right',labelAlign: 'right'},
+                        {},
                     ]
                 },
 

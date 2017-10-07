@@ -27,12 +27,13 @@ define(function(){
         ]},
 
         {id: "apply", open: true, value:"配发管理", data:[
-            { id: "apply.list", value: "申请配发", permission: 'apply.dog', icon: "table", $css: "products", details:""}
+            { id: "apply.list", value: "申请配发", permission: 'apply.dog', icon: "table", $css: "products", details:""},
+            { id: "adult.allot", value: "警犬调配", permission: 'apply.dog', icon: "table", $css: "products", details:""},
         ]},
 
         {id: "main", value: "繁育管理", permission: 'breed', open: true, data:[
             { id: "breed.mating", value: "交配管理", icon: 'venus-mars', $css: "dashboard", details:""},
-            { id: "breed.index", value: "警犬繁殖", icon: 'venus-mars', $css: "dashboard", details:""},
+            // { id: "breed.index", value: "警犬繁殖", icon: 'venus-mars', $css: "dashboard", details:""},
             { id: "youngDog.index", value: "幼犬管理", icon: "github-alt", $css: "orders", details:""},
 
             { id: "wormImmue.worm", value: "驱虫管理", icon: "bug", details: "" },
@@ -42,7 +43,7 @@ define(function(){
 
         {id: "dogMgmt", value: "警犬管理", open: true, data:[
             { id: "adult.adultList", value: "警犬列表", permission: 'dog.list', icon: 'list', $css: "dashboard", details:""},
-            { id: "adult.addDog", value: "外来警犬信息录入", permission: 'dog.addDog', icon: "plus", details: "" },
+            { id: "adult.addDog", value: "警犬信息录入", permission: 'dog.addDog', icon: "plus", details: "" },
             { id: "apply.tickoutList", value: "淘汰申请", permission: 'dog.addDog', icon: "list", details: "" },
             { id: "apply.dieList", value: "死亡报告", permission: 'dog.addDog', icon: "list", details: "" },
         ]},
@@ -53,9 +54,13 @@ define(function(){
         ]},
 
         {id: "sysConfig", open: true, value:"系统设置", data:[
-            { id: "user.list", value: "民警管理", permission: 'news.list', icon: "list", $css: "products", details:""},
+            { id: "user.list", value: "人员管理", permission: 'news.list', icon: "list", $css: "products", details:""},
+            { id: "system.orgConfig", value: "单位信息", permission: 'news.list', icon: "list", $css: "products", details:""},
+        ]},
+        {id: "user", open: true, value:"个人中心", data:[
+            { id: "user.profile", value: "个人信息", permission: 'news.list', icon: "list", $css: "products", details:""},
+            { id: "user.password", value: "修改密码", permission: 'news.list', icon: "list", $css: "products", details:""},
         ]}
-
     ];
 
 	var data = [];

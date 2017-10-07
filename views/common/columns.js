@@ -10,10 +10,10 @@ define([], function () {
         '母亲芯片号': {id: "motherId", header: "母亲芯片号", width: 90},
         '品种': {id: "breed", header: "品种", width: 90, sort: "string"},
         '来源': {id: "dogSource", header: "来源", width: 60, sort: "string"},
-        '毛色': {id: "dogColour", header: "毛色", width: 80, sort: "string"},
+        '毛色': {id: "dogColour", header: "毛色", width: 75, sort: "string"},
         '毛型': {id: "hairType", header: "毛型", width: 70, sort: "string"},
         '繁育员': {id: "breeder", header: "繁育员", width: 100, sort: "string"},
-        '训导员': {id: "tutor", header: "训导员", width: 100},
+        '训导员': {id: "tutor", header: "训导员", width: 80},
         '专业名称': {id: "wormDesc", header: "专业名称", width: 100},
         '获得日期': {id: "wormDate", header: "获得日期", width: 85, format: webix.Date.dateToStr("%Y-%m-%d")},
 

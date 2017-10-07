@@ -15,7 +15,11 @@ return {
 		],
         on: {
             onItemClick: function (id, e, el) {
-                if(id == 4){
+                if(id == 1) {
+                    window.open('#!/app/user.profile', '_self');
+                }else if(id == 2){
+					window.open('#!/app/user.password', '_self');
+				}else if(id == 4){
                     sessionStorage.removeItem('_user_info_');
                     checkLogin();
 				}

@@ -249,6 +249,7 @@ function getBase(){
         var data = JSON.parse(result);
         if(data.success){
             console.log(data);
+            USER_INFO = data.result;
             sessionStorage.setItem("_user_info_", JSON.stringify(data.result));
         }else{
             console.log('not login');

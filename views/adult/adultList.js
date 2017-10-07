@@ -253,9 +253,9 @@ var checkCount = 0;
                     // {view: "button", label: "技术使用", width: 80},
                     {view: "button", label: "淘汰申请", width: 80, click: tickOut},
                     {view: "button", label: "死亡报告", width: 80, click: died},
-                    {view: "button", label: "导出登记卡", width: 90, click: function(){
-                        window.open('webix/警犬登记卡.doc', '_blank');
-                    }},
+                    // {view: "button", label: "导出登记卡", width: 90, click: function(){
+                    //     window.open('webix/警犬登记卡.doc', '_blank');
+                    // }},
                     {},
                 ]
             },

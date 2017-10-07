@@ -15,7 +15,32 @@ define([
         datatable.reload();
     };
 
-    var add = function () {
+    var add = function (id) {
+        var isAj = (id == 1 ? false:true);
+        var isXl = (id == 2 ? false:true);
+        var isXz = (id == 3 ? false:true);
+        var isQt = (id == 4 ? false:true);
+        var workType = '';
+        switch (id){
+            case '1':
+                workType = '安检';
+                break;
+            case '2':
+                workType = '巡逻';
+                break;
+            case '3':
+                workType = '刑侦';
+                break;
+            default:
+                workType = '其他';
+        }
+        console.log(workType);
+        var attUser = '';
+        var readonly = false;
+        if(USER_INFO.userRole == 'JingYuan'){
+            attUser = USER_INFO.policeName;
+            readonly = true;
+        }
         var picMap = {};
         var submit = function () {
             var form = $$('add_form');
@@ -44,7 +69,7 @@ define([
 
         };
         var win = {};
-        win = getWin("添加使用记录", {
+        win = getWin("添加使用记录-" + workType, {
             rows: [
                 {
                     view:"scrollview",
@@ -62,34 +87,11 @@ define([
                                 },
                                 elements:[
                                     {
-                                        cols: [
-                                            {view: "richselect", label: "工作类型", name: 'workType', value:"安检", width: 240,
-                                                options:[
-                                                    {id: '安检', value: "安检"},
-                                                    {id: '巡逻', value: "巡逻"},
-                                                    {id: '刑侦', value: "刑侦"},
-                                                    {id: '其他', value: "其他"}
-                                                ],
-                                                on: {
-                                                    onChange: function (newVal) {
-                                                        console.log(newVal);
-                                                        if(newVal == '安检'){
-                                                            $$('security_check_area').enable();
-                                                        }else{
-                                                            $$('security_check_area').disable();
-                                                        }
-                                                        if(newVal == '刑侦'){
-                                                            $$('case_num').enable();
-                                                            $$('case_type').enable();
-                                                        }else{
-                                                            $$('case_num').disable();
-                                                            $$('case_type').disable();
-                                                        }
-                                                    }
-                                                }
-                                            },
+                                        rows: [
+                                            {view: "text", label: "工作类型", name: 'workType', value:workType, width: 240, hidden: true},
+                                            {view: "text", label: "出勤人员", name: "attPerson", width: 240, attributes:{ maxlength: 64 }, readonly: readonly, value: attUser},
                                             {view: 'text', value: '', name: "dogChipNo", id: 'dogChipNo', hidden: true},
-                                            {view: "text", label: "警犬", id: 'select_dog', width: 240,
+                                            {view: "text", label: "出勤警犬", id: 'select_dog', width: 240,
                                                 on: {
                                                     onItemClick: function () {
                                                         constant.showDogList(function (datatable) {
@@ -109,12 +111,8 @@ define([
                                                     }
                                                 }
                                             },
-                                        ]
-                                    },
-                                    {
-                                        cols: [
                                             {view: "text", label: "用犬单位", name: "workUnit", width: 240, attributes:{ maxlength: 64 }},
-                                            {view: "text", label: "出勤人员", name: "attPerson", width: 240, attributes:{ maxlength: 64 }},
+                                            {view: "text", label: "带队领导", name: "attLeader", width: 240, attributes:{ maxlength: 64 }},
                                         ]
                                     },
                                     {
@@ -123,31 +121,39 @@ define([
                                             {view: "datepicker", label: "结束时间", timepicker: true, name: "endTimeStr", width: 240, format:"%Y-%m-%d %h:%i:%s", stringResult: true},
                                         ]
                                     },
-                                    {
-                                        cols: [
-                                            {view: "text", label: "案件编号", id: 'case_num', name: "caseProperty", disabled: true, width: 240, attributes:{ maxlength: 7 }},
-                                            {view: "richselect", label: "案件类型", id: 'case_type', name: "caseNo", disabled: true, width: 240,
-                                                options:[
-                                                    {id: '一般', value: "一般"},
-                                                    {id: '重大', value: "重大"},
-                                                    {id: '特大', value: "特大"}
-                                                ]
-                                            }
+                                    {view: "text", label: "案件编号", id: 'case_num', hidden: isXz, name: "caseProperty", width: 240, attributes:{ maxlength: 7 }},
+                                    {view: "richselect", label: "案件类型", id: 'case_type', hidden: isXz, name: "caseNo", width: 240,
+                                        options:[
+                                            {id: '一般', value: "一般"},
+                                            {id: '重大', value: "重大"},
+                                            {id: '特大', value: "特大"}
+                                        ]
+                                    },{
+                                        view: "richselect", label: "检查结果", name: 'isWork', value: "正常", width: 240,
+                                        options: [
+                                            {id: '正常', value: "正常"},
+                                            {id: '异常', value: "异常"}
+                                        ]
+                                    },
+                                    {view: "richselect", label: "安检等级", hidden: isAj, name: "ajLevel", width: 240,
+                                        options:[
+                                            {id: '一般', value: "一般"},
+                                            {id: '重大', value: "重大"},
+                                            {id: '特大', value: "特大"}
                                         ]
                                     },
                                     {
+                                        hidden: isAj,
                                         cols: [
-                                            {
-                                                view: "richselect", label: "是否起作用", name: 'isWork', value: "起作用", width: 240,
-                                                options: [
-                                                    {id: '起作用', value: "起作用"},
-                                                    {id: '不起作用', value: "不起作用"}
-                                                ]
-                                            },
-                                            {view: "text", label: "安检面积", id: 'security_check_area', name: "securityCheckArea", width: 240, attributes:{ maxlength: 7 }},
+                                            {view: "text", label: "安检面积", name: "securityCheckArea", width: 240, attributes:{ maxlength: 7 }},
+                                            {template: '平米', borderless: true}
+
                                         ]
                                     },
-                                    {view: "textarea", label: "使用成果", name: "workResult", attributes:{ maxlength: 200 }, height: 80},
+                                    {view: "text", label: "查获物品", hidden: isXl, name: "searchWp", attributes:{ maxlength: 7 }},
+                                    {view: "text", label: "安检车辆", hidden: isAj, name: "ajCar", width: 240, attributes:{ maxlength: 7 }},
+                                    {view: "text", label: "地点", hidden: isAj && isXl, name: "ajAddr", attributes:{ maxlength: 7 }},
+                                    {view: "textarea", label: "补充说明", name: "workResult", attributes:{ maxlength: 200 }, height: 80},
                                     {
                                         rows: [
                                             {
@@ -194,7 +200,7 @@ define([
                     ]
                 }
             ]
-        }, {height: 430});
+        }, {height: 420});
         win.show();
     };
 
@@ -273,14 +279,36 @@ define([
             }
         ]
     };
-
+    webix.ui({
+        view:"popup",
+        id:"my_pop",
+        width: 100,
+        body:{
+            view:"list",
+            data:[ {id:"1", name:"安检", location: "New York"},
+                {id:"2", name:"巡逻", location:"Salt Lake City"},
+                {id:"3", name:"刑侦", location:"Alabama"},
+                {id:"4", name:"其他", location:"Alabama"}
+            ],
+            on:{
+                onItemClick: function(id){
+                    console.log('1212_' + id);
+                    $$('my_pop').hide();
+                    add(id);
+                }
+            },
+            datatype:"json",
+            template:"#name#",
+            autoheight:true
+        }
+    });
     var gridPager = {
         rows: [
             {
                 view: "form",
                 css: "toolbar",
                 cols: [
-                    {view: "button", label: "添加", width: 50, click: add},
+                    {view: "button", label: "添加", width: 50, popup:"my_pop"},
                     {view: "button", label: "删除", width: 50, click: del},
                     {}
                 ]
@@ -290,7 +318,7 @@ define([
                 view: "datatable",
                 select: false,
                 minHeight: 80,
-                rowHeight: 70,
+                rowHeight: 90,
                 datafetch: 20,//default
                 tooltip:false,
                 columns: [
@@ -325,23 +353,29 @@ define([
                         if(item.workType == '刑侦'){
                             caseInfo = '<div style="line-height:20px"><span class="tab_label">案件编号：</span>#caseNo#</div>' +
                             '<div style="line-height:20px"><span class="tab_label">案件性质：</span>#caseProperty#</div>';
+                        }else if(item.workType == '安检'){
+                            caseInfo = '<div style="line-height:20px"><span class="tab_label">安检面积：</span>#securityCheckArea#</div>' +
+                                '<div style="line-height:20px"><span class="tab_label">安检车辆：</span>#ajCar#</div>'+
+                                '<div style="line-height:20px"><span class="tab_label">安检等级：</span>#ajLevel#</div>';
                         }
                         var html = '<table width="100%">' +
                             '<tr>' +
                             '<td style="width: 42px; font-size: 16px;">#workType#</td>'+
                             '<td style="width: 180px" valign="top">' +
                             '<div style="line-height: 20px"><span class="tab_label">犬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>#dogInfo.dogName#</div>' +
-                            '<div style="line-height: 20px"><span class="tab_label">出勤人员：</span>#attPerson#</div>' +
                             '<div style="line-height: 20px"><span class="tab_label">用犬单位：</span>#workUnit#</div>' +
+                            '<div style="line-height: 20px"><span class="tab_label">出勤人员：</span>#attPerson#</div>' +
+                            '<div style="line-height: 20px"><span class="tab_label">带队领导：</span>#attLeader#</div>' +
                             '</td>' +
                             '<td valign="top" style="width: 200px">' +
                             '<div style="line-height:20px"><span class="tab_label">开始时间：</span>#startTime#</div>' +
                             '<div style="line-height:20px"><span class="tab_label">结束时间：</span>#endTime#</div>' +
+                            '<div style="line-height:20px"><span class="tab_label">查获物品：</span>#searchWp#</div>' +
                             '<div style="line-height:20px"><span class="tab_label">是否起作用：</span>#isWork#</div>' +
                             '</td>' +
                             '<td style="width: 150px" valign="top">' +
                             caseInfo +
-                            '<div style="line-height:20px"><span class="tab_label">成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;果：</span>#workResult#</div>' +
+                            '<div style="line-height:20px"><span class="tab_label">补&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充：</span>#workResult#</div>' +
                             '</td>' +
                             '<td style="line-height: 20px"><div style="overflow-x: auto; overflow-y: hidden; width:400px">'+picHtml +'</div></td>'+
                             '</tr>' +
