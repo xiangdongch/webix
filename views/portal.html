@@ -213,23 +213,23 @@
                                 <tr>
                                     <td style="width: 20%">
                                         <div id="fj_col1" style="width: 100%; height: 130px">1</div>
-                                        <div align="center">警犬年龄</div>
+                                        <div align="center">人犬比</div>
                                     </td>
                                     <td style="width: 20%">
                                         <div id="fj_col2" style="width: 100%; height: 130px">1</div>
-                                        <div align="center">警犬品种</div>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <div id="fj_col3" style="width: 100%; height: 130px">1</div>
                                         <div align="center">警犬专业</div>
                                     </td>
                                     <td style="width: 20%">
+                                        <div id="fj_col3" style="width: 100%; height: 130px">1</div>
+                                        <div align="center">培训工作</div>
+                                    </td>
+                                    <td style="width: 20%">
                                         <div id="fj_col4" style="width: 100%; height: 130px">1</div>
-                                        <div align="center">民警年龄</div>
+                                        <div align="center">警犬配发</div>
                                     </td>
                                     <td style="width: 20%">
                                         <div id="fj_col5" style="width: 100%; height: 130px">1</div>
-                                        <div align="center">民警职称</div>
+                                        <div align="center">淘汰死亡</div>
                                     </td>
                                 </tr>
                             </table>
@@ -351,7 +351,6 @@
     };
     function getWorkData(){
         parent.doPost('dogBaseInfo/getWorkData', {}, function(resp) {
-            console.log(resp);
             if (resp.success) {
                 for(var i = 0; i<resp.result.length; i++){
                     var item = resp.result[i];
@@ -771,13 +770,17 @@
         document.getElementById('workUnitPic').src = item.pic;
         $('#workUnitDesc').text(item.desc);
         $('#area_name').text(item.orgName);
-        randerPie();
+//        randerPie();
         renderWork();
+        renderAreaData(item.orgName);
     });
 
     //人犬比
-    function renderUserDog(data) {
-        echarts.init(document.getElementById('qj_col1'), 'vintage').setOption({
+    function renderUserDog(data, domId) {
+        var fontSize = '16';
+        if(domId) fontSize = "12";
+        domId = domId || 'qj_col1';
+        echarts.init(document.getElementById(domId), 'vintage').setOption({
             color: ["#00e35b", "#ffec1d"],
             tooltip: {
                 trigger: 'item',
@@ -803,7 +806,7 @@
                         emphasis: {
                             show: true,
                             textStyle: {
-                                fontSize: '16',
+                                fontSize: fontSize,
                                 fontWeight: 'bold'
                             }
                         }
@@ -871,8 +874,11 @@
         });
     }
     //警犬专业
-    function renderDogPro(keyArr, data) {
-        echarts.init(document.getElementById('qj_col3'), 'vintage').setOption({
+    function renderDogPro(keyArr, data, domId) {
+        var fontSize = '16';
+        if(domId) fontSize = "12";
+        domId = domId || 'qj_col3';
+        echarts.init(document.getElementById(domId), 'vintage').setOption({
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -897,7 +903,7 @@
                         emphasis: {
                             show: true,
                             textStyle: {
-                                fontSize: '16',
+                                fontSize: fontSize,
                                 fontWeight: 'bold'
                             }
                         }
@@ -913,8 +919,11 @@
         });
     }
     //培训、待培训
-    function renderTrainInfo(data) {
-        echarts.init(document.getElementById('qj_col4'), 'vintage').setOption({
+    function renderTrainInfo(data, domId) {
+        var fontSize = '16';
+        if(domId) fontSize = "12";
+        domId = domId || 'qj_col4';
+        echarts.init(document.getElementById(domId), 'vintage').setOption({
             color: ["#a2e500", "#ffec1d"],
             tooltip: {
                 trigger: 'item',
@@ -940,7 +949,7 @@
                         emphasis: {
                             show: true,
                             textStyle: {
-                                fontSize: '16',
+                                fontSize: fontSize,
                                 fontWeight: 'bold'
                             }
                         }
@@ -959,8 +968,11 @@
         });
     }
     //警犬配发
-    function renderAllot(data) {
-        echarts.init(document.getElementById('qj_col5'), 'vintage').setOption({
+    function renderAllot(data, domId) {
+        var fontSize = '16';
+        if(domId) fontSize = "12";
+        domId = domId || 'qj_col5';
+        echarts.init(document.getElementById(domId), 'vintage').setOption({
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -985,7 +997,7 @@
                         emphasis: {
                             show: true,
                             textStyle: {
-                                fontSize: '16',
+                                fontSize: fontSize,
                                 fontWeight: 'bold'
                             }
                         }
@@ -1050,8 +1062,11 @@
         });
     }
     //淘汰死亡
-    function renderTickoutDie(data) {
-        echarts.init(document.getElementById('qj_col7'), 'vintage').setOption({
+    function renderTickoutDie(data, domId) {
+        var fontSize = '16';
+        if(domId) fontSize = "12";
+        domId = domId || 'qj_col7';
+        echarts.init(document.getElementById(domId), 'vintage').setOption({
             color: ["#00e35b", "#00FEFE", '#e54300'],
             tooltip: {
                 trigger: 'item',
@@ -1077,7 +1092,7 @@
                         emphasis: {
                             show: true,
                             textStyle: {
-                                fontSize: '16',
+                                fontSize: fontSize,
                                 fontWeight: 'bold'
                             }
                         }
@@ -1520,6 +1535,38 @@
             ]
         });
     }
-    randerPie();
+
+    var workData_unit = {
+        '安检': [],
+        '巡逻': [],
+        '刑侦': [],
+        '其他': []
+    };
+
+    function renderAreaData(workUnit) {
+        workUnit = workUnit || '刑侦总队';
+        parent.doPost('dogBaseInfo/getAnalysisData', {workUnit: workUnit}, function (resp) {
+            if (resp.success) {
+                var arr = resp.result;
+                var data = {};
+                var pr_name = [];
+                var pr_data = [];
+                for (var i = 0; i < arr.length; i++) {
+                    var key = arr[i].att_name;
+                    data[key] = arr[i].val;
+                    if (key.indexOf("pro_") != -1) {
+                        pr_name.push(key.replace('pro_', ''));
+                        pr_data.push({value: arr[i].val, name: key.replace('pro_', '')});
+                    }
+                }
+                renderUserDog(data, 'fj_col1');
+                renderDogPro(pr_name, pr_data, 'fj_col2'); //
+                renderTrainInfo(data, 'fj_col3');
+                renderAllot(data, 'fj_col4');
+                renderTickoutDie(data, 'fj_col5');
+            }
+        });
+    }
+    renderAreaData();
 </script>
 </html>

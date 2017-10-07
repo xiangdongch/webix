@@ -108,6 +108,7 @@ define([
                     policeId: dog.policeId,
                     policeName: dog.policeName,
                     nextTrainDateStr: nextTrainDate,
+                    workUnit: USER_INFO.workUnit,
                     mainTrainUser: '',
                 });
             }
