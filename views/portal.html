@@ -290,6 +290,7 @@
     }
 
     function showNews(id){
+        sessionStorage.removeItem("newId");
         sessionStorage.setItem("newId", id);
         parent.window.open('../#!/app/news.detail', '_target');
     }

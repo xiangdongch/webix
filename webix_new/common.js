@@ -164,6 +164,10 @@ function getWin(title, ui, config){
     var width = cfg.width || 600;
     var height = cfg.height || 400;
     var win_id = webix.uid().toString();
+    var modal = true;
+    if('N' == config.modal){
+        modal = false;
+    }
 
     var win = webix.ui({
         view: "window",
@@ -171,7 +175,7 @@ function getWin(title, ui, config){
         width: width,
         height: height,
         move: true,
-        modal: true,
+        modal: modal,
         position: "center",
         autofocus: true,
         head: {

@@ -172,14 +172,16 @@ define([
                                         if(data.success){
                                             msgBox('操作成功');
                                             //applyData
-                                            applyData.applyState = 4;
-                                            doIPost('/apply/dog/update', applyData, function (da) {
-                                                if(da.success){
-                                                    msgBox('申请单状态变更成功');
-                                                }else{
-                                                    msgBox('申请单状态变更失败');
-                                                }
-                                            })
+                                            if(applyData) {
+                                                applyData.applyState = 4;
+                                                doIPost('/apply/dog/update', applyData, function (da) {
+                                                    if (da.success) {
+                                                        msgBox('申请单状态变更成功');
+                                                    } else {
+                                                        msgBox('申请单状态变更失败');
+                                                    }
+                                                })
+                                            }
                                         }else{
                                             msgBox('操作失败');
                                         }

@@ -17,16 +17,25 @@ define([], function () {
                     borderless: true,
                     data: {author: '', date: ''}
                 }, {
-                    template: '#content#',
-                    id: 'new_content',
-                    borderless: true,
-                    data: {content: ''}
+                    cols: [
+                        {width: 80},
+                        {
+                            template: '#content#',
+                            id: 'new_content',
+                            borderless: true,
+                            data: {content: ''}
+                        },
+                        {width: 80},
+                    ]
                 }, {}]
             }
         },
         $oninit: function () {
             var id = sessionStorage.getItem("newId");
-            sessionStorage.removeItem("newId");
+            if(!id || id.length == 0){
+                window.close();
+                return ;
+            }
             doIPost('news/getById', {id: id}, function (resp) {
                 console.log(resp);
                 if(resp.success && resp.result){
