@@ -329,7 +329,7 @@ define([
             }
         },
         showDogList: function (callback, params) {
-            params = params || {growthStage: 2};
+            params = params || {};
             var datatableId = webix.uid().toString();
             var pageId = webix.uid().toString();
             var cols = columns.getColumns(

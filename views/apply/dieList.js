@@ -172,6 +172,22 @@ define([
                 {id: '4', value: "驳回"}
             ];
         }
+        var da = [];
+        if(!isFinal){
+            for(var i = 0; i<data.length; i++){
+                console.log(data[i]);
+                if(data[i].applyState == 1){
+                    da.push(data[i]);
+                }else{
+                    webix.message('编号为：' + data[i].id + ' 的申请，当前状态不是局长审批，跳过该记录')
+                }
+            }
+        }
+        data = da;
+        if(data.length == 0){
+            msgBox("请至少选择一条数据");
+            return ;
+        }
         var win = getWin("批量审批", {
             rows: [{
                 height: 30,

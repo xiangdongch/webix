@@ -98,9 +98,9 @@
             </td>
         </tr>
     </table>
-    <div style="height: 16px;"></div>
+    <div style="height: 16px;" id="gold_sp"></div>
     <!--全局各项指标-->
-    <table width="100%">
+    <table width="100%" id="gold_area">
         <tr style="height: 220px">
             <td style="width: 14.2%;">
                 <div style="margin: 0 8px 0 0;height: 220px" class="def_bk">
@@ -147,8 +147,8 @@
         </tr>
     </table>
     <!--警犬工作-->
-    <div style="height: 16px;"></div>
-    <div style="height: 290px" class="def_bk">
+    <div style="height: 16px;" id="gold_work_sp"></div>
+    <div style="height: 290px" class="def_bk" id="gold_work_area">
         <table width="100%">
             <tr>
                 <td style="width: 200px">
@@ -177,7 +177,7 @@
                 <div style="font-weight: bold; margin: 16px 0 0 8px; ">警犬技术力量分布</div>
                 <div id="main" style="height:520px;"></div>
                 <div style="height: 30px"></div>
-                <div style=" height: 117px; margin: 2px 10px 0px 10px" class="table-c">
+                <div style=" height: 117px; margin: 2px 10px 0px 10px" class="table-c" id="specialData_id">
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr onclick="onSpecialDataClick">
                             <td width="60px"></td>
@@ -212,32 +212,39 @@
                             <table width="100%">
                                 <tr>
                                     <td style="width: 20%">
-                                        <div id="fj_col1" style="width: 100%; height: 130px">1</div>
+                                        <div id="fj_col1" style="width: 100%; height: 130px"><div align="center"><img style="margin-top: 80px" src="../assets/imgs/loading.gif" height="45px" width="45px"></div></div>
                                         <div align="center">人犬比</div>
                                     </td>
                                     <td style="width: 20%">
-                                        <div id="fj_col2" style="width: 100%; height: 130px">1</div>
+                                        <div id="fj_col2" style="width: 100%; height: 130px"><div align="center"><img style="margin-top: 80px" src="../assets/imgs/loading.gif" height="45px" width="45px"></div></div>
                                         <div align="center">警犬专业</div>
                                     </td>
                                     <td style="width: 20%">
-                                        <div id="fj_col3" style="width: 100%; height: 130px">1</div>
+                                        <div id="fj_col3" style="width: 100%; height: 130px"><div align="center"><img style="margin-top: 80px" src="../assets/imgs/loading.gif" height="45px" width="45px"></div></div>
                                         <div align="center">培训工作</div>
                                     </td>
                                     <td style="width: 20%">
-                                        <div id="fj_col4" style="width: 100%; height: 130px">1</div>
+                                        <div id="fj_col4" style="width: 100%; height: 130px"><div align="center"><img style="margin-top: 80px" src="../assets/imgs/loading.gif" height="45px" width="45px"></div></div>
                                         <div align="center">警犬配发</div>
                                     </td>
                                     <td style="width: 20%">
-                                        <div id="fj_col5" style="width: 100%; height: 130px">1</div>
+                                        <div id="fj_col5" style="width: 100%; height: 130px"><div align="center"><img style="margin-top: 80px" src="../assets/imgs/loading.gif" height="45px" width="45px"></div></div>
                                         <div align="center">淘汰死亡</div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div style="font-weight: bold;margin-top: 20px;">
-                            2017年警犬每月工作量
+                            <table width="100%">
+                                <tr>
+                                    <td style="width:200px">2017年警犬每月工作量</td>
+                                    <td></td>
+                                </tr>
+                            </table>
                         </div>
-                        <div id="chart_1" style="height: 250px;"> </div>
+                        <div id="chart_1" style="height: 250px;">
+
+                        </div>
                     </div>
                 </div>
             </td>
@@ -245,7 +252,7 @@
     </table>
     <!--警犬品种，警犬年龄-->
     <div style="height: 16px;"></div>
-    <table width="100%">
+    <table width="100%" id="breed_age_area">
         <tr style="height: 350px">
             <td style="width: 50%;" class="def_bk">
                 <div class="title">警犬品种</div>
@@ -268,9 +275,29 @@
 //        console.log(w);
     })();
 
+    var USER_INFO = parent.USER_INFO;
+    console.log(USER_INFO);
+    var USER_ROLE = USER_INFO.userRole;
+    console.log(USER_ROLE);
+
+    var is_show_all = true;
+    if(USER_ROLE != 'JuZhang' && USER_ROLE != 'SuperMan' && USER_ROLE != 'JiuZhiDui' ) {
+        is_show_all = false;
+        //全局各项指标不可见
+        $('#gold_sp').hide();
+        $('#gold_area').hide();
+        $('#breed_age_area').hide();
+//        $('#gold_work_sp').hide();
+//        $('#gold_work_area').hide();
+    }
+
     //加载动态新闻
     function loadDNews(data){
-        parent.doPost('news/getList/11/1', {newsType: '动态新闻'}, function(resp){
+        var params = {newsType: '动态新闻', workUnit: USER_INFO.workUnit};
+        if(is_show_all){
+            params = {newsType: '动态新闻'};
+        }
+        parent.doPost('news/getList/11/1', params, function(resp){
             var data = resp.result;
             var ht = '';
             for(var i =0; i<data.length; i++){
@@ -293,7 +320,11 @@
 
     //加载通知公告
     function loadBullent(data){
-        parent.doPost('news/getList/11/1', {newsType: '通知公告'}, function(resp){
+        var params = {newsType: '通知公告'};
+        if(!is_show_all){
+            params = {newsType: '动态新闻', workUnit: USER_INFO.workUnit};
+        }
+        parent.doPost('news/getList/10/1', params, function(resp){
             var data = resp.result;
             var ht = '';
             for(var i =0; i<data.length; i++){
@@ -315,30 +346,32 @@
     loadBullent();
 
     // **** 全局各指标start ****//
-    function getAnalysisData(){
-        parent.doPost('dogBaseInfo/getAnalysisData', {}, function(resp){
-            if(resp.success) {
-                var arr = resp.result;
-                var data = {};
-                var pr_name = [];
-                var pr_data = [];
-                for(var i = 0; i<arr.length; i++){
-                    var key = arr[i].att_name;
-                    data[key] = arr[i].val;
-                    if(key.indexOf("pro_") != -1){
-                        pr_name.push(key.replace('pro_', ''));
-                        pr_data.push({value: arr[i].val, name: key.replace('pro_', '')});
+    function getAnalysisData() {
+        if (is_show_all) {
+            parent.doPost('dogBaseInfo/getAnalysisData', {}, function (resp) {
+                if (resp.success) {
+                    var arr = resp.result;
+                    var data = {};
+                    var pr_name = [];
+                    var pr_data = [];
+                    for (var i = 0; i < arr.length; i++) {
+                        var key = arr[i].att_name;
+                        data[key] = arr[i].val;
+                        if (key.indexOf("pro_") != -1) {
+                            pr_name.push(key.replace('pro_', ''));
+                            pr_data.push({value: arr[i].val, name: key.replace('pro_', '')});
+                        }
                     }
+                    renderUserDog(data);
+                    renderUser(data);
+                    renderDogPro(pr_name, pr_data); //
+                    renderTrainInfo(data);
+                    renderAllot(data);
+                    renderBreed(data);
+                    renderTickoutDie(data);
                 }
-                renderUserDog(data);
-                renderUser(data);
-                renderDogPro(pr_name, pr_data); //
-                renderTrainInfo(data);
-                renderAllot(data);
-                renderBreed(data);
-                renderTickoutDie(data);
-            }
-        });
+            });
+        }
     }
     getAnalysisData();
     // **** 全局各指标end ****//
@@ -350,9 +383,13 @@
         '其他': []
     };
     function getWorkData(){
-        parent.doPost('dogBaseInfo/getWorkData', {}, function(resp) {
+        var params = {};
+        if (!is_show_all) {
+            params = {workUnit: USER_INFO.workUnit};
+        }
+        parent.doPost('dogBaseInfo/getWorkData', params, function (resp) {
             if (resp.success) {
-                for(var i = 0; i<resp.result.length; i++){
+                for (var i = 0; i < resp.result.length; i++) {
                     var item = resp.result[i];
                     workData[item.work_type].push(item);
                 }
@@ -696,7 +733,11 @@
     var map_data = [];
     for(var n in data){
         var info = data[n];
-        map_data.push({name: n, selected: false, value: parseInt(info.policeman/info.dog), policeman: info.policeman, dog: info.dog});
+        var select = false;
+        if(info.orgName == USER_INFO.workUnit){
+            select = true;
+        }
+        map_data.push({name: n, selected: select, value: parseInt(info.policeman/info.dog), policeman: info.policeman, dog: info.dog});
     }
     var myChart = echarts.init(document.getElementById('main'), 'vintage');
     myChart.setOption(option = {
@@ -765,15 +806,33 @@
         ]
     });
     myChart.on('click', function (params) {
-        var city = params.name;
-        var item = data[city];
-        document.getElementById('workUnitPic').src = item.pic;
-        $('#workUnitDesc').text(item.desc);
-        $('#area_name').text(item.orgName);
+        if(USER_ROLE == 'JuZhang' || USER_ROLE == 'SuperMan' || USER_ROLE == 'JiuZhiDui' ) {
+            var city = params.name;
+            var item = data[city];
+            document.getElementById('workUnitPic').src = item.pic;
+            $('#workUnitDesc').text(item.desc);
+            $('#area_name').text(item.orgName);
 //        randerPie();
-        renderWork();
-        renderAreaData(item.orgName);
+            renderWork();
+            renderAreaData(item.orgName);
+        }
     });
+
+    //分局只可以看自己分局下的信息
+    if(!is_show_all){
+        renderWork();
+        renderAreaData(USER_INFO.workUnit);
+        for(var n in data){
+            var item = data[n];
+            if(item.orgName == USER_INFO.workUnit){
+                $('#workUnitDesc').text(item.desc);
+                $('#area_name').text(item.orgName);
+                document.getElementById('workUnitPic').src = item.pic;
+            }
+        }
+        $('#specialData_id').hide();
+    }
+
 
     //人犬比
     function renderUserDog(data, domId) {

@@ -21,6 +21,7 @@ define([
             // {view: "icon", icon: "search",  width: 45, popup: "searchPopup"},
             // {view: "icon", icon: "envelope-o", value: 3, width: 45, popup: "mailPopup"},
             // {view: "icon", icon: "comments-o", value: 5, width: 45, popup: "messagePopup"},
+            {template: '<div style="line-height: 38px;font-size:14px"><a href="#!/app/adult.adultList" style="color: #FFF900;font-weight:bold">进入系统</a></div>', borderless: true, width: 80},
             {
                 height: 46, id: "person_template", css: "header_person", borderless: true, width: 150,
                 data: {id: 3, name: USER_INFO.policeName},

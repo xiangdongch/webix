@@ -198,7 +198,6 @@ define([
                                     "startTimeStr":webix.rules.isNotEmpty,
                                     "endTimeStr":webix.rules.isNotEmpty,
                                     "isWork":webix.rules.isNotEmpty,
-                                    "workResult":webix.rules.isNotEmpty,
                                 }
                             }
                         ]
@@ -361,7 +360,7 @@ define([
                             }
                             if(isShow) {
                                 picHtml += '<img height="50" src="' + arr[i] + '" class="clickPic">';
-                            }else{
+                            }else if(arr[i].length > 0){
                                 picHtml += '<a href="'+arr[i]+'" target="_blank">下载查看</a>';
                             }
                         }

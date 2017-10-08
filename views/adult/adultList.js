@@ -251,8 +251,8 @@ var checkCount = 0;
                     // {view: "button", label: "退回", width: 50},
                     // {view: "button", label: "培训报名", width: 70, click: signTrain},
                     // {view: "button", label: "技术使用", width: 80},
-                    {view: "button", label: "淘汰申请", width: 80, click: tickOut},
-                    {view: "button", label: "死亡报告", width: 80, click: died},
+                    {view: "button", label: "淘汰申请", width: 80, click: tickOut, permission: 'apply.tickout.create'},
+                    {view: "button", label: "死亡报告", width: 80, click: died, permission: 'apply.die.create'},
                     // {view: "button", label: "导出登记卡", width: 90, click: function(){
                     //     window.open('webix/警犬登记卡.doc', '_blank');
                     // }},
@@ -303,7 +303,7 @@ var checkCount = 0;
                     // autoload: true,
                     url: webix.proxy('customProxy','/policeDog/services/dogBaseInfo/getAll/{pageSize}/{curPage}'),
                     httpMethod: 'post',
-                    params: {growthStage: 2},
+                    params: {},//growthStage: 2
                     datatype: 'customJson'
                 },
                 pager: "pagerA"

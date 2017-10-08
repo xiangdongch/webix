@@ -108,7 +108,8 @@ define([
                         tooltip: '编辑',
                         width: 60
                     },
-                    {id: "title", header: "新闻标题", width: 100, fillspace: 1},
+                    {id: "newsType", header: "分类", width: 100},
+                    {id: "title", header: "新闻标题", fillspace: 1},
                     {id: "publishDate", header: "发布日期", width: 120, format: webix.Date.dateToStr("%Y-%m-%d")},
                 ],
                 on: {

@@ -44,8 +44,8 @@ define(function(){
         {id: "dogMgmt", value: "警犬管理", open: true, data:[
             { id: "adult.adultList", value: "警犬列表", permission: 'dog.list', icon: 'list', $css: "dashboard", details:""},
             { id: "adult.addDog", value: "警犬信息录入", permission: 'dog.addDog', icon: "plus", details: "" },
-            { id: "apply.tickoutList", value: "淘汰申请", permission: 'dog.addDog', icon: "list", details: "" },
-            { id: "apply.dieList", value: "死亡报告", permission: 'dog.addDog', icon: "list", details: "" },
+            { id: "apply.tickoutList", value: "淘汰申请", permission: 'apply.tickout.list', icon: "list", details: "" },
+            { id: "apply.dieList", value: "死亡报告", permission: 'apply.die.list', icon: "list", details: "" },
         ]},
 
         {id: "news", open: true, value:"宣传模块", data:[
@@ -54,10 +54,10 @@ define(function(){
         ]},
 
         {id: "sysConfig", open: true, value:"系统设置", data:[
-            { id: "user.list", value: "人员管理", permission: 'news.list', icon: "list", $css: "products", details:""},
-            { id: "system.orgConfig", value: "单位信息", permission: 'news.list', icon: "list", $css: "products", details:""},
+            { id: "user.list", value: "人员管理", permission: 'org.user', icon: "list", $css: "products", details:""},
+            { id: "system.orgConfig", value: "单位信息", permission: 'org.config', icon: "list", $css: "products", details:""},
         ]},
-        {id: "user", open: true, value:"个人中心", data:[
+        {id: "user", open: true, value:"个人中心", anyone:true, data:[
             { id: "user.profile", value: "个人信息", permission: 'news.list', icon: "list", $css: "products", details:""},
             { id: "user.password", value: "修改密码", permission: 'news.list', icon: "list", $css: "products", details:""},
         ]}
@@ -66,6 +66,10 @@ define(function(){
 	var data = [];
 	for(var i = 0; i<allData.length; i++){
 		var item = allData[i];
+		if(item.anyone){
+		    data.push(item);
+		    continue;
+        }
 		var hasPermission = checkPermission(item);
 		if(hasPermission) {
             var children = [];
