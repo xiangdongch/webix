@@ -13,7 +13,6 @@ define(function(){
 	};
 	var allData = [
         { id: "dashboard", value: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首页", icon: "", details: "" },
-        { id: "news.detail", value: "&nbsp;&nbsp;&nbsp;", icon: "", details: "", hidden: true},
 
         {id: "work", value: "警犬使用", open: true,  data:[
             { id: "adult.work", value: "警犬工作管理", permission: 'work', icon: "flag-o", $css: "products", details:""},
@@ -61,7 +60,9 @@ define(function(){
         {id: "user", open: true, value:"个人中心", anyone:true, data:[
             { id: "user.profile", value: "个人信息", permission: 'news.list', icon: "list", $css: "products", details:""},
             { id: "user.password", value: "修改密码", permission: 'news.list', icon: "list", $css: "products", details:""},
-        ]}
+        ]},
+
+        { id: "news.detail", value: "&nbsp;&nbsp;&nbsp;", icon: "", details: "", hidden: true},
     ];
 
 	var data = [];

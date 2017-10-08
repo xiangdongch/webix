@@ -27,9 +27,10 @@ define([], function () {
         $oninit: function () {
             var id = sessionStorage.getItem("newId");
             sessionStorage.removeItem("newId");
-            doIPost('news/getList/1/1', {id: id}, function (resp) {
-                if(resp && resp.result.length>0){
-                    var news = resp.result[0];
+            doIPost('news/getById', {id: id}, function (resp) {
+                console.log(resp);
+                if(resp.success && resp.result){
+                    var news = resp.result;
                     $$('new_title').data.title = news.title;
                     $$('new_title').refresh();
                     $$('new_content').data.content = news.content || '';

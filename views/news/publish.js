@@ -12,20 +12,20 @@ define([], function () {
                             ]
                         },
                         {
-                            view: "richselect", label: "分类：", width: 150, name: 'orgArea', labelAlign: 'right',labelWidth: 55, value: '动态新闻',
+                            view: "richselect", label: "分类：", width: 150, id: 'ntype', name: 'orgArea', labelAlign: 'right',labelWidth: 55, value: '动态新闻',
                             options: [
                                 {id: '动态新闻', value: '动态新闻'},
                                 {id: '通知公告', value: '通知公告'},
                             ]
                         },
-                        {view: "datepicker", label: "发布日期：", name: "date", labelWidth: 70, width: 180, value: new Date(), labelAlign: 'right', format:"%Y-%m-%d", stringResult: true},
-                        {view: 'text', label: '工作单位：', value: USER_INFO.workUnit, readonly: true, labelAlign: 'right',labelAlign: 'right'},
+                        {view: "datepicker", label: "发布日期：", name: "date", id: 'ndate', labelWidth: 70, width: 180, value: new Date(), labelAlign: 'right', format:"%Y-%m-%d", stringResult: true},
+                        {view: 'text', label: '工作单位：', id: 'nworkUnit', value: USER_INFO.workUnit, readonly: true, labelAlign: 'right',labelAlign: 'right'},
                         {},
                     ]
                 },
 
                 {
-                    height: 450,
+                    height: 400,
                     borderless: true,
                     view:"iframe", id:"content-body", src:"news/publish.html", on: {
                         onAfterLoad: function(){
@@ -37,12 +37,15 @@ define([], function () {
                         {},
                         {view: "button", label: "发布", type: "form", width: 90, click: function () {
                             var title = $$('ntitle').getValue();
-                            var date = $$('date').getValue();
+                            var date = $$('ndate').getValue();
                             var content = $$('content-body').getWindow().getAllHtml();
                             doIPost('news/add', {
                                 title: title,
+                                workUnit: $$('nworkUnit').getValue(),
+                                newsType: $$('ntype').getValue(),
                                 publishDateStr: date,
                                 content: content,
+                                publisher: USER_INFO.policeName,
                                 // newsType: '',
                             }, function (data) {
                                 if(data.success){
