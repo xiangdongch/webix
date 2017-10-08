@@ -287,10 +287,12 @@
         $('#gold_sp').hide();
         $('#gold_area').hide();
         $('#breed_age_area').hide();
-//        $('#gold_work_sp').hide();
-//        $('#gold_work_area').hide();
     }
 
+    function showNews(id){
+        sessionStorage.setItem("newId", id);
+        parent.window.open('../#!/app/news.detail', '_target');
+    }
     //加载动态新闻
     function loadDNews(data){
         var params = {newsType: '动态新闻', workUnit: USER_INFO.workUnit};
@@ -308,7 +310,7 @@
                 }
                 ht += '<tr>' +
                     '<td style="width: 120px" align="center">【' + ne.workUnit + '】</td>' +
-                    '<td><a href=""><div style="overflow: hidden">' + title + '</div></a></td>' +
+                    '<td><a href="javascript:void(0)"><div style="overflow: hidden" onclick="showNews('+ne.id+')">' + title + '</div></a></td>' +
                     '<td style="width: 120px" align="center">' + ne.publishDate.split(' ')[0] + '</td>' +
                     '</tr>';
             }
@@ -335,7 +337,7 @@
                 }
                 ht += '<tr>' +
                     '<td style="width: 120px" align="center">【' + ne.workUnit + '】</td>' +
-                    '<td><a href=""><div style="overflow: hidden">' + title + '</div></a></td>' +
+                    '<td><a href="javascript:void(0)"><div style="overflow: hidden" onclick="showNews('+ne.id+')">' + title + '</div></a></td>' +
                     '<td style="width: 120px" align="center">' + ne.publishDate.split(' ')[0] + '</td>' +
                     '</tr>';
             }

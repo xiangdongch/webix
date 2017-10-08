@@ -13,6 +13,7 @@ define(function(){
 	};
 	var allData = [
         { id: "dashboard", value: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首页", icon: "", details: "" },
+        { id: "news.detail", value: "&nbsp;&nbsp;&nbsp;", icon: "", details: "", hidden: true},
 
         {id: "work", value: "警犬使用", open: true,  data:[
             { id: "adult.work", value: "警犬工作管理", permission: 'work', icon: "flag-o", $css: "products", details:""},
