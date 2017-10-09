@@ -20,8 +20,8 @@ define([
             {},
             // {view: "icon", icon: "search",  width: 45, popup: "searchPopup"},
             // {view: "icon", icon: "envelope-o", value: 3, width: 45, popup: "mailPopup"},
-            // {view: "icon", icon: "comments-o", value: 5, width: 45, popup: "messagePopup"},
             {template: '<div style="line-height: 38px;font-size:14px"><a href="#!/app/adult.adultList" style="color: #FFF900;font-weight:bold">进入系统</a></div>', borderless: true, width: 100},
+            {view: "icon", icon: "comments-o", value: '..', width: 45, id:'todoTip', click: function(){showTodoList()}},
             {
                 height: 46, id: "person_template", css: "header_person", borderless: true, width: 150,
                 data: {id: 3, name: USER_INFO.policeName},
@@ -78,17 +78,18 @@ define([
         }
     };
 
-    function showTodoList(){
+    window.showTodoList = function (isShowTodoList){
         doIPost('todo/getMyTodo', {}, function (resp) {
             console.log(resp);
             if(resp.success && resp.result.length > 0) {
                 var arr = resp.result;
+
                 var html = '<div style="font-size: 14px;color:#fff;line-height: 25px;">';
                 html += '<div>您有如下待办事项需要处理，请及时处理：</div>';
                 var label = {
                     worm: '<span style="color:#fff">驱虫提醒：</span>有<span style="color:#F9FF00">#val#</span>头警犬需要进行驱虫处理;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/wormImmue.worm" style="color:#F9FF00">立刻处理</a>',
                     immue: '<span style="color:#fff">免疫提醒：</span>有<span style="color:#F9FF00">#val#</span>头警犬需要进行免疫处理;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/wormImmue.immue" style="color:#F9FF00">立刻处理</a>',
-                    dogApply: '<span style="color:#fff">警犬申请：</span>有<span style="color:#F9FF00">#val#</span>条警犬申请，请及时审批;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/apply.list" style="color:#F9FF00">立刻处理</a>',
+                    dogApply: '<span style="color:#fff">警犬申请：</span>有<span style="color:#F9FF00">#val#</span>个警犬申请单，请及时审批;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/apply.list" style="color:#F9FF00">立刻处理</a>',
                     tickout: '<span style="color:#fff">淘汰申请：</span>有<span style="color:#F9FF00">#val#</span>头警犬申请淘汰，请及时审批;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/apply.tickoutList" style="color:#F9FF00">立刻处理</a>',
                     die: '<span style="color:#fff">死亡申请：</span>有<span style="color:#F9FF00">#val#</span>头警犬死亡，请审批死亡报告;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/apply.dieList" style="color:#F9FF00">立刻处理</a>',
                     train: '<span style="color:#fff">培训提醒：</span>您有<span style="color:#F9FF00">#val#</span>头警犬即将到达培训日期，请关注培训信息，及时报名参加;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/train.createTrain" style="color:#F9FF00">立刻处理</a>',
@@ -97,7 +98,7 @@ define([
                     label = {
                         worm: '<span style="color:#fff">驱虫提醒：</span>有<span style="color:#F9FF00">#val#</span>头警犬需要进行驱虫处理;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/wormImmue.worm" style="color:#F9FF00">立刻处理</a>',
                         immue: '<span style="color:#fff">免疫提醒：</span>有<span style="color:#F9FF00">#val#</span>头警犬需要进行免疫处理;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/wormImmue.immue" style="color:#F9FF00">立刻处理</a>',
-                        dogApply: '<span style="color:#fff">警犬申请：</span>有<span style="color:#F9FF00">#val#</span>条警犬申请，请及时审批;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/apply.list" style="color:#F9FF00">立刻处理</a>',
+                        dogApply: '<span style="color:#fff">警犬申请：</span>有<span style="color:#F9FF00">#val#</span>个警犬申请单，请及时审批;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/apply.list" style="color:#F9FF00">立刻处理</a>',
                         tickout: '<span style="color:#fff">淘汰申请：</span>有<span style="color:#F9FF00">#val#</span>头警犬申请淘汰，请及时审批;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/apply.tickoutList" style="color:#F9FF00">立刻处理</a>',
                         die: '<span style="color:#fff">死亡申请：</span>有<span style="color:#F9FF00">#val#</span>头警犬死亡，请审批死亡报告;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/apply.dieList" style="color:#F9FF00">立刻处理</a>',
                         train: '<span style="color:#fff">培训提醒：</span>您有<span style="color:#F9FF00">#val#</span>头警犬即将到达培训日期，请关注培训信息，及时报名参加;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#!/app/train.createTrain" style="color:#F9FF00">立刻处理</a>',
@@ -121,24 +122,34 @@ define([
                 if(USER_INFO.userRole == 'JuZhang'){
                     label = [];
                 }
+                var isShow = false;
+                var count = 0;
                 for(var i = 0; i<arr.length; i++){
                     var item = arr[i];
                     if(item.att_name in label) {
+                        isShow = true;
+                        count += item.val;
                         html += '<div>' + label[item.att_name].replace('#val#', item.val) + '</div>';
                     }
                 }
                 html += '</div>';
-
-                var win = getWin('待办事项', {
-                    rows: [
-                        {template: html }
-                    ]
-                }, {width: 700, height: 300, modal: 'N'});
-                win.show();
+                if(count > 99){
+                    $$('todoTip').config.value = '99+';
+                }else {
+                    $$('todoTip').config.value = count;
+                }
+                $$('todoTip').refresh();
+                if(isShow && isShowTodoList != 'false') {
+                    var win = getWin('待办事项', {
+                        rows: [
+                            {template: html}
+                        ]
+                    }, {width: 700, height: 300, modal: 'N'});
+                    win.show();
+                }
             }
         });
-
-    }
+    };
 
     return {
         $ui: layout,
@@ -148,7 +159,9 @@ define([
             scope.ui(message.$ui);
             scope.ui(profile.$ui);
             window.onhashchange();
-            showTodoList();
+            var isShowTodoList = sessionStorage.getItem("showMyTodoList");
+            showTodoList(isShowTodoList);
+            sessionStorage.setItem("showMyTodoList", "false");
         }
     };
 

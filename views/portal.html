@@ -44,7 +44,7 @@
     <!--分局工作情况-->
     <table width="100%" height="510">
         <tr>
-            <td class="def_bk" style="width:50%" valign="top">
+            <td class="def_bk" style="width:45%" valign="top">
                 <div style="font-weight: bold; margin: 16px 0 0 8px; ">各分局工作情况</div>
                 <div id="order" class="table-c" style="height:520px;padding: 16px">
                     <!--<div style="height: 25px">全国警犬技术排名前三名：北京、贵州、海南&nbsp;<a>查看明细</a></div>-->
@@ -184,9 +184,9 @@
                             <td width="60px" onclick="onSpecialDataClick('刑侦总队')" style="cursor: pointer;color: #00F1FF">刑侦总队</td>
                             <td width="60px" onclick="onSpecialDataClick('公交总队')" style="cursor: pointer;color: #00F1FF">公交总队</td>
                             <td width="60px" onclick="onSpecialDataClick('特警总队')" style="cursor: pointer;color: #00F1FF">特警总队</td>
-                            <td width="60px" onclick="onSpecialDataClick('天安门')" style="cursor: pointer;color: #00F1FF">天安门<br>分局</td>
+                            <td width="60px" onclick="onSpecialDataClick('天安门分局')" style="cursor: pointer;color: #00F1FF">天安门<br>分局</td>
                             <td width="60px" onclick="onSpecialDataClick('西站分局')" style="cursor: pointer;color: #00F1FF">西站分局</td>
-                            <td width="60px" onclick="onSpecialDataClick('开发局')" style="cursor: pointer;color: #00F1FF">开发局<br>分局</td>
+                            <td width="60px" onclick="onSpecialDataClick('开发局分局')" style="cursor: pointer;color: #00F1FF">开发局<br>分局</td>
                             <td width="60px" onclick="onSpecialDataClick('清河分局')" style="cursor: pointer;color: #00F1FF">清河分局</td>
                         </tr>
                         <tbody id="special_da"> </tbody>
@@ -234,11 +234,28 @@
                                 </tr>
                             </table>
                         </div>
-                        <div style="font-weight: bold;margin-top: 20px;">
+                        <div style="margin-top: 20px;">
                             <table width="100%">
                                 <tr>
-                                    <td style="width:200px">2017年警犬每月工作量</td>
-                                    <td></td>
+                                    <td>
+                                        <table width="100%">
+                                            <tr>
+                                                <td style="width: 300px">
+                                                    <div style="padding: 16px 0 0 8px;font-weight: bold;">警犬工作</div>
+                                                </td>
+                                                <td align="right" style="padding-right: 8px" class="table-c">
+                                                    <table border="0" cellspacing="0" cellpadding="0" height="20">
+                                                        <tr>
+                                                            <td style="width: 50px;font-size:12px; background-color: #002F75;cursor: pointer" onclick="workChangeOrg(1)" id="work_type_org_1">安检</td>
+                                                            <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeOrg(2)" id="work_type_org_2">巡逻</td>
+                                                            <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeOrg(3)" id="work_type_org_3">刑侦</td>
+                                                            <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeOrg(4)" id="work_type_org_4">其他</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
@@ -287,6 +304,8 @@
         $('#gold_sp').hide();
         $('#gold_area').hide();
         $('#breed_age_area').hide();
+        $('#gold_work_area').hide();
+        $('#gold_work_sp').hide();
     }
 
     function showNews(id){
@@ -387,9 +406,6 @@
     };
     function getWorkData(){
         var params = {};
-        if (!is_show_all) {
-            params = {workUnit: USER_INFO.workUnit};
-        }
         parent.doPost('dogBaseInfo/getWorkData', params, function (resp) {
             if (resp.success) {
                 for (var i = 0; i < resp.result.length; i++) {
@@ -401,6 +417,7 @@
         });
     }
     getWorkData();
+    // 每月工作量 ++++++
 
     var table = $('#orderTable');
     var fjda = [
@@ -579,22 +596,9 @@
     }
     renderOrgFj();
     function onSpecialDataClick(name){
-        switch (name){
-            case '刑侦总队':
-                break;
-            case '公交总队':
-                break;
-            case '特警总队':
-                break;
-            case '天安门分局':
-                break;
-            case '西站分局':
-                break;
-            case '开发区分局':
-                break;
-            case '清河分局':
-                break;
-        }
+        renderAreaData(name);
+        renderOrgDesc(name);
+        getWorkDataByOrgName(name);
     };
 
     //工作量切换整理
@@ -616,6 +620,168 @@
                     break;
                 default:
                     renderMonthWork('其他');
+                    break;
+
+            }
+        }
+    }
+
+
+    //加载分局工作量
+    var org_workData = {
+        '安检': [],
+        '巡逻': [],
+        '刑侦': [],
+        '其他': []
+    };
+    function getWorkDataByOrgName(orgName){
+        var params = {workUnit: orgName};
+        org_workData = {
+            '安检': [],
+            '巡逻': [],
+            '刑侦': [],
+            '其他': []
+        };
+        parent.doPost('dogBaseInfo/getWorkData', params, function (resp) {
+            if (resp.success) {
+                for (var i = 0; i < resp.result.length; i++) {
+                    var item = resp.result[i];
+                    org_workData[item.work_type].push(item);
+                }
+                renderOrgMonthWork('安检');
+                $('#work_type_org_' + lastTab_org).css('backgroundColor', '');
+                $('#work_type_org_1').css('backgroundColor', '#002F75');
+                lastTab_org = 1;
+            }
+        });
+    }
+    //分局工作量渲染
+    function renderOrgMonthWork(type) {
+        console.log(org_workData);
+        var legendData = [];
+        var series = [];
+        if(type == '安检'){
+            var da = org_workData.安检;
+            legendData = ['人', '物', '车辆', '面积'];
+            var per_data = [],wp_data = [],car_data = [],area_data = [];
+            for(var i = 0; i<da.length; i++){
+                per_data.push(da[i].perTotal);
+                wp_data.push(da[i].wpTotal);
+                car_data.push(da[i].catTotal);
+                area_data.push(da[i].areaTotal);
+            }
+            series = [
+                {
+                    name: '人',
+                    type: 'bar',
+                    data: per_data
+                },
+                {
+                    name: '物',
+                    type: 'bar',
+                    data: wp_data
+                },
+                {
+                    name: '车辆',
+                    type: 'bar',
+                    data: car_data
+                },
+                {
+                    name: '面积',
+                    type: 'bar',
+                    data: area_data
+                }
+            ];
+        }else {
+            var da = org_workData[type];
+            legendData = ['人', '物'];
+            var per_data = [],wp_data = [];
+            for(var i = 0; i<da.length; i++){
+                per_data.push(da[i].perTotal);
+                wp_data.push(da[i].wpTotal);
+            }
+            series = [
+                {
+                    name: '人',
+                    type: 'bar',
+                    data: per_data
+                },
+                {
+                    name: '物',
+                    type: 'bar',
+                    data: wp_data
+                }
+            ];
+        }
+
+        echarts.init(document.getElementById('chart_1'), 'vintage').setOption({
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: 60,
+                right: 30,
+                bottom: 30
+            },
+            legend: {
+                data: legendData
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: 'rgba(255, 255, 255, 0.3)',
+                            type: 'dashed'
+                        }
+                    },
+                    axisLabel: {
+//                    rotate: 60
+                    },
+                    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '工作量',
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: 'rgba(255, 255, 255, 0.3)',
+                            type: 'dashed'
+                        }
+                    },
+                    min: 0,
+//                    max: 1500
+                }
+            ],
+            series: series
+        });
+    }
+    //分局工作量切换类型
+    var lastTab_org = 1;
+    function workChangeOrg(tag){
+        if(tag != lastTab_org){
+            $('#work_type_org_' + lastTab_org).css('backgroundColor', '');
+            $('#work_type_org_' + tag).css('backgroundColor', '#002F75');
+            lastTab_org = tag;
+            switch (tag){
+                case 1:
+                    renderOrgMonthWork('安检');
+                    break;
+                case 2:
+                    renderOrgMonthWork('巡逻');
+                    break;
+                case 3:
+                    renderOrgMonthWork('刑侦');
+                    break;
+                default:
+                    renderOrgMonthWork('其他');
                     break;
 
             }
@@ -707,7 +873,7 @@
         // 使用刚指定的配置项和数据显示图表。
         myChartA.setOption(option);
     }
-    renderWork();
+//    renderWork();
 
     function randomData() {
         return Math.round(Math.random()*1000);
@@ -730,17 +896,24 @@
         通州区: { orgName: '通州分局', policeman: 3260, dog: 65, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
         丰台区: { orgName: '丰台分局', policeman: 3148, dog: 42, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
         房山区: { orgName: '房山分局', policeman: 1596, dog: 39, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        大兴区: { orgName: '大兴分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'}
+        大兴区: { orgName: '大兴分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
+        大兴区2: { orgName: '刑侦总队', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
+        大兴区3: { orgName: '公交总队', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
+        大兴区4: { orgName: '特警总队', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
+        大兴区5: { orgName: '天安门分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
+        大兴区6: { orgName: '西站分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
+        大兴区7: { orgName: '开发局分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
+        大兴区8: { orgName: '清河分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
     };
 
     var map_data = [];
     for(var n in data){
         var info = data[n];
-        var select = false;
+        var selected = false;
         if(info.orgName == USER_INFO.workUnit){
-            select = true;
+            selected = true;
         }
-        map_data.push({name: n, selected: select, value: parseInt(info.policeman/info.dog), policeman: info.policeman, dog: info.dog});
+        map_data.push({name: n, /*selected: !selected,*/ value: parseInt(info.policeman/info.dog), policeman: info.policeman, dog: info.dog});
     }
     var myChart = echarts.init(document.getElementById('main'), 'vintage');
     myChart.setOption(option = {
@@ -811,19 +984,29 @@
     myChart.on('click', function (params) {
         if(USER_ROLE == 'JuZhang' || USER_ROLE == 'SuperMan' || USER_ROLE == 'JiuZhiDui' ) {
             var city = params.name;
-            var item = data[city];
-            document.getElementById('workUnitPic').src = item.pic;
-            $('#workUnitDesc').text(item.desc);
-            $('#area_name').text(item.orgName);
-//        randerPie();
-            renderWork();
-            renderAreaData(item.orgName);
+            var orgName = data[city].orgName;
+//            renderWork();
+            renderOrgDesc(orgName);
+            renderAreaData(orgName);
+            getWorkDataByOrgName(orgName);
         }
     });
 
+    function renderOrgDesc(name){
+        for(var i in data){
+            var item = data[i];
+            if(item.orgName == name){
+                document.getElementById('workUnitPic').src = item.pic;
+                $('#workUnitDesc').text(item.desc);
+                $('#area_name').text(item.orgName);
+                break;
+            }
+        }
+    }
+
     //分局只可以看自己分局下的信息
     if(!is_show_all){
-        renderWork();
+//        renderWork();
         renderAreaData(USER_INFO.workUnit);
         for(var n in data){
             var item = data[n];
@@ -1282,6 +1465,7 @@
             series: series
         });
     }
+
     //警犬品种
     echarts.init(document.getElementById('dog_bread_pie'), 'vintage').setOption({
         tooltip : {
@@ -1630,5 +1814,6 @@
         });
     }
     renderAreaData();
+    getWorkDataByOrgName('刑侦总队');
 </script>
 </html>
