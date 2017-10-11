@@ -197,14 +197,14 @@
             <td valign="top" class="def_bk">
                 <div>
                     <div style="padding: 8px;">
-                        <div style="font-weight: bold;margin-top:8px" id="area_name">刑侦总队</div>
+                        <div style="font-weight: bold;margin-top:8px" id="area_name"></div>
                         <div style="margin: 16px 0 0 16px; line-height: 25px">
                             <table>
                                 <tr style="height: 200px">
                                     <td style="width: 262px" valign="top"><div style=""><span id="policeman_num">
-                                        <img src="/policeDog/resource/2017-10-07/1507378702645.JPG" id="workUnitPic" width="260" height="200">
+                                        <img src="" id="workUnitPic" width="260" height="200">
                                     </span></div></td>
-                                    <td valign="top"><div style="height: 200px; overflow: hidden"><span style="font-weight: bold;">简介：</span><span id="workUnitDesc">负责组织实施刑事案件的侦查工作，直接侦办重大案件；负责重大案件现场的勘验，向全局提供刑事技术服务；掌握全市刑事犯罪动态，研究制定打击犯罪的对策；负责警犬训练和在侦查、安全检查中的应用。</span></div></td>
+                                    <td valign="top"><div style="height: 200px; overflow: hidden"><span style="font-weight: bold;">简介：</span><span id="workUnitDesc"></span></div></td>
                                 </tr>
                             </table>
                         </div>
@@ -873,7 +873,6 @@
         // 使用刚指定的配置项和数据显示图表。
         myChartA.setOption(option);
     }
-//    renderWork();
 
     function randomData() {
         return Math.round(Math.random()*1000);
@@ -881,53 +880,78 @@
 
     //======================================
     var data = {
-        密云区: { orgName: '密云分局', policeman: 1072, dog: 20, pic: '/policeDog/resource/2017-10-04/1507106538662.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督'},
-        怀柔区: { orgName: '怀柔分局', policeman: 936, dog: 39, pic: '/policeDog/resource/2017-10-04/1507106538679.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        延庆区: { orgName: '延庆县分局', policeman: 917, dog: 20, pic: '/policeDog/resource/2017-10-04/1507106538719.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        昌平区: { orgName: '昌平分局', policeman: 2000, dog: 40, pic: '/policeDog/resource/2017-10-04/1507106538856.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        顺义区: { orgName: '顺义分局', policeman: 1631, dog: 54, pic: '/policeDog/resource/2017-10-04/1507106538961.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        平谷区: { orgName: '平谷分局', policeman: 838, dog: 35, pic: '/policeDog/resource/2017-10-07/1507378384611.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        门头沟区: { orgName: '门头沟分局', policeman: 773, dog: 42, pic: '/policeDog/resource/2017-10-07/1507378386863.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        海淀区: { orgName: '海淀分局', policeman: 5050, dog: 51, pic: '/policeDog/resource/2017-10-07/1507378389648.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        朝阳区: { orgName: '朝阳分局', policeman: 4599, dog: 115, pic: '/policeDog/resource/2017-10-07/1507378389648.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        东城区: { orgName: '东城分局', policeman: 3200, dog: 87, pic: '/policeDog/resource/2017-10-07/1507378389804.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；负责依法指导、监督、检查辖区内机关、企事业、文教单位的内部治安保卫工作；组织实施社会安全防范，参与社会治安综合治理；承办上级交办的其他事项。'},
-        西城区: { orgName: '西城分局', policeman: 3615, dog: 85, pic: '/policeDog/resource/2017-10-06/1507294921071.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        石景山区: { orgName: '石景山分局', policeman: 1073, dog: 30, pic: '/policeDog/resource/2017-10-04/1507121919501.jpg', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        通州区: { orgName: '通州分局', policeman: 3260, dog: 65, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        丰台区: { orgName: '丰台分局', policeman: 3148, dog: 42, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        房山区: { orgName: '房山分局', policeman: 1596, dog: 39, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        大兴区: { orgName: '大兴分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        大兴区2: { orgName: '刑侦总队', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        大兴区3: { orgName: '公交总队', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        大兴区4: { orgName: '特警总队', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        大兴区5: { orgName: '天安门分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        大兴区6: { orgName: '西站分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        大兴区7: { orgName: '开发局分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
-        大兴区8: { orgName: '清河分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: '负责辖区内刑事案件的侦查工作，预防违法犯罪；负责实施辖区治安管理，处置治安案事件和其他公安行政案件；负责管理辖区实有人口、出租房屋；负责出入境管理有关事项及外事治安工作；负责实施辖区内消防监督；'},
+        密云区: { orgName: '密云分局', policeman: 1072, dog: 20, pic: '/policeDog/resource/2017-10-04/1507106538662.jpg', desc: ''},
+        怀柔区: { orgName: '怀柔分局', policeman: 936, dog: 39, pic: '/policeDog/resource/2017-10-04/1507106538679.jpg', desc: ''},
+        延庆区: { orgName: '延庆县分局', policeman: 917, dog: 20, pic: '/policeDog/resource/2017-10-04/1507106538719.jpg', desc: ''},
+        昌平区: { orgName: '昌平分局', policeman: 2000, dog: 40, pic: '/policeDog/resource/2017-10-04/1507106538856.jpg', desc: ''},
+        顺义区: { orgName: '顺义分局', policeman: 1631, dog: 54, pic: '/policeDog/resource/2017-10-04/1507106538961.jpg', desc: ''},
+        平谷区: { orgName: '平谷分局', policeman: 838, dog: 35, pic: '/policeDog/resource/2017-10-07/1507378384611.jpg', desc: ''},
+        门头沟区: { orgName: '门头沟分局', policeman: 773, dog: 42, pic: '/policeDog/resource/2017-10-07/1507378386863.jpg', desc: ''},
+        海淀区: { orgName: '海淀分局', policeman: 5050, dog: 51, pic: '/policeDog/resource/2017-10-07/1507378389648.jpg', desc: ''},
+        朝阳区: { orgName: '朝阳分局', policeman: 4599, dog: 115, pic: '/policeDog/resource/2017-10-07/1507378389648.jpg', desc: ''},
+        东城区: { orgName: '东城分局', policeman: 3200, dog: 87, pic: '/policeDog/resource/2017-10-07/1507378389804.jpg', desc: ''},
+        西城区: { orgName: '西城分局', policeman: 3615, dog: 85, pic: '/policeDog/resource/2017-10-06/1507294921071.jpg', desc: ''},
+        石景山区: { orgName: '石景山分局', policeman: 1073, dog: 30, pic: '/policeDog/resource/2017-10-04/1507121919501.jpg', desc: ''},
+        通州区: { orgName: '通州分局', policeman: 3260, dog: 65, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        丰台区: { orgName: '丰台分局', policeman: 3148, dog: 42, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        房山区: { orgName: '房山分局', policeman: 1596, dog: 39, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        大兴区: { orgName: '大兴分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        大兴区2: { orgName: '刑侦总队', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        大兴区3: { orgName: '公交总队', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        大兴区4: { orgName: '特警总队', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        大兴区5: { orgName: '天安门分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        大兴区6: { orgName: '西站分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        大兴区7: { orgName: '开发局分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
+        大兴区8: { orgName: '清河分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
     };
+    data = {};
+    parent.doPost('config/getOrgList', {}, function(rsp){
+        console.log(rsp);
+        data = {};
+        if(rsp.success){
+            for(var i = 0; i<rsp.result.length; i++){
+                var org = rsp.result[i];
+                if(["刑侦总队", "公交总队", "特警总队", "天安门分局", "西站分局", "开发局分局", "清河分局"].indexOf(org.orgName) != -1){
+                    data[org.orgArea + '_' +i] = {
+                        orgName: org.orgName,
+                        policeman: org.empQty,
+                        dog: org.dogQty,
+                        pic: org.orgPic,
+                        desc: org.orgDesc
+                    };
+                }else {
+                    data[org.orgArea] = {
+                        orgName: org.orgName,
+                        policeman: org.empQty,
+                        dog: org.dogQty,
+                        pic: org.orgPic,
+                        desc: org.orgDesc
+                    };
+                }
+            }
 
-    var map_data = [];
-    for(var n in data){
-        var info = data[n];
-        var selected = false;
-        if(info.orgName == USER_INFO.workUnit){
-            selected = true;
-        }
-        map_data.push({name: n, /*selected: !selected,*/ value: parseInt(info.policeman/info.dog), policeman: info.policeman, dog: info.dog});
-    }
-    var myChart = echarts.init(document.getElementById('main'), 'vintage');
-    myChart.setOption(option = {
+            var map_data = [];
+            for(var n in data){
+                var info = data[n];
+                var selected = false;
+                if(info.orgName == USER_INFO.workUnit){
+                    selected = true;
+                }
+                map_data.push({name: n, /*selected: !selected,*/ value: parseInt(info.policeman/info.dog), policeman: info.policeman, dog: info.dog});
+            }
+            var myChart = echarts.init(document.getElementById('main'), 'vintage');
+            myChart.setOption(option = {
 //        backgroundColor: 'rgba(0, 0, 0, 0.25)',
-        visualMap: {
-            left: -10000,
-            type: 'piecewise',
-            pieces: [
-                {min: 0, max: 40, color: '#6cfe2b'},
-                {min: 41, max: 60, color: '#fcfe1d'},
-                {min: 61, max: 1000, color: '#e73c43'}
-            ],
-            color: ['#E0022B', '#E09107', '#A3E00B']
-        },
+                visualMap: {
+                    left: -10000,
+                    type: 'piecewise',
+                    pieces: [
+                        {min: 0, max: 40, color: '#6cfe2b'},
+                        {min: 41, max: 60, color: '#fcfe1d'},
+                        {min: 61, max: 1000, color: '#e73c43'}
+                    ],
+                    color: ['#E0022B', '#E09107', '#A3E00B']
+                },
 //        visualMap: {
 //            min: 0,
 //            max: 100,
@@ -937,58 +961,78 @@
 //            },
 //            calculable : true
 //        },
-        tooltip: {
-            trigger: 'item',
-            formatter: function(params){
-                var d = params.data;
-                return '<div style="font-weight: bold;">' + d.name + '</div>带犬民警：' + d.policeman + '<br>警犬数量：' + d.dog + '<br>人员比例：' + d.value + ':1';
-            }
-        },
-        grid:{
-            x: 80,
-            width:'90%',
-            borderWidth: 0
-        },
-        series: [
-            {
-                type: 'map',
-                mapType: '北京',
-                mapLocation:{
-                    x:'center',
-                    y: 'center',
-                    height: 500
-                },
-                label: {
-                    emphasis: {
-                        position: ['50%', '50%'],
-                        textStyle: {
-                            color: 'rgba(0, 0, 0, 0)'
-                        }
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function(params){
+                        var d = params.data;
+                        return '<div style="font-weight: bold;">' + d.name + '</div>带犬民警：' + d.policeman + '<br>警犬数量：' + d.dog + '<br>人员比例：' + d.value + ':1';
                     }
                 },
-                data: map_data,
-                itemStyle: {
-                    normal: {
-                        borderColor: '#fff',
-                        areaColor: '#fff',
-                    },
-                    emphasis: {
-                        areaColor: 'rgba(0, 0, 0, 0.5)',
-                        borderWidth: 0
-                    }
+                grid:{
+                    x: 80,
+                    width:'90%',
+                    borderWidth: 0
                 },
-                animation: false
-            }
-        ]
-    });
-    myChart.on('click', function (params) {
-        if(USER_ROLE == 'JuZhang' || USER_ROLE == 'SuperMan' || USER_ROLE == 'JiuZhiDui' ) {
-            var city = params.name;
-            var orgName = data[city].orgName;
+                series: [
+                    {
+                        type: 'map',
+                        mapType: '北京',
+                        mapLocation:{
+                            x:'center',
+                            y: 'center',
+                            height: 500
+                        },
+                        label: {
+                            emphasis: {
+                                position: ['50%', '50%'],
+                                textStyle: {
+                                    color: 'rgba(0, 0, 0, 0)'
+                                }
+                            }
+                        },
+                        data: map_data,
+                        itemStyle: {
+                            normal: {
+                                borderColor: '#fff',
+                                areaColor: '#fff',
+                            },
+                            emphasis: {
+                                areaColor: 'rgba(0, 0, 0, 0.5)',
+                                borderWidth: 0
+                            }
+                        },
+                        animation: false
+                    }
+                ]
+            });
+            myChart.on('click', function (params) {
+                if(USER_ROLE == 'JuZhang' || USER_ROLE == 'SuperMan' || USER_ROLE == 'JiuZhiDui' ) {
+                    var city = params.name;
+                    var orgName = data[city].orgName;
 //            renderWork();
-            renderOrgDesc(orgName);
-            renderAreaData(orgName);
-            getWorkDataByOrgName(orgName);
+                    renderOrgDesc(orgName);
+                    renderAreaData(orgName);
+                    getWorkDataByOrgName(orgName);
+                }
+            });
+            //分局只可以看自己分局下的信息
+            if(!is_show_all){
+                renderAreaData(USER_INFO.workUnit);
+                getWorkDataByOrgName(USER_INFO.workUnit);
+                for(var n in data){
+                    var item = data[n];
+                    if(item.orgName == USER_INFO.workUnit){
+                        $('#workUnitDesc').text(item.desc);
+                        $('#area_name').text(item.orgName);
+                        document.getElementById('workUnitPic').src = item.pic;
+                    }
+                }
+                $('#specialData_id').hide();
+            }else{
+                renderOrgDesc('刑侦总队');
+                renderAreaData('刑侦总队');
+                getWorkDataByOrgName('刑侦总队');
+            }
         }
     });
 
@@ -996,27 +1040,13 @@
         for(var i in data){
             var item = data[i];
             if(item.orgName == name){
+                console.log(item);
                 document.getElementById('workUnitPic').src = item.pic;
                 $('#workUnitDesc').text(item.desc);
                 $('#area_name').text(item.orgName);
                 break;
             }
         }
-    }
-
-    //分局只可以看自己分局下的信息
-    if(!is_show_all){
-//        renderWork();
-        renderAreaData(USER_INFO.workUnit);
-        for(var n in data){
-            var item = data[n];
-            if(item.orgName == USER_INFO.workUnit){
-                $('#workUnitDesc').text(item.desc);
-                $('#area_name').text(item.orgName);
-                document.getElementById('workUnitPic').src = item.pic;
-            }
-        }
-        $('#specialData_id').hide();
     }
 
 
@@ -1814,6 +1844,5 @@
         });
     }
     renderAreaData();
-    getWorkDataByOrgName('刑侦总队');
 </script>
 </html>

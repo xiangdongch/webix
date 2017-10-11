@@ -503,6 +503,8 @@ define([
             rows: [
                 {rows: [searchForm, datatable]}
             ]
+        },
+        $oninit: function(scope){
         }
     };
 });

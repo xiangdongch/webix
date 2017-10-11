@@ -128,6 +128,21 @@ define([
             "机场",
             "警院"
         ],
+        getDefaultTypeColor: function (type) {
+            return {
+                "史宾格犬": {dogColor: '黑白',hairType: '中长毛', photo: 'assets/dogPic/sbg.PNG'},
+                "罗威纳犬": {dogColor: '黑',hairType: '短毛', photo: 'assets/dogPic/lwn.PNG'},
+                "拉布拉多犬": {dogColor: '黑',hairType: '短毛', photo: 'assets/dogPic/lbld.PNG'},
+                "德国牧羊犬": {dogColor: '黑背黄腹',hairType: '中长毛', photo: 'assets/dogPic/dgmy.PNG'},
+                "荷兰牧羊犬": {dogColor: '棕黄',hairType: '短毛', photo: 'assets/dogPic/hlmy.PNG'},
+                "昆明犬": {dogColor: '棕黄',hairType: '短毛', photo: 'assets/dogPic/km.PNG'},
+                "马里努阿犬": {dogColor: '棕黄',hairType: '短毛', photo: 'assets/dogPic/mlna.PNG'},
+                "金毛犬": {dogColor: '黄',hairType: '长毛', photo: 'assets/dogPic/jm.PNG'},
+                "杜宾犬（杜博文）": {dogColor: '黑',hairType: '短毛', photo: 'assets/dogPic/db.PNG'},
+                "杂交犬": {dogColor: '黑白',hairType: '短毛', photo: 'assets/dogPic/zj.PNG'},
+                "其他": {dogColor: '黑白',hairType: '短毛', photo: 'assets/dogPic/zj.PNG'}
+            }[type];
+        },
         getUnitOptions: function () {
             var options = [];
             for(var i = 0; i<constant.work_unit.length; i++){

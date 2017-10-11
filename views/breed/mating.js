@@ -313,7 +313,12 @@ define([
                         var datatable = $$(datatableId);
                         console.log(datatable);
                         var data = datatable.getCheckedData();
-                        console.log(data);
+                        if(data.length == 0){
+                            msgBox('请至少选择一条数据');
+                            return ;
+                        }
+                        window.pageParams = data[0];
+                        this.$scope.show('breed.index');
                     }},
                     {}
                 ]

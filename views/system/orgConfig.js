@@ -29,6 +29,7 @@ define([], function () {
                                     {view: "text", label: "单位地址：", width: 400, name: 'orgAddr'},
                                     {view: "text", label: "联系方式：", width: 400, name: 'orgConcat'},
                                     {view: "text", label: "员工数量：", width: 400, name: 'empQty'},
+                                    // {view: "text", label: "警犬数量：", width: 400, name: 'dogQty'},
                                     {view: "text", hidden: true, name: 'orgPic', id: 'form_orgPic'},
                                     {
                                         view: "richselect", label: "单位所在区：", width: 400, name: 'orgArea',
@@ -51,6 +52,7 @@ define([], function () {
                                             {id: '延庆区', value: '延庆区'}
                                         ]
                                     },
+                                    {view: "textarea", label: "简要介绍：", width: 400, name: 'orgDesc', height:80, attributes:{ maxlength: 200 }},
                                     {
                                         height: 200,
                                         cols: [

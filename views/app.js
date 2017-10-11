@@ -21,7 +21,7 @@ define([
             // {view: "icon", icon: "search",  width: 45, popup: "searchPopup"},
             // {view: "icon", icon: "envelope-o", value: 3, width: 45, popup: "mailPopup"},
             {template: '<div style="line-height: 38px;font-size:14px"><a href="#!/app/adult.adultList" style="color: #FFF900;font-weight:bold">进入系统</a></div>', borderless: true, width: 100},
-            {view: "icon", icon: "comments-o", value: '..', width: 45, id:'todoTip', click: function(){showTodoList()}},
+            {view: "icon", icon: "comments-o", value: '..', width: 45, id:'todoTip', click: function(){showTodoList('1')}},
             {
                 height: 46, id: "person_template", css: "header_person", borderless: true, width: 150,
                 data: {id: 3, name: USER_INFO.policeName},
@@ -146,6 +146,8 @@ define([
                         ]
                     }, {width: 700, height: 300, modal: 'N'});
                     win.show();
+                }else if(isShowTodoList == '1'){
+                    msgBox('没有待办消息');
                 }
             }
         });
