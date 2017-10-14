@@ -273,13 +273,51 @@
     <table width="100%" id="breed_age_area">
         <tr style="height: 350px">
             <td style="width: 50%;" class="def_bk">
-                <div class="title">警犬品种</div>
-                <div id="dog_bread_pie" style="height: 330px"></div>
+                <div class="title">
+                    <table width="100%">
+                        <tr>
+                            <td style="width: 300px">
+                                <div style="font-weight: bold;">警犬分析</div>
+                            </td>
+                            <td align="right" style="padding-right: 8px;font-weight: normal" class="table-c">
+                                <table border="0" cellspacing="0" cellpadding="0" height="20">
+                                    <tr>
+                                        <td style="width: 50px;font-size:12px; background-color: #002F75;cursor: pointer" onclick="workChangeBreed(1)" id="breed_1">品种</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(2)" id="breed_2">毛色</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(3)" id="breed_3">毛型</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(4)" id="breed_4">专业</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(5)" id="breed_5">淘汰</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="dog_analysis" style="height: 330px"></div>
             </td>
             <td style="width: 16px;"></td>
             <td class="def_bk">
-                <div class="title">警犬年龄</div>
-                <div id="dog_age_pie" style="height: 330px"></div>
+                <div class="title">
+                    <table width="100%">
+                        <tr>
+                            <td style="width: 300px">
+                                <div style="font-weight: bold;">民警分析</div>
+                            </td>
+                            <td align="right" style="padding-right: 8px;font-weight: normal" class="table-c">
+                                <table border="0" cellspacing="0" cellpadding="0" height="20">
+                                    <tr>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer; background-color: #002F75;" onclick="workChangeUser(1)" id="change_user_1">职称</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeUser(2)" id="change_user_2">职务</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeUser(3)" id="change_user_3">类别</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeUser(4)" id="change_user_4">学历</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeUser(5)" id="change_user_5">性别</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="user_analysis" style="height: 330px"></div>
             </td>
         </tr>
     </table>
@@ -422,24 +460,6 @@
 
     var table = $('#orderTable');
     var fjda = [];
-//    [
-//        {fj: '东城分局',policeCount: 3200, dogCount: 87, per: 37, workCount: 0, newsCount: 0},
-//        {fj: '西城分局',policeCount: 3615, dogCount: 85, per: 43, workCount: 0, newsCount: 0},
-//        {fj: '朝阳分局',policeCount: 4599, dogCount: 115, per: 40, workCount: 0, newsCount: 0},
-//        {fj: '海淀分局',policeCount: 5050, dogCount: 51, per: 99, workCount: 0, newsCount: 0},
-//        {fj: '丰台分局',policeCount: 3148, dogCount: 42, per: 75, workCount: 0, newsCount: 0},
-//        {fj: '通州分局',policeCount: 3200, dogCount: 65, per: 50, workCount: 0, newsCount: 0},
-//        {fj: '昌平分局',policeCount: 2000, dogCount: 40, per: 50, workCount: 0, newsCount: 0},
-//        {fj: '石景山分局',policeCount: 1073, dogCount: 30, per: 36, workCount: 0, newsCount: 0},
-//        {fj: '门头沟分局',policeCount: 773, dogCount: 42, per: 18, workCount: 0, newsCount: 0},
-//        {fj: '大兴分局',policeCount: 2059, dogCount: 48, per: 43, workCount: 0, newsCount: 0},
-//        {fj: '怀柔分局',policeCount: 936, dogCount: 39, per: 24, workCount: 0, newsCount: 0},
-//        {fj: '房山分局',policeCount: 1596, dogCount: 39, per: 41, workCount: 0, newsCount: 0},
-//        {fj: '平谷分局',policeCount: 838, dogCount: 35, per: 24, workCount: 0, newsCount: 0},
-//        {fj: '顺义分局',policeCount: 1631, dogCount: 54, per: 30, workCount: 0, newsCount: 0},
-//        {fj: '密云分局',policeCount: 1071, dogCount: 35, per: 31, workCount: 0, newsCount: 0},
-//        {fj: '延庆分局',policeCount: 917, dogCount: 20, per: 46, workCount: 0, newsCount: 0},
-//    ];
 
     function renderOrder(){
         table.empty();
@@ -540,15 +560,6 @@
 
     //非区域分局
     var otherFj = [];
-//     [
-//        {fj: '刑侦总队',policeCount: 2000, dogCount: 45, per: 46, workCount: 0, newsCount: 0},
-//        {fj: '公交总队',policeCount: 917, dogCount: 30, per: 46, workCount: 0, newsCount: 0},
-//        {fj: '特警总队',policeCount: 876, dogCount: 23, per: 46, workCount: 0, newsCount: 0},
-//        {fj: '天安门分局',policeCount: 924, dogCount: 28, per: 46, workCount: 0, newsCount: 0},
-//        {fj: '西站分局',policeCount: 744, dogCount: 26, per: 46, workCount: 0, newsCount: 0},
-//        {fj: '开发区分局',policeCount: 743, dogCount: 19, per: 46, workCount: 0, newsCount: 0},
-//        {fj: '清河分局',policeCount: 906, dogCount: 12, per: 46, workCount: 0, newsCount: 0}
-//    ];
     function renderOrgFj(){
         /*var userCount = "<tr style=\"height: 23px\">\n" +
             "                            <td>民警总数</td>\n" +
@@ -596,7 +607,6 @@
         $('#special_da').empty();
         $('#special_da').html( userCount + docCount + perCount);
     }
-//    renderOrgFj();
     function onSpecialDataClick(name){
         renderAreaData(name);
         renderOrgDesc(name);
@@ -789,6 +799,64 @@
             }
         }
     }
+
+    //警犬分析
+    var lastBreed = 1;
+    function workChangeBreed(tag){
+        if(tag != lastBreed){
+            $('#breed_' + lastBreed).css('backgroundColor', '');
+            $('#breed_' + tag).css('backgroundColor', '#002F75');
+            lastBreed = tag;
+            switch (tag){
+                case 1:
+                    renderDogByType('breed', '品种');
+                    break;
+                case 2:
+                    renderDogByType('dog_colour', '毛色');
+                    break;
+                case 3:
+                    renderDogByType('hair_type', '毛型');
+                    break;
+                case 4:
+                    renderDogByType('pro', '专业');
+                    break;
+                case 5:
+                    renderDogByType('work_stage', '淘汰');
+                    break;
+                default:
+                    renderDogByType('breed', '专业');
+                    break;
+
+            }
+        }
+    }
+    //民警分析
+    var lastUser = 1;
+    function workChangeUser(tag){
+        if(tag != lastUser){
+            $('#change_user_' + lastUser).css('backgroundColor', '');
+            $('#change_user_' + tag).css('backgroundColor', '#002F75');
+            lastUser = tag;
+            switch (tag){
+                case 1:
+                    renderUserByType('job_title', '职称');
+                    break;
+                case 2:
+                    renderUserByType('job', '职务');
+                    break;
+                case 3:
+                    renderUserByType('work_type', '类别');
+                    break;
+                case 4:
+                    renderUserByType('degree', '学历');
+                    break;
+                default:
+                    renderUserByType('sex', '性别');
+                    break;
+
+            }
+        }
+    }
 </script>
 
 </body>
@@ -914,10 +982,14 @@
             otherFj = [];
             for(var i = 0; i<rsp.result.length; i++){
                 var org = rsp.result[i];
+                var per = 0;
+                if(org.dogQty){
+                    per = parseInt( org.empQty / org.dogQty);
+                }
                 if(["警院", "机场", "警卫局", "振远", "消防"].indexOf(org.orgName) != -1){
 
                 }else if(["刑侦总队", "公交总队", "特警总队", "天安门分局", "西站分局", "开发局分局", "清河分局"].indexOf(org.orgName) != -1){
-                    otherFj.push( {fj: org.orgName, policeCount: org.empQty, dogCount: org.dogQty, per: parseInt( org.empQty / org.dogQty), workCount: org.workHours, newsCount: org.newQty} );
+                    otherFj.push( {fj: org.orgName, policeCount: org.empQty, dogCount: org.dogQty, per: per, workCount: org.workHours, newsCount: org.newQty} );
 
                     data[org.orgArea + '_' +i] = {
                         orgName: org.orgName,
@@ -927,7 +999,7 @@
                         desc: org.orgDesc
                     };
                 }else {
-                    fjda.push( {fj: org.orgName, policeCount: org.empQty, dogCount: org.dogQty, per: org.dogQty == 0 ? '-' : parseInt( (org.empQty / org.dogQty) || 0), workCount: org.workHours, newsCount: org.newQty} );
+                    fjda.push( {fj: org.orgName, policeCount: org.empQty, dogCount: org.dogQty, per: per, workCount: org.workHours, newsCount: org.newQty} );
                     data[org.orgArea] = {
                         orgName: org.orgName,
                         policeman: org.empQty,
@@ -937,6 +1009,7 @@
                     };
                 }
             }
+            console.log(data);
             renderOrgFj();
             orderByPer('per', lastDesc);
             renderOrder();
@@ -1505,93 +1578,95 @@
         });
     }
 
-    //警犬品种
-    echarts.init(document.getElementById('dog_bread_pie'), 'vintage').setOption({
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            orient: 'vertical',
-            right: 'right',
-            bottom: 40,
-            data: ["史宾格犬", "罗威纳犬", "拉拉多犬", "德国牧羊犬", "荷兰牧羊犬", "昆明犬", "马里努阿犬", "金毛犬", "杜宾犬（杜博文）", "杂交犬", "其他"]
-        },
-        series : [
-            {
-                name: '访问来源',
-                type: 'pie',
-                center: ['40%', '50%'],
-                data:[
-                    {"name":"史宾格犬","value":670},
-                    {"name":"罗威纳犬","value":653},
-                    {"name":"拉拉多犬","value":322},
-                    {"name":"德国牧羊犬","value":305},
-                    {"name":"荷兰牧羊犬","value":513},
-                    {"name":"昆明犬","value":509},
-                    {"name":"马里努阿犬","value":311},
-                    {"name":"金毛犬","value":405},
-                    {"name":"杜宾犬（杜博文）","value":541},
-                    {"name":"杂交犬","value":300},
-                    {"name":"其他","value": 20}
-                ],
-                itemStyle: {
-                    emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    });
-
-    //警犬年龄
-    echarts.init(document.getElementById('dog_age_pie'), 'vintage').setOption({
-        tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b}: {c} ({d}%)"
-        },
-        legend: {
-            orient: 'vertical',
-            x: 'left',
-            bottom: 40,
-            data:['小于1岁','1-3岁','3-6岁','6-8岁','大于8岁']
-        },
-        series: [
-            {
-                name:'警犬年龄',
-                type:'pie',
-                radius: ['50%', '80%'],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        show: true,
-                        textStyle: {
-                            fontSize: '30',
-                            fontWeight: 'bold'
+    //警犬分析
+    function renderDog(name, legendData, data) {
+        echarts.init(document.getElementById('dog_analysis'), 'vintage').setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                right: 'right',
+                bottom: 10,
+                data: legendData
+            },
+            series: [
+                {
+                    name: name,
+                    type: 'pie',
+                    center: ['40%', '50%'],
+                    data: data,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
                         }
                     }
-                },
-                labelLine: {
-                    normal: {
-                        show: false
-                    }
-                },
-                data:[
-                    {value: 276, name:'小于1岁'},
-                    {value: 1210, name:'1-3岁'},
-                    {value: 924, name:'3-6岁'},
-                    {value: 154, name:'6-8岁'},
-                    {value: 98, name:'大于8岁'},
-                ]
+                }
+            ]
+        });
+    }
+    //警犬分析-数据提取分析
+    function renderDogByType(name, cName){
+        var ori_data = dogAnalysis[name];
+        var legendData = [], da = [];
+        var workStageMapping = {"1": "待申领", "2": "已被申领", "3": "淘汰", "4": "死亡" };
+        for(var i = 0 ; i<ori_data.length; i++){
+            var ite = ori_data[i];
+            if(name == 'work_stage'){
+                var ntitle = workStageMapping[ite.att_name] || ite.att_name;
+                legendData.push(ntitle);
+                da.push({"name": ntitle, "value": ite.val});
+            }else {
+                legendData.push(ite.att_name);
+                da.push({"name": ite.att_name, "value": ite.val});
             }
-        ]
-    });
+        }
+        renderDog(cName, legendData, da);
+    }
+    //民警分析
+    function renderAllUser(name, legendData, data) {
+        echarts.init(document.getElementById('user_analysis'), 'vintage').setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                right: 'left',
+                bottom: 10,
+                data: legendData
+            },
+            series: [
+                {
+                    name: name,
+                    type: 'pie',
+                    center: ['40%', '50%'],
+                    data: data,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        });
+    }
+    //民警分析-数据提取分析
+    function renderUserByType(name, cName){
+        var ori_data = userAnalysis[name];
+        var legendData = [], da = [];
+        for(var i = 0 ; i<ori_data.length; i++){
+            var ite = ori_data[i];
+            legendData.push(ite.att_name);
+            da.push( {"name": ite.att_name, "value": ite.val} );
+        }
+        renderAllUser(cName, legendData, da);
+    }
 
     //分局警犬年龄
     function randerPie(){
@@ -1854,12 +1929,49 @@
     }
     renderAreaData();
 
+    var dogAnalysis = {
+        breed: [],
+        dog_colour: [],
+        hair_type: [],
+        dog_level: [],
+        work_stage: [],
+        pro: []
+    };
     parent.doPost('config/getDogAnalysis', {}, function(resp){
-        console.log(resp);
+        if(resp.success){
+            var arr = resp.result;
+            for(var i = 0; i<arr.length; i++){
+                var item = arr[i];
+                var a = dogAnalysis[item.ctype];
+                if(a){
+                    a.push(item);
+                }
+            }
+            console.log(dogAnalysis);
+            renderDogByType('breed', '品种');
+        }
     });
-    parent.doPost('config/getUserAnalysis', {}, function(resp){
-        console.log(resp);
 
+    var userAnalysis = {
+        sex: [],
+        degree: [],
+        work_type: [],
+        job_title: [],
+        job: []
+    };
+    parent.doPost('config/getUserAnalysis', {}, function(resp){
+        if(resp.success){
+            var arr = resp.result;
+            for(var i = 0; i<arr.length; i++){
+                var item = arr[i];
+                var a = userAnalysis[item.ctype];
+                if(a){
+                    a.push(item);
+                }
+            }
+            console.log(userAnalysis);
+            renderUserByType('job_title', '职称');
+        }
     });
 </script>
 </html>
