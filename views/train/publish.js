@@ -308,11 +308,12 @@ define([
                     {view: "button", label: "发布通知", width: 80, click: function () {
                         var datatable = $$(datatableId);
                         var data = datatable.getCheckedData();
-                        console.log(data);
-                        if(data.length == 0){
-                            msgBox('请选择一条培训信息')
+                        if(data.length > 1 || data.length == 0){
+                            msgBox('请选择一条培训信息，不要选择多条')
                         }else{
-
+                            doIPost('train/sendNotice', {trainId: data[0].id}, function (resp) {
+                                console.log(resp);
+                            })
                         }
                     }},
                     {}

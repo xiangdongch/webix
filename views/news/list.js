@@ -98,15 +98,9 @@ define([
                     {id: "$index", header: "NO.", width: 45},{
                         id: "id",
                         header: "操作",
-                        template: function (item) {
-                            if(item.applyState == 1 || item.applyState == 3){
-                                return '<a class="my_link edit" href="javascript:void(0)"><span class="webix_icon icon fa-pencil-square-o"></span></a>';
-                            }else{
-                                return '';//<span class="webix_icon icon fa-pencil-square-o"></span>'
-                            }
-                        },
+                        template: '<a href="javascript:void(0)" class="edit">编辑</a>',
                         tooltip: '编辑',
-                        width: 60
+                        width: 50
                     },
                     {id: "newsType", header: "分类", width: 100},
                     {id: "title", header: "新闻标题", fillspace: 1},
@@ -123,6 +117,9 @@ define([
                 onClick: {
                     edit: function (a, b, c) {
                         console.log([a, b, c]);
+                        var item = $$(datatableId).getItem(b.row);
+                        window.pageParams = item;
+                        this.$scope.show('news.edit');
                     }
                 },
                 tooltip:true,

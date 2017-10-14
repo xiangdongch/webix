@@ -144,22 +144,14 @@ define([
                     var win = getWin('待办事项', {
                         rows: [
                             {template: html, borderless: true},
-                            {template: '<div style="font-weight: bold;">收到的通知</div>', height: 30, borderless: true},
+                            {template: '<div>收到的通知</div>', height: 30, borderless: true},
                             {
                                 id: datatableId,
                                 view: "datatable",
                                 tooltip:true,
-                                height: 200,
-                                datafetch: 20,//default
+                                height: 210,
+                                datafetch: 6,
                                 columns: [
-                                    // {
-                                    //     id: "$check",
-                                    //     header: {content: "masterCheckbox"},
-                                    //     checkValue: 'on',
-                                    //     uncheckValue: 'off',
-                                    //     template: "{common.checkbox()}",
-                                    //     width: 40
-                                    // },
                                     {id: "$index", header: "NO.", width: 45},
                                     {id: 'isRead', header: '状态', width: 50, template: function(item){
                                         return {"1":"<span style='color: #F9FF00'>未读</span>", "2": "已读"}[item.isRead] || "";
@@ -196,12 +188,12 @@ define([
                             {
                                 view: "pager",
                                 id: "notice_page",
-                                size: 20,
+                                size: 6,
                                 group: 5,
                                 template: "{common.first()}{common.prev()}{common.pages()}{common.next()}{common.last()}<div style='float: right'>总共#count#条</div>"
                             }
                         ]
-                    }, {width: 700, height: 400, modal: 'N'});
+                    }, {width: 800, height: 500, modal: 'N'});
                     win.show();
                 }else if(isShowTodoList == '1'){
                     msgBox('没有待办消息');

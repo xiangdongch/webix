@@ -18,8 +18,8 @@
         function insertHtml(value) {
             UE.getEditor('editor').execCommand('insertHtml', value)
         }
-        function setContent(content) {
-            UE.getEditor('editor').setContent(content, isAppendTo);
+        function setContent(content){
+            UE.getEditor('editor').execCommand('insertHtml', content)
         }
         function getAllHtml() {
             return UE.getEditor('editor').getAllHtml();
