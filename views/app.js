@@ -140,11 +140,68 @@ define([
                 }
                 $$('todoTip').refresh();
                 if(isShow && isShowTodoList != 'false') {
+                    var datatableId = webix.uid().toString();
                     var win = getWin('待办事项', {
                         rows: [
-                            {template: html}
+                            {template: html, borderless: true},
+                            {template: '<div style="font-weight: bold;">收到的通知</div>', height: 30, borderless: true},
+                            {
+                                id: datatableId,
+                                view: "datatable",
+                                tooltip:true,
+                                height: 200,
+                                datafetch: 20,//default
+                                columns: [
+                                    // {
+                                    //     id: "$check",
+                                    //     header: {content: "masterCheckbox"},
+                                    //     checkValue: 'on',
+                                    //     uncheckValue: 'off',
+                                    //     template: "{common.checkbox()}",
+                                    //     width: 40
+                                    // },
+                                    {id: "$index", header: "NO.", width: 45},
+                                    {id: 'isRead', header: '状态', width: 50, template: function(item){
+                                        return {"1":"<span style='color: #F9FF00'>未读</span>", "2": "已读"}[item.isRead] || "";
+                                    }},
+                                    {id: 'title', header: '标题', fillspace: 1},
+                                    {id: 'creationDate', header: '日期', width: 90,format: webix.Date.dateToStr("%Y-%m-%d")},
+                                    {
+                                        header: "操作",
+                                        template: function(item){
+                                            if(item.isRead == 2) return '';
+                                            return '<a href="javascript:void(0)" class="markRead">标记已读</a>';
+                                        },
+                                        tooltip: '标记已读',
+                                        width: 65
+                                    },
+                                ],
+                                customUrl: {
+                                    url: webix.proxy('customProxy','/policeDog/services/notice/getList/{pageSize}/{curPage}'),
+                                    httpMethod: 'post',
+                                    params: {policeId: USER_INFO.id},
+                                    datatype: 'customJson'
+                                },
+                                onClick: {
+                                    markRead: function(a, b, c) {
+                                        var item = $$(datatableId).getItem(b.row);
+                                        console.log(item);
+                                        doIPost('notice/update', {id: item.id, isRead: 2}, function (resp) {
+                                            $$(datatableId).reload();
+                                        })
+                                    }
+                                },
+                                pager: 'notice_page'
+                            },
+                            {
+                                view: "pager",
+                                id: "notice_page",
+                                size: 20,
+                                group: 5,
+                                template: "{common.first()}{common.prev()}{common.pages()}{common.next()}{common.last()}<div style='float: right'>总共#count#条</div>"
+                            }
                         ]
-                    }, {width: 700, height: 300, modal: 'N'});
+                    }, {width: 700, height: 400, modal: 'N'});
                     win.show();
                 }else if(isShowTodoList == '1'){
                     msgBox('没有待办消息');

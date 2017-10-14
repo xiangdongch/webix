@@ -975,7 +975,7 @@
         大兴区8: { orgName: '清河分局', policeman: 2059, dog: 48, pic: '/policeDog/resource/2017-10-07/1507378702645.JPG', desc: ''},
     };
     data = {};
-    parent.doPost('config/getOrgList', {}, function(rsp){
+    parent.doIPost('config/getOrgList', {}, function(rsp){
         console.log(rsp);
         data = {};
         if(rsp.success){

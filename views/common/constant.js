@@ -290,7 +290,8 @@ define([
                                 '<span class="tab_label">训练成绩：</span>#trainScore#<br>' +
                                 '<span class="tab_label">种犬等级：</span>#dogLevel#<br>' +
                                 '<span class="tab_label">工作单位：</span>#workPlace#<br>' +
-                                '<span class="tab_label">省&nbsp;&nbsp;区&nbsp;&nbsp;市：</span>#workProvince#',
+                                '<span class="tab_label">省&nbsp;&nbsp;区&nbsp;&nbsp;市：</span>#workProvince#<br>' +
+                                '<span class="tab_label">警犬专业：</span>#dogPros#',
                                 data: item
                             }
                         ]
@@ -305,16 +306,17 @@ define([
                                 ]
                             },
                             {height: 16},
-                            {height: 190, borderless: true,
+                            {height: 210, borderless: true,
                                 template:
                                 '<div><span class="tab_label"">毛&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</span>#hairType#</div>' +
                                 '<div style="height: 58px"></div>' +
                                 '<div><span class="tab_label"">近交系数：</span>#inbreeding#</div>' +
                                 '<div style="height: 30px"></div>' +
-                                '<div><span class="tab_label"">片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区：</span>#workArea#</div>',
+                                '<div><span class="tab_label"">片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区：</span>#workArea#</div>' +
+                                '<div><span class="tab_label"">立功受奖：</span></div>',
                                 data: item
                             },
-                            {height: 10},
+                            {height: 12},
                             {height: 35, borderless: true, template: '<span class="tab_label"">填写日期：</span>&nbsp;&nbsp;' + webix.Date.dateToStr("%Y&nbsp;年&nbsp;%m&nbsp;月&nbsp;%d&nbsp;日")(new Date()) },
                             {}
                         ]

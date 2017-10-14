@@ -65,6 +65,11 @@ define([], function () {
                 width: 40
             },
                 {header: '', fillspace: 1, css: 'tab', template: function(item){
+                    for(var n in item){
+                        if(item[n] == null){
+                            item[n] = '';
+                        }
+                    }
                     try{
                         var age = new Date().getFullYear() - new Date(item.birthday).getFullYear() + 1;
                         if(age == 0){
@@ -84,12 +89,12 @@ define([], function () {
                         '<td style="width:350px">' +
                         '<div><span class="tab_label">犬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>#dogName#</div>' +
                         '<div><span class="tab_label">品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种：</span>#breed#</div>' +
-                        '<div><span class="tab_label">带犬民警：</span>#tutor#</div>' +
+                        '<div><span class="tab_label">带犬民警：</span>#policeName#</div>' +
                         '<div><span class="tab_label">工作单位：</span>#workPlace#</div>'+
                         '</td>' +
                         '<td valign="top">' +
                         '<div><span class="tab_label">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</span>#age#岁（#birthday#）</div>' +
-                        '<div><span class="tab_label">专业技能：</span></div>' +
+                        '<div><span class="tab_label">专业技能：</span>#dogPros#</div>' +
                         '<div><span class="tab_label">立功受奖：</span></div>' +
                         '</td>' +
                         '</tr>' +

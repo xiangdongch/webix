@@ -34,7 +34,7 @@ define([
         var datatable = $$(datatableId);
         var params = $$('form').getValues();
         removeEmptyProperty(params, true);
-        params.growthStage = 2;
+        // params.growthStage = 2;
         datatable.config.customUrl.params = params;
         datatable.reload();
     };
@@ -253,6 +253,70 @@ var checkCount = 0;
                     // {view: "button", label: "技术使用", width: 80},
                     {view: "button", label: "淘汰申请", width: 80, click: tickOut, permission: 'apply.tickout.create'},
                     {view: "button", label: "死亡报告", width: 80, click: died, permission: 'apply.die.create'},
+                    {view: "button", label: "警犬调配", width: 80, permission: 'apply.dog.changeUser',
+                        click: function(){
+                            var datatable = $$(datatableId);
+                            var data = datatable.getCheckedData();
+                            if(data.length == 0){
+                                msgBox('请至少选择一条数据')
+                                return ;
+                            }
+                            var item = data[0];
+                            doIPost('user/getList/3000/1', {}, function(resp){
+                                var userList = [];
+                                webix.toArray(resp.result).each(function(item){
+                                    userList.push({id: item.id + '<_>' + item.policeName, value: item.policeName});
+                                });
+                                var win = getWin('警犬调配', {
+                                    rows: [
+                                        {template: '被调配警犬：#dogName#，品种：#breed#，当前带犬民警：#policeName#', data: item, height: 30, borderless: true },
+                                        {
+                                           cols: [
+                                               {
+                                                   view: "richselect", label: "请选择接收民警", id: 'policeUser', labelWidth: 95, width: 240,
+                                                   options: userList
+                                               },
+                                               {}
+                                           ]
+                                        },
+                                        {height: 20},
+                                        {
+                                            cols: [
+                                                {},
+                                                {view: 'button', label: '确定调配', width: 90, click: function () {
+                                                    var policeUser = $$('policeUser').getValue();
+                                                    if(!policeUser){
+                                                        msgBox('请先选择带犬民警');
+                                                        return ;
+                                                    }
+                                                    var userInfo = policeUser.split('<_>');
+                                                    doIPost('dogBaseInfo/changeUser', {
+                                                        dogId: item.id,
+                                                        oldPoliceId: item.policeId,
+                                                        oldPoliceName: item.policeName,
+                                                        newPoliceId: userInfo[0],
+                                                        newPoliceName: userInfo[1]
+                                                    }, function(resp){
+                                                        console.log(resp);
+                                                        if(resp.success){
+                                                            datatable.reload();
+                                                            win.close();
+                                                        }else{
+                                                            msgBox('操作失败：<br>' + resp.message);
+                                                        }
+                                                    });
+                                                }},
+                                                {}
+                                            ]
+                                        },
+                                        {}
+                                    ]
+                                }, {width: 400, height: 170});
+                                win.show();
+                            });
+
+                        }
+                    },
                     // {view: "button", label: "导出登记卡", width: 90, click: function(){
                     //     window.open('webix/警犬登记卡.doc', '_blank');
                     // }},
@@ -276,7 +340,6 @@ var checkCount = 0;
                         this.hideOverlay();
                     },
                     onCheck: function(row, column, state){
-                        console.log([row, column, state]);
                         var item = $$(datatableId).getItem(row);
                         if(state){
                             checkCount ++;
@@ -285,13 +348,11 @@ var checkCount = 0;
                             checkCount --;
                             delete checkMap[item.chipNo];
                         }
-                        console.log(checkMap);
                         document.getElementById("checkCount").innerHTML = checkCount;
                     }
                 },
                 onClick: {
                     edit: function (a, b, c) {
-                        console.log([a, b, c]);
                         editDog.openEdit('');
                     },
                     tab_detail: function(e, obj){
