@@ -103,7 +103,7 @@ define([
                         width: 50
                     },
                     {id: "newsType", header: "分类", width: 100},
-                    {id: "title", header: "新闻标题", fillspace: 1},
+                    {id: "title", header: "新闻标题", template: '<a href="javascript:void(0);" class="showDetail">#title#</a>', fillspace: 1},
                     {id: "publishDate", header: "发布日期", width: 120, format: webix.Date.dateToStr("%Y-%m-%d")},
                 ],
                 on: {
@@ -116,10 +116,14 @@ define([
                 },
                 onClick: {
                     edit: function (a, b, c) {
-                        console.log([a, b, c]);
                         var item = $$(datatableId).getItem(b.row);
                         window.pageParams = item;
                         this.$scope.show('news.edit');
+                    },
+                    showDetail: function(e, obj){
+                        var item = $$(datatableId).getItem(obj.row);
+                        sessionStorage.setItem("newId", item.id);
+                        window.open('#!/app/news.detail', '_self');
                     }
                 },
                 tooltip:true,

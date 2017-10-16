@@ -54,7 +54,7 @@
                             <td style="width: 95px" onclick="doOrder(2)" id="tab_2">民警总数</td>
                             <td style="width: 90px" onclick="doOrder(3)" id="tab_3">警犬总数</td>
                             <td style="width: 100px" onclick="doOrder(4)" id="tab_4">民警/警犬<br>比例↓</td>
-                            <td style="width: 100px" onclick="doOrder(5)" id="tab_5">上月工作量</td>
+                            <td style="width: 100px" onclick="doOrder(5)" id="tab_5">上月工作量<br>（小时）</td>
                             <td style="width: 120px" onclick="doOrder(6)" id="tab_6">上月新闻数量</td>
                         </tr>
                         <tbody id="orderTable">
@@ -167,7 +167,7 @@
             </tr>
         </table>
 
-        <div style="height: 240px;" id="qj_work"></div>
+        <div id="work_contain"><div style="height: 240px;" id="qj_work"></div></div>
     </div>
     <!-- 北京市各区警犬数量分布 -->
     <div style="height: 16px;"></div>
@@ -283,9 +283,10 @@
                                 <table border="0" cellspacing="0" cellpadding="0" height="20">
                                     <tr>
                                         <td style="width: 50px;font-size:12px; background-color: #002F75;cursor: pointer" onclick="workChangeBreed(1)" id="breed_1">品种</td>
-                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(2)" id="breed_2">毛色</td>
-                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(3)" id="breed_3">毛型</td>
+                                        <!--<td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(2)" id="breed_2">毛色</td>-->
+                                        <!--<td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(3)" id="breed_3">毛型</td>-->
                                         <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(4)" id="breed_4">专业</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(6)" id="breed_6">年龄</td>
                                         <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeBreed(5)" id="breed_5">淘汰</td>
                                     </tr>
                                 </table>
@@ -468,15 +469,14 @@
             '<td style="width: 95px" onclick="doOrder(2)" id="tab_2">民警总数</td>' +
             '<td style="width: 90px" onclick="doOrder(3)" id="tab_3">警犬总数</td>' +
             '<td style="width: 100px" onclick="doOrder(4)" id="tab_4">民警/警犬<br>比例↓</td>' +
-            '<td style="width: 100px" onclick="doOrder(5)" id="tab_5">上月工作量</td>' +
+            '<td style="width: 100px" onclick="doOrder(5)" id="tab_5">上月工作量<br>（小时）</td>' +
             '<td style="width: 120px" onclick="doOrder(6)" id="tab_6">上月新闻数量</td>' +
             '</tr>';
         htm = '';
         var si = 112/51;
         for(var i = 0; i<fjda.length; i++){
             var it = fjda[i];
-            it.workCount = parseInt(it.dogCount * si);
-            it.newsCount = parseInt(it.dogCount * 0.5);
+            it.workCount = Math.abs(it.workCount);
             var bi = '';
             if(it.per >= 50){
                 bi = '<span style="color: red"> ' + it.per+ ' </span>'
@@ -823,6 +823,9 @@
                 case 5:
                     renderDogByType('work_stage', '淘汰');
                     break;
+                case 6:
+                    renderDogByType('age', '年龄');
+                    break;
                 default:
                     renderDogByType('breed', '专业');
                     break;
@@ -1009,7 +1012,6 @@
                     };
                 }
             }
-            console.log(data);
             renderOrgFj();
             orderByPer('per', lastDesc);
             renderOrder();
@@ -1527,7 +1529,8 @@
                 }
             ];
         }
-
+        console.log(wp_data);
+        $('#work_contain').html('<div style="height: 240px;" id="qj_work"></div>');
         echarts.init(document.getElementById('qj_work'), 'vintage').setOption({
             tooltip: {
                 trigger: 'axis'
@@ -1935,7 +1938,8 @@
         hair_type: [],
         dog_level: [],
         work_stage: [],
-        pro: []
+        pro: [],
+        age: []
     };
     parent.doPost('config/getDogAnalysis', {}, function(resp){
         if(resp.success){
