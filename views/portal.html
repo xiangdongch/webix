@@ -260,8 +260,8 @@
                                 </tr>
                             </table>
                         </div>
-                        <div id="chart_1" style="height: 250px;">
-
+                        <div id="chart_1_contain">
+                            <div id="chart_1" style="height: 250px;"></div>
                         </div>
                     </div>
                 </div>
@@ -725,7 +725,7 @@
                 }
             ];
         }
-
+        $('#chart_1_contain').html('<div id="chart_1" style="height: 250px;"></div>');
         echarts.init(document.getElementById('chart_1'), 'vintage').setOption({
             tooltip: {
                 trigger: 'axis'
