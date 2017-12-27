@@ -1,6 +1,6 @@
 define([
     'views/common/columns'
-], function (columns) {
+], function (columnsDef) {
 
     var constant = {
         /**
@@ -349,9 +349,27 @@ define([
             params = params || {};
             var datatableId = webix.uid().toString();
             var pageId = webix.uid().toString();
-            var cols = columns.getColumns(
-                ["犬名", "芯片号", "芯片注入日期", "性别", "出生日期", "品种", "来源", "毛色", "毛型", "繁育员", "训导员" ]
-            );
+            var cols = [
+                {
+                    id: "$check",
+                    header: {content: "masterCheckbox"},
+                    checkValue: true,
+                    uncheckValue: false,
+                    template: "{common.checkbox()}",
+                    width: 40
+                },
+                {id: "$index", header: "NO.", width: 45},
+                {id: "dogName", header: "犬名", width: 90},
+                {id: "chipNo", header: "芯片号", width: 110},
+                {id: "chipNoInject", header: "芯片注入日期", width: 90, format: webix.Date.dateToStr("%Y-%m-%d")},
+                {id: "sex", header: "性别", width: 50, template: function(obj){ return '<div align="center">' + (obj.sex == 1 ? '公' : '母') + '</div>'; } },
+                {id: "birthday", header: "出生日期", width: 85, sort: "string", format: webix.Date.dateToStr("%Y-%m-%d")},
+                {id: "breed", header: "品种", width: 90, sort: "string"},
+                {id: "dogSource", header: "来源", width: 60, sort: "string"},
+                {id: "dogColour", header: "毛色", width: 75, sort: "string"},
+                {id: "hairType", header: "毛型", width: 70, sort: "string"},
+                {id: "breeder", header: "繁育员", width: 100, sort: "string"}
+            ];
             var win = getWin('选择警犬', {
                 rows: [
                     {

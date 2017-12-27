@@ -52,6 +52,9 @@ define(function(){
             { id: "news.publish", value: "动态发布", permission:'news.publish', icon: "pencil", $css: "products", details:""},
             { id: "news.list", value: "动态管理", permission: 'news.list', icon: "list", $css: "products", details:""},
         ]},
+        {id: "reporter", open: true, value:"报表中心", data:[
+            { id: "reporter.export", value: "报表导出", permission: 'org.config', icon: "list", $css: "products", details:""},
+        ]},
 
         {id: "sysConfig", open: true, value:"系统设置", data:[
             { id: "user.list", value: "人员管理", permission: 'org.user', icon: "list", $css: "products", details:""},

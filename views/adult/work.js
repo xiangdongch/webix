@@ -54,6 +54,15 @@ define([
             values.workPic = picList.join(',');
             var data = [values];
             if(form.validate()){
+                if(!values.ajCar){
+                    values.ajCar=0;
+                }
+                if(!values.ajPer){
+                    values.ajPer=0;
+                }
+                if(!values.ajWp){
+                    values.ajWp=0;
+                }
                 doIPost('work/add', data, function (data) {
                     if (data.success) {
                         $$(datatableId).reload();
@@ -89,6 +98,7 @@ define([
                                     {
                                         rows: [
                                             {view: "text", label: "工作类型", name: 'workType', value:workType, width: 240, hidden: true},
+                                            {view: "text", label: "安检编号", name: 'xlNum', value:'', width: 240, hidden: isAj},
                                             {view: "text", label: "出勤人员", name: "attPerson", width: 240, attributes:{ maxlength: 64 }, readonly: readonly, value: attUser},
                                             {view: 'text', value: '', name: "dogChipNo", id: 'dogChipNo', hidden: true},
                                             {view: "text", label: "出勤警犬", id: 'select_dog', width: 240,
@@ -369,6 +379,7 @@ define([
                             caseInfo = '<div style="line-height:20px"><span class="tab_label">案件编号：</span>#caseNo#</div>' +
                             '<div style="line-height:20px"><span class="tab_label">案件性质：</span>#caseProperty#</div>';
                         }else if(item.workType == '安检'){
+                            item.securityCheckArea = item.securityCheckArea || '';
                             caseInfo = '<div style="line-height:20px"><span class="tab_label">安检面积：</span>#securityCheckArea#</div>' +
                                 '<div style="line-height:20px"><span class="tab_label">安检车辆：</span>#ajCar#</div>'+
                                 '<div style="line-height:20px"><span class="tab_label">安检等级：</span>#ajLevel#</div>';

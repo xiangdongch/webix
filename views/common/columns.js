@@ -1,4 +1,6 @@
-define([], function () {
+define([
+    "./constant"
+], function (constant) {
     var columns = {
         '窝编号': {id: "nestNo", header: "窝编号", width: 120, sort: "string"},
         '犬名': {id: "dogName", header: "犬名", width: 90},
@@ -70,6 +72,10 @@ define([], function () {
                             item[n] = '';
                         }
                     }
+                    if(!item.dogPhoto){
+                        item.dogPhoto = constant.getDefaultTypeColor(item.breed).photo;
+                    }
+                    console.log(item);
                     try{
                         var age = new Date().getFullYear() - new Date(item.birthday).getFullYear() + 1;
                         if(age == 0){
