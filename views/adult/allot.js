@@ -106,7 +106,8 @@ define([
                                 item.workPlace = rec;
                                 selectedData.push(item);
                                 item.$index = 'new ' + item.$index;
-                                $$(datatableId2).add(data[i]);
+                                item.tutor='待分配';
+                                $$(datatableId2).add(item);
                             }
                             $$(datatableId1).remove(idArr);
                             console.log(idArr);
@@ -164,7 +165,7 @@ define([
                             // pager: "pagerB"
                         },
                         {
-                            height: 30,
+                            height: 25,
                             cols: [{},{
                                 rows: [{view: "button", label: "保存", width: 65, click: function () {
                                     console.log(selectedData);
@@ -187,7 +188,11 @@ define([
                                         }
                                     })
                                 }}]
-                            }, {}]
+                            },{}]
+                        },
+                        {
+                            height: 60,
+                            template: '<div style="margin-top: -10px">说明：<br>1、警犬调配：调配范围是在分局之间调动，不可以调配到带犬人员。<br>2、调配到分局后，分局可以通过“警犬管理”->“警犬列表”中的“更换训导员”按钮，更换带犬人员</div>', borderless: true
                         }
                     ]
                 }

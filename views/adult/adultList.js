@@ -253,7 +253,7 @@ var checkCount = 0;
                     // {view: "button", label: "技术使用", width: 80},
                     {view: "button", label: "淘汰申请", width: 80, click: tickOut, permission: 'apply.tickout.create'},
                     {view: "button", label: "死亡报告", width: 80, click: died, permission: 'apply.die.create'},
-                    {view: "button", label: "警犬调配", width: 80, permission: 'apply.dog.changeUser',
+                    {view: "button", label: "更换训导员", width: 80, permission: 'apply.dog.changeUser',
                         click: function(){
                             var datatable = $$(datatableId);
                             var data = datatable.getCheckedData();
@@ -311,7 +311,7 @@ var checkCount = 0;
                                         },
                                         {}
                                     ]
-                                }, {width: 400, height: 170});
+                                }, {width: 500, height: 170});
                                 win.show();
                             });
 

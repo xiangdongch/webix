@@ -282,7 +282,7 @@
                             <td align="right" style="padding-right: 8px;font-weight: normal" class="table-c">
                                 <table border="0" cellspacing="0" cellpadding="0" height="20">
                                     <tr>
-                                        <td style="width: 50px;font-size:12px;cursor: pointer; background-color: #002F75;" onclick="workChangeUser(1)" id="change_user_1">职称</td>
+                                        <td style="width: 50px;font-size:12px;cursor: pointer; background-color: #002F75;" onclick="workChangeUser(1)" id="change_user_1">年龄</td>
                                         <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeUser(2)" id="change_user_2">职务</td>
                                         <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeUser(3)" id="change_user_3">类别</td>
                                         <td style="width: 50px;font-size:12px;cursor: pointer" onclick="workChangeUser(4)" id="change_user_4">学历</td>
@@ -338,12 +338,12 @@
     console.log(USER_ROLE);
 
     var is_show_all = true;
-    if(USER_ROLE != 'JuZhang' && USER_ROLE != 'SuperMan' && USER_ROLE != 'JiuZhiDui' ) {
+    if(USER_ROLE != 'JuZhang' && USER_ROLE != 'SuperMan' && USER_ROLE != 'JiuZhiDui'&& USER_ROLE != 'FJ_JiuZhiDui' ) {
         is_show_all = false;
         //全局各项指标不可见
         $('#gold_sp').hide();
         $('#gold_area').hide();
-        $('#breed_age_area').hide();
+//        $('#breed_age_area').hide();
         $('#gold_work_area').hide();
         $('#gold_work_sp').hide();
     }
@@ -384,7 +384,7 @@
     function loadBullent(data){
         var params = {newsType: '通知公告'};
         if(!is_show_all){
-            params = {newsType: '动态新闻', workUnit: USER_INFO.workUnit};
+            params = {newsType: '通知公告'};
         }
         parent.doPost('news/getList/10/1', params, function(resp){
             var data = resp.result;
@@ -842,7 +842,7 @@
             lastUser = tag;
             switch (tag){
                 case 1:
-                    renderUserByType('job_title', '职称');
+                    renderUserByType('age', '年龄');
                     break;
                 case 2:
                     renderUserByType('job', '职务');
@@ -1479,13 +1479,23 @@
         if(type == '安检'){
             var da = workData.安检;
             legendData = ['人', '物', '车辆', '面积'];
-            var per_data = [],wp_data = [],car_data = [],area_data = [];
+            var per_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                wp_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                car_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                area_data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             for(var i = 0; i<da.length; i++){
-                per_data.push(da[i].perTotal);
-                wp_data.push(da[i].wpTotal);
-                car_data.push(da[i].catTotal);
-                area_data.push(da[i].areaTotal);
+                var month = da[i].month || '';
+                var ar = month.split('-');
+                var pos = -1;
+                if(ar.length >= 2){
+                    pos = parseInt(ar[1])-1;
+                }
+                per_data[pos] = da[i].perTotal;
+                wp_data[pos] = da[i].wpTotal;
+                car_data[pos] = da[i].catTotal;
+                area_data[pos] = da[i].areaTotal;
             }
+
             series = [
                 {
                     name: '人',
@@ -1960,7 +1970,7 @@
         sex: [],
         degree: [],
         work_type: [],
-        job_title: [],
+        age: [],
         job: []
     };
     parent.doPost('config/getUserAnalysis', {}, function(resp){
@@ -1974,7 +1984,7 @@
                 }
             }
             console.log(userAnalysis);
-            renderUserByType('job_title', '职称');
+            renderUserByType('age', '年龄');
         }
     });
 </script>

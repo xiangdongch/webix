@@ -22,10 +22,9 @@ define([
                         {}
                     ]
                 },
-                {template: '<b>2、请选择报表类型：</b>', borderless: true, height: 30},
                 {
                     cols: [
-                        {width: 145},
+                        {template: '<b>2、请选择报表类型：</b>', borderless: true, width: 145},
                         {view: 'button', value: '警犬技术量化表', width: 150, click: function () {
                             var startDate = $$('startDate').getValue();
                             var endDate = $$('endDate').getValue();
@@ -37,13 +36,16 @@ define([
                             }, function (data) {
                                 console.log(data);
                                 if(data.success){
-                                    window.open(data.result, '_blank');
+                                    console.log(data);
+                                    window.open(data.result, '_target');
+                                }else{
+                                    msgBox('导出失败');
                                 }
                             });
                         }},
                         {width: 10},
                         {view: 'button', value: '防爆安检登记表', width: 150, click: function () {
-                            msgBox('暂未开放')
+                            msgBox('请到“工作管理”->“警犬工作管理”中导出');
                         }},
                         {}
                     ]

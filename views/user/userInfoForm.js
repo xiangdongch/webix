@@ -62,7 +62,7 @@ define([
                             },
                             {
                                 cols: [
-                                    {view: "text", label: "警号/登录名称：", width: 400, name: 'policeId'},
+                                    {view: "text", label: "警号/登录名称：", width: 400, name: 'policeId', readonly: true},
                                     {view: "text", label: "联系方式：", width: 400, name: 'contactInfo'},
                                     {}
                                 ]

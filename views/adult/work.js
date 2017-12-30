@@ -100,8 +100,8 @@ define([
                                             {view: "text", label: "工作类型", name: 'workType', value:workType, width: 240, hidden: true},
                                             {view: "text", label: "安检编号", name: 'xlNum', value:'', width: 240, hidden: isAj},
                                             {view: "text", label: "出勤人员", name: "attPerson", width: 240, attributes:{ maxlength: 64 }, readonly: readonly, value: attUser},
-                                            {view: 'text', value: '', name: "dogChipNo", id: 'dogChipNo', hidden: true},
-                                            {view: "text", label: "出勤警犬", id: 'select_dog', width: 240,
+                                            {view: 'text', value: '', name: "dogId", id: 'dogId', hidden: true},
+                                            {view: "text", label: "出勤警犬", id: 'select_dog', placeholder: '点击选择', width: 240,
                                                 on: {
                                                     onItemClick: function () {
                                                         constant.showDogList(function (datatable) {
@@ -111,7 +111,7 @@ define([
                                                             console.log(item.chipNo);
                                                             $$('select_dog').setValue(item.dogName);
                                                             $$('select_dog').config.val = item.dogName;
-                                                            $$('dogChipNo').setValue(item.chipNo);
+                                                            $$('dogId').setValue(item.id);
                                                         });
                                                     },
                                                     onChange: function (newVal, oldVal) {
@@ -202,7 +202,7 @@ define([
                                     }
                                 ],
                                 rules:{
-                                    "dogChipNo":webix.rules.isNotEmpty,
+                                    "dogId":webix.rules.isNotEmpty,
                                     "attPerson":webix.rules.isNotEmpty,
                                     "workUnit":webix.rules.isNotEmpty,
                                     "startTimeStr":webix.rules.isNotEmpty,
@@ -250,6 +250,23 @@ define([
                         }
                     });
                 }
+            }
+        });
+    };
+
+    var exportData = function() {
+        var datatable = $$(datatableId);
+        var data = datatable.getCheckedData();
+        if (data.length == 0) {
+            msgBox("请至少选择一条数据");
+            return;
+        }
+        doIPost('dogBaseInfo/exportFbAjData', {id: data.id}, function (data) {
+            console.log(data);
+            if(data.success){
+                window.open(data.result, '_target');
+            }else{
+                msgBox('导出失败'+ data.message);
             }
         });
     };
@@ -335,6 +352,7 @@ define([
                 cols: [
                     {view: "button", label: "添加", width: 50, popup:"my_pop"},
                     {view: "button", label: "删除", width: 50, click: del},
+                    {view: "button", label: "导出防爆安检登记表", width: 130, click: exportData},
                     {}
                 ]
             },

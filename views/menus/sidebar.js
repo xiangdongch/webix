@@ -65,7 +65,7 @@ define(function(){
             { id: "user.password", value: "修改密码", permission: 'news.list', icon: "list", $css: "products", details:""},
         ]},
 
-        { id: "news.detail", value: "&nbsp;&nbsp;&nbsp;", icon: "", details: "", hidden: true},
+        // { id: "news.detail", value: "&nbsp;&nbsp;&nbsp;", icon: "", details: "", hidden: true},
     ];
 
 	var data = [];

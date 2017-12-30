@@ -64,6 +64,7 @@ define([
                                 },
                                 elements:[
                                     {view: "text", hidden: true, name: "applyState", width: 300, value: 1},
+                                    {view: "text", hidden: true, name: "workUnit", width: 300, value: USER_INFO.workUnit},
                                     {view: "text", label: "数量", name: "applyAmount", width: 300, attributes:{ maxlength: 3 }},
                                     {view: "textarea", label: "备注", name: "applyDesc", width: 300, attributes:{ maxlength: 128 }, height: 100, value: '用途：\r\n期望犬种：\n期望颜色：\n期望配发日期：\n其他：'},
                                 ],
@@ -126,6 +127,7 @@ define([
                                 },
                                 elements:[
                                     {view: "text", hidden: true, name: "id", width: 300, value: item.id},
+                                    {view: "text", hidden: true, name: "workUnit", width: 300, value: item.workUnit},
                                     {view: "text", hidden: true, name: "applyState", width: 300, value: 1},
                                     {view: "text", label: "数量", name: "applyAmount", width: 300, attributes:{ maxlength: 3 },value: item.applyAmount},
                                     {view: "textarea", label: "备注", name: "applyDesc", width: 300, attributes:{ maxlength: 128 }, height: 100, value: item.applyDesc},

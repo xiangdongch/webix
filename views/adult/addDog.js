@@ -57,7 +57,7 @@ define([
                                         }, {
                                             width: 300,
                                             rows: [
-                                                {view: "text", label: "带犬民警警号", name: 'policeId', value:"" },
+                                                {view: "text", label: "带犬民警", name: 'policeId', value:"", placeholder: '警号或系统的登录账号，否则关联不上'},
                                                 {view: "richselect", label: "工作状态", value:"-1", options: constant.getWorkStage()},
                                                 {view: "text", label: "警犬档案号", name: "fileNo", disabled: false},
                                                 {view: "text", label: "复训成绩", name: "trainScore", disabled: false},

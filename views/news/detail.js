@@ -9,7 +9,7 @@ define([], function () {
                     height: 50,
                     id: 'new_title',
                     borderless: true,
-                    data: {title: '休闲鞋'}
+                    data: {title: ''}
                 }, {
                     height: 25,
                     template: '<div align="center">作者：#author#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;发布日期：#date#</div>',
@@ -20,14 +20,14 @@ define([], function () {
                     cols: [
                         {width: 80},
                         {
-                            template: '#content#',
+                            template: '<div id="content_id" style="overflow-y: auto;">#content#</div>',
                             id: 'new_content',
                             borderless: true,
                             data: {content: ''}
                         },
-                        {width: 80},
+                        {width: 80}
                     ]
-                }, {}]
+                }]
             }
         },
         $oninit: function () {
@@ -36,8 +36,8 @@ define([], function () {
                 window.close();
                 return ;
             }
+            var height = document.body.offsetHeight - 200;
             doIPost('news/getById', {id: id}, function (resp) {
-                console.log(resp);
                 if(resp.success && resp.result){
                     var news = resp.result;
                     $$('new_title').data.title = news.title;
@@ -48,6 +48,7 @@ define([], function () {
                     $$('new_info').data.date = news.publishDate || '';
                     $$('new_info').data.date = $$('new_info').data.date.split(' ')[0];
                     $$('new_info').refresh();
+                    document.getElementById("content_id").style.height = height + 'px';
                 }
             });
         }

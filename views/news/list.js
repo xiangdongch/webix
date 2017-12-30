@@ -132,6 +132,7 @@ define([
                 customUrl: {
                     url: webix.proxy('customProxy','/policeDog/services/news/getList/{pageSize}/{curPage}'),
                     httpMethod: 'post',
+                    params: {workUnit: USER_INFO.workUnit},
                     datatype: 'customJson'
                 },
                 pager: "pagerA"
